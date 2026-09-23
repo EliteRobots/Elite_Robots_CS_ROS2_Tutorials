@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build independent HTML/PDF manuals from the document registry."""
+"""Build independent HTML/PDF manuals for enabled document/language pairs."""
 import argparse
 import json
 import os
@@ -9,49 +9,74 @@ import subprocess
 import sys
 
 
+def select_builds(documents, languages, document_id, language):
+    """Select available translations; never silently fall back to another language."""
+    if language != "all" and language not in languages:
+        raise ValueError(f"Unknown language: {language}")
+    if document_id == "all":
+        selected = [key for key, value in documents.items() if value["enabled"]]
+    elif document_id not in documents:
+        raise ValueError(f"Unknown document: {document_id}")
+    elif not documents[document_id]["enabled"]:
+        raise ValueError(f"Document '{document_id}' is not written/enabled yet.")
+    else:
+        selected = [document_id]
+
+    builds = []
+    for key in selected:
+        translations = documents[key]["languages"]
+        for code, translation in translations.items():
+            if not translation["enabled"] or language not in ("all", code):
+                continue
+            if code not in languages:
+                raise ValueError(f"Unknown language '{code}' configured for '{key}'.")
+            builds.append((key, code))
+    if not builds:
+        raise ValueError(
+            f"No enabled translation for document='{document_id}', language='{language}'."
+        )
+    return builds
+
+
 def main():
     root = Path(__file__).resolve().parents[1]
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--document", default="all", help="all, quickstart, usage, interfaces")
+    parser.add_argument("--language", default="all", help="all or a code in doc/languages.json")
     parser.add_argument("--format", choices=("html", "pdf", "all", "latex"), default="all")
     parser.add_argument("--output", type=Path, default=root / "build" / "docs")
     args = parser.parse_args()
     documents = json.loads((root / "doc" / "documents.json").read_text(encoding="utf-8"))
-    if args.document == "all":
-        selected = [key for key, value in documents.items() if value["enabled"]]
-    elif args.document not in documents:
-        parser.error(f"Unknown document: {args.document}")
-    elif not documents[args.document]["enabled"]:
-        parser.error(f"Document '{args.document}' is not written/enabled yet.")
-    else:
-        selected = [args.document]
-    if not selected:
-        parser.error("No documents enabled.")
-    for key in selected:
-        if not (root / "doc" / key / "index.md").is_file():
-            parser.error(f"Missing doc/{key}/index.md")
+    languages = json.loads((root / "doc" / "languages.json").read_text(encoding="utf-8"))
+    try:
+        builds = select_builds(documents, languages, args.document, args.language)
+    except ValueError as error:
+        parser.error(str(error))
+    for key, code in builds:
+        if not (root / "doc" / key / code / "index.md").is_file():
+            parser.error(f"Missing doc/{key}/{code}/index.md")
     formats = ["html", "pdf"] if args.format == "all" else [args.format]
     if "pdf" in formats:
         missing = [name for name in ("make", "latexmk", "xelatex") if not shutil.which(name)]
         if missing:
             parser.error("Missing PDF tools: " + ", ".join(missing) + ". See README.md.")
-    for key in selected:
-        output = args.output.resolve() / key
-        env = dict(os.environ, ELITE_DOCUMENT=key)
+    for key, code in builds:
+        output = args.output.resolve() / key / code
+        env = dict(os.environ, ELITE_DOCUMENT=key, ELITE_LANGUAGE=code)
         for fmt in formats:
             builder = "latexpdf" if fmt == "pdf" else fmt
             subprocess.run([
                 sys.executable, "-m", "sphinx", "-M", builder,
-                str(root / "doc" / key), str(output),
+                str(root / "doc" / key / code), str(output),
                 "-c", str(root / "doc"), "-W", "--keep-going",
             ], env=env, check=True)
             if fmt == "pdf":
-                pdf = output / "latex" / f"{key}.pdf"
+                pdf = output / "latex" / f"{key}-{code}.pdf"
                 if not pdf.is_file():
                     raise RuntimeError(f"PDF was not generated: {pdf}")
                 (output / "pdf").mkdir(parents=True, exist_ok=True)
                 shutil.copy2(pdf, output / "pdf" / pdf.name)
-            print(f"Built {key}: {fmt} -> {output}", flush=True)
+            print(f"Built {key}/{code}: {fmt} -> {output}", flush=True)
     return 0
 
 

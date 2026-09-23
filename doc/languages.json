@@ -1,0 +1,36 @@
+{
+  "zh_CN": {
+    "label": "简体中文",
+    "author": "艾利特智能机器人股份有限公司",
+    "copyright": "2026, ELITE ROBOTS. 保留所有权利",
+    "fonts": {
+      "main": "Latin Modern Roman",
+      "sans": "Latin Modern Sans",
+      "mono": "DejaVu Sans Mono",
+      "cjk_main": "Noto Serif CJK SC",
+      "cjk_sans": "Noto Sans CJK SC",
+      "cjk_mono": "Noto Sans Mono CJK SC"
+    },
+    "latex_preamble": "\\addto\\captionsenglish{\\renewcommand{\\chaptername}{章节}}"
+  },
+  "en": {
+    "label": "English",
+    "author": "ELITE ROBOTS",
+    "copyright": "2026, ELITE ROBOTS. All rights reserved.",
+    "fonts": {
+      "main": "Latin Modern Roman",
+      "sans": "Latin Modern Sans",
+      "mono": "DejaVu Sans Mono"
+    }
+  },
+  "fr": {
+    "label": "Français",
+    "author": "ELITE ROBOTS",
+    "copyright": "2026, ELITE ROBOTS. Tous droits réservés.",
+    "fonts": {
+      "main": "Latin Modern Roman",
+      "sans": "Latin Modern Sans",
+      "mono": "DejaVu Sans Mono"
+    }
+  }
+}

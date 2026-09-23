@@ -7,6 +7,7 @@ find_package(Python3 REQUIRED COMPONENTS Interpreter)
 option(BUILD_DOCS "Build the enabled manuals" ON)
 option(BUILD_DOCS_PDF "Also build PDF manuals (requires LaTeX)" OFF)
 set(DOCS_DOCUMENT "all" CACHE STRING "all, quickstart, usage, or interfaces")
+set(DOCS_LANGUAGE "all" CACHE STRING "all or a language code from doc/languages.json")
 
 if(BUILD_DOCS)
   set(DOCS_FORMAT html)
@@ -15,7 +16,8 @@ if(BUILD_DOCS)
   endif()
   add_custom_target(manuals ALL
     COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/scripts/build_docs.py"
-      --document "${DOCS_DOCUMENT}" --format "${DOCS_FORMAT}"
+      --document "${DOCS_DOCUMENT}" --language "${DOCS_LANGUAGE}"
+      --format "${DOCS_FORMAT}"
       --output "${CMAKE_CURRENT_BINARY_DIR}/docs"
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
     COMMENT "Building independent Elite ROS 2 manuals"

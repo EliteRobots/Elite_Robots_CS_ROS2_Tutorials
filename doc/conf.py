@@ -1,17 +1,20 @@
-"""Shared configuration; each document is built as its own Sphinx project."""
+"""Shared Sphinx configuration for an independent document/language pair."""
 import json
 import os
 from pathlib import Path
 
 DOC_DIR = Path(__file__).resolve().parent
 document_id = os.environ.get("ELITE_DOCUMENT", "quickstart")
-document = json.loads((DOC_DIR / "documents.json").read_text(encoding="utf-8"))[document_id]
+language = os.environ.get("ELITE_LANGUAGE", "zh_CN")
+documents = json.loads((DOC_DIR / "documents.json").read_text(encoding="utf-8"))
+languages = json.loads((DOC_DIR / "languages.json").read_text(encoding="utf-8"))
+document = documents[document_id]["languages"][language]
+locale = languages[language]
 
 project = document["title"]
-author = "艾利特智能机器人股份有限公司"
-copyright = "2026, ELITE ROBOTS. 保留所有权利"
+author = locale["author"]
+copyright = locale["copyright"]
 version = release = document["version"]
-language = "zh_CN"
 root_doc = "index"
 extensions = ["myst_parser"]
 source_suffix = {".md": "markdown", ".rst": "restructuredtext"}
@@ -26,23 +29,32 @@ numfig = True
 highlight_language = "none"
 
 latex_engine = "xelatex"
-latex_documents = [("index", f"{document_id}.tex", project, author, "manual")]
+output_name = f"{document_id}-{language}"
+latex_documents = [("index", f"{output_name}.tex", project, author, "manual")]
 latex_show_urls = "footnote"
 latex_use_xindy = False
+fonts = locale["fonts"]
+font_commands = [
+    r"\usepackage{fontspec}",
+    rf"\setmainfont{{{fonts['main']}}}",
+    rf"\setsansfont{{{fonts['sans']}}}",
+    rf"\setmonofont{{{fonts['mono']}}}[Scale=0.85]",
+]
+if "cjk_main" in fonts:
+    font_commands += [
+        r"\usepackage{xeCJK}",
+        rf"\setCJKmainfont{{{fonts['cjk_main']}}}[AutoFakeSlant=0.2]",
+        rf"\setCJKsansfont{{{fonts['cjk_sans']}}}",
+        rf"\setCJKmonofont{{{fonts['cjk_mono']}}}[AutoFakeSlant=0.2]",
+    ]
 latex_elements = {
     "papersize": "a4paper",
     "pointsize": "11pt",
     "extraclassoptions": "openany,oneside",
-    "fontpkg": r"""
-\usepackage{fontspec}
-\usepackage{xeCJK}
-\setmainfont{Latin Modern Roman}
-\setsansfont{Latin Modern Sans}
-\setmonofont{DejaVu Sans Mono}[Scale=0.85]
-\setCJKmainfont{Noto Serif CJK SC}[AutoFakeSlant=0.2]
-\setCJKsansfont{Noto Sans CJK SC}
-\setCJKmonofont{Noto Sans Mono CJK SC}[AutoFakeSlant=0.2]
-""",
-    "preamble": r"\sloppy\setlength{\emergencystretch}{3em}\setlength{\headheight}{15pt}\addto\captionsenglish{\renewcommand{\chaptername}{章节}}",
+    "fontpkg": "\n".join(font_commands),
+    "preamble": (
+        r"\sloppy\setlength{\emergencystretch}{3em}\setlength{\headheight}{15pt}"
+        + locale.get("latex_preamble", "")
+    ),
     "sphinxsetup": "verbatimwithframe=true,VerbatimColor={rgb}{0.96,0.97,0.98}",
 }

@@ -1,44 +1,43 @@
 # Elite Robots ROS 2 文档
 
-采用 **Sphinx + MyST Markdown**。快速手册、usage、接口手册是三个独立文档项目，各有自己的 HTML 目录、导航和 PDF，不合并成一本书。
+采用 **Sphinx + MyST Markdown**，按 **文档类型 → 语言 → 章节** 组织。每个文档/语言组合独立生成 HTML 站点及 PDF，具有各自的目录、搜索索引和输出路径。
 
-目前只完成快速手册，内容依据用户提供的 **CS&ES&LS_ROS2软件包快速使用手册_Ver2.16.1.pdf**（2026-08-07）重写，尚未迁移到当前驱动接口。
+目前只编写中文快速手册，依据 **CS&ES&LS_ROS2软件包快速使用手册_Ver2.16.1.pdf**（2026-08-07）重写，尚未按当前驱动接口调整。
 
-## 目录与输出
+## 目录结构
 
 ```text
 doc/
-├── documents.json       # 三份文档的名称、版本、启用状态
-├── conf.py              # 共用 Sphinx / 中文 PDF 配置
-├── _static/             # HTML 样式
-└── quickstart/          # 本次编写的快速手册
-    ├── index.md
-    ├── overview.md
-    ├── robot_setup.md
-    ├── installation.md
-    ├── driver.md
-    ├── moveit.md
-    ├── gazebo.md
-    ├── support.md
-    └── images/          # 后续图片放这里
-scripts/build_docs.py    # 独立文档构建入口
-CMakeLists.txt           # colcon / ament_cmake 集成
+├── documents.json            # 每份文档及译本的启用状态、标题和版本
+├── languages.json            # 共用语言元数据与字体配置
+├── conf.py                   # 共用 Sphinx 配置
+├── _static/                  # 共用 HTML 样式
+└── quickstart/
+    ├── images/               # 不含语言文字的共用图片
+    └── zh_CN/
+        ├── index.md
+        ├── overview.md
+        ├── robot_setup.md
+        ├── installation.md
+        ├── driver.md
+        ├── moveit.md
+        ├── gazebo.md
+        ├── support.md
+        └── images/           # 中文界面截图
+scripts/build_docs.py
+CMakeLists.txt
 package.xml
 ```
 
-`usage` 和 `interfaces` 仅在 `documents.json` 中预留，尚未创建正文，默认不构建。显式请求尚未启用的文档会报错，不生成空白 PDF。
+后续英文和法文快速手册分别放入 `doc/quickstart/en/`、`doc/quickstart/fr/`；usage 和接口手册分别使用 `doc/usage/<语言>/`、`doc/interfaces/<语言>/`。保持各译本的章节文件名一致，方便对照维护。
 
-| 文档 | HTML 入口 | PDF |
-| --- | --- | --- |
-| quickstart | `build/docs/quickstart/html/index.html` | `build/docs/quickstart/pdf/quickstart.pdf` |
-| usage（后续） | `build/docs/usage/html/index.html` | `build/docs/usage/pdf/usage.pdf` |
-| interfaces（后续） | `build/docs/interfaces/html/index.html` | `build/docs/interfaces/pdf/interfaces.pdf` |
+`languages.json` 预设 `zh_CN`、`en`、`fr`，但语言配置不代表已有译文。`documents.json` 中目前仅启用 `quickstart/zh_CN`；usage、interfaces 尚未启用。
 
-HTML 为每份文档独立的多页面站点。PDF 为每份文档独立的一本手册。构建时把 Sphinx 警告视为失败。
+`README.md`、`MAINTENANCE.md` 和图片目录中的 README 是仓库维护资料，不参与正式 HTML/PDF 的正文构建。
 
 ## 安装构建依赖
 
-以下命令以 Ubuntu 22.04 为例。
+以下命令以 Ubuntu 22.04 为例，在仓库根目录执行：
 
 ```bash
 sudo apt-get install -y python3-venv python3-pip
@@ -46,7 +45,7 @@ python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 ```
 
-生成中文 PDF 还需要：
+PDF 当前使用 XeLaTeX。中文 PDF 依赖：
 
 ```bash
 sudo apt-get install -y \
@@ -55,39 +54,58 @@ sudo apt-get install -y \
   fonts-noto-cjk fonts-dejavu-core fonts-lmodern
 ```
 
-PDF 使用 XeLaTeX、Noto CJK 中文字体、Latin Modern 西文字体和 DejaVu 等宽字体。版本约束以 `requirements.txt` 为准，目标系统自带的旧版 Sphinx/MyST 不一定满足要求。
+法文 PDF 另需 `texlive-lang-french`，用于 LaTeX 的法语排版与断词支持。其他新增语言也需安装相应的 LaTeX 语言支持包和字体。
+
+PDF 字体由 `languages.json` 配置：西文使用 Latin Modern 和 DejaVu，中文额外使用 Noto CJK；英语、法语配置不加载中文字体。依赖版本约束见 `requirements.txt`。
 
 ## 直接构建
 
-在仓库根目录执行：
-
 ```bash
-# 当前仅生成快速手册的 HTML 与 PDF
+# 所有已启用的文档及译本；目前仅中文快速手册
 .venv/bin/python scripts/build_docs.py --format all
 
-# 仅生成 HTML
-.venv/bin/python scripts/build_docs.py --format html
+# 只构建中文快速手册
+.venv/bin/python scripts/build_docs.py \
+  --document quickstart --language zh_CN --format all
 
-# 仅生成快速手册 PDF
-.venv/bin/python scripts/build_docs.py --document quickstart --format pdf
+# 所有已启用文档的中文 HTML
+.venv/bin/python scripts/build_docs.py --language zh_CN --format html
 
-# 可选：只生成 LaTeX，供排版调试
-.venv/bin/python scripts/build_docs.py --document quickstart --format latex
+# 只生成中文快速手册 PDF
+.venv/bin/python scripts/build_docs.py \
+  --document quickstart --language zh_CN --format pdf
 ```
 
-通过 `--output /path/to/output` 可改变输出根目录。`all` 表示所有已经启用的文档；后续启用另外两份文档后，同一命令将分别产生三套 HTML 和三份 PDF。
+`--document` 和 `--language` 默认都是 `all`。`--format` 支持 `html`、`pdf`、`all` 和仅生成 LaTeX 的 `latex`。通过 `--output /path/to/output` 指定输出根目录。
 
-HTML 可直接打开对应 `index.html`，也可以启动本地服务器：
+筛选规则：
+
+- `--document all --language all`：构建所有已启用文档的已启用译本。
+- `--document all --language en`：仅构建已有且启用的英文译本，跳过没有英文的文档。
+- 指定一个尚未编写/启用的组合，或筛选后没有任何可构建译本，直接报错。
+- 已启用的译本缺少 `index.md` 时，构建前报错。不会自动回退到中文或生成空白手册。
+
+输出路径示例：
+
+| 文档/语言 | HTML 入口 | PDF |
+| --- | --- | --- |
+| 中文快速手册 | `build/docs/quickstart/zh_CN/html/index.html` | `build/docs/quickstart/zh_CN/pdf/quickstart-zh_CN.pdf` |
+| 英文快速手册（后续） | `build/docs/quickstart/en/html/index.html` | `build/docs/quickstart/en/pdf/quickstart-en.pdf` |
+| 法文使用手册（后续） | `build/docs/usage/fr/html/index.html` | `build/docs/usage/fr/pdf/usage-fr.pdf` |
+
+HTML 是独立多页面站点，PDF 是独立的一本手册。PDF 文件名带语言代码，复制到同一目录时也不会覆盖。构建将 Sphinx 警告视为失败。
+
+可以直接打开 HTML 入口，或启动本地服务器：
 
 ```bash
 python3 -m http.server 8000 --directory build/docs
 ```
 
-然后访问 `http://localhost:8000/quickstart/html/`。
+浏览器访问 `http://localhost:8000/quickstart/zh_CN/html/`。
 
 ## 使用 colcon 构建
 
-ROS 包名为 `elite_robots_cs_tutorials`。默认构建 HTML，PDF 通过 `BUILD_DOCS_PDF` 显式启用。下面假设仓库位于 `~/elite_ros_ws/src/Elite_Robots_CS_ROS2_Tutorials`，且已按上文创建 `.venv`：
+ROS 包名为 `elite_robots_cs_tutorials`。默认构建所有已启用译本的 HTML；PDF 通过 `BUILD_DOCS_PDF` 启用。
 
 ```bash
 source /opt/ros/humble/setup.bash
@@ -96,37 +114,66 @@ colcon build --packages-select elite_robots_cs_tutorials \
   --cmake-args \
   -DPython3_EXECUTABLE="$PWD/src/Elite_Robots_CS_ROS2_Tutorials/.venv/bin/python" \
   -DBUILD_DOCS=ON \
-  -DBUILD_DOCS_PDF=ON
+  -DBUILD_DOCS_PDF=ON \
+  -DDOCS_DOCUMENT=all \
+  -DDOCS_LANGUAGE=all
 ```
 
-构建产物位于：
+使用 `-DDOCS_DOCUMENT=quickstart -DDOCS_LANGUAGE=zh_CN` 只构建中文快速手册。只要 HTML 时设置 `-DBUILD_DOCS_PDF=OFF`；跳过文档构建设置 `-DBUILD_DOCS=OFF`。CMake 会记住选项，切换时应显式设置。
+
+构建输出：
 
 ```text
-build/elite_robots_cs_tutorials/docs/quickstart/html/index.html
-build/elite_robots_cs_tutorials/docs/quickstart/pdf/quickstart.pdf
+build/elite_robots_cs_tutorials/docs/quickstart/zh_CN/html/index.html
+build/elite_robots_cs_tutorials/docs/quickstart/zh_CN/pdf/quickstart-zh_CN.pdf
 ```
 
-默认隔离安装后，成品位于：
+默认隔离安装的成品位于：
 
 ```text
-install/elite_robots_cs_tutorials/share/elite_robots_cs_tutorials/manuals/quickstart/
+install/elite_robots_cs_tutorials/share/elite_robots_cs_tutorials/manuals/quickstart/zh_CN/
 ```
 
-使用 `--merge-install` 时，安装路径从 `install/share/elite_robots_cs_tutorials/` 开始。
+`--merge-install` 模式下位于 `install/share/elite_robots_cs_tutorials/manuals/`。
 
-只生成 HTML 时传 `-DBUILD_DOCS_PDF=OFF`；完全跳过文档构建时传 `-DBUILD_DOCS=OFF`。可以通过 `-DDOCS_DOCUMENT=quickstart` 只选择一份文档。CMake 会记住选项，切换模式时应显式设置。
+## 新增语言版本
 
-## 添加 usage 或接口手册
+以英文快速手册为例：
 
-1. 创建 `doc/usage/index.md` 或 `doc/interfaces/index.md`，并添加该文档自身的章节和 `toctree`。
-2. 在 `doc/documents.json` 中将相应 `enabled` 改为 `true`，填写版本。
-3. 运行 `scripts/build_docs.py --format all`，或重新执行 colcon 构建。
+1. 创建 `doc/quickstart/en/index.md` 及章节文件，编写英文内容和该版本的 `toctree`。也要翻译正文标题、图片说明和首页文本；配置不会自动翻译正文。
+2. 在 `doc/documents.json` 的 `quickstart.languages` 中新增以下成员：
 
-无需复制 `conf.py`，也无需把新章节加入快速手册的目录。每次 Sphinx 构建只读取被选中文档的源目录，输出、搜索索引和 PDF 均彼此独立。
+   ```json
+   "en": {
+     "title": "CS, ES and LS Series ROS 2 Quickstart Guide",
+     "version": "Ver2.16.1",
+     "enabled": true
+   }
+   ```
 
-## 补充图片
+3. 执行：
 
-所有原图编号都保留在正文的“图片占位”提示框中。图片补齐后，用 MyST `figure` 替换对应提示框：
+   ```bash
+   .venv/bin/python scripts/build_docs.py \
+     --document quickstart --language en --format all
+   ```
+
+法语同理使用 `fr`。新增其他语言时，先在 `languages.json` 中添加对应的 Sphinx 语言代码、作者、版权与字体配置。译文尚未准备好时，可将该译本设为 `enabled: false`。
+
+每个译本独立记录版本号，以反映翻译进度；正文内展示的来源版本也需同步维护。该方案采用独立 Markdown 译本，不使用 gettext/PO 文件。
+
+## 新增 usage 或接口手册
+
+创建 `doc/usage/<语言>/index.md` 或 `doc/interfaces/<语言>/index.md`，编写相应章节，然后将 `documents.json` 中该文档的 `enabled` 改为 `true`，并在 `languages` 中注册至少一个译本。
+
+不需要复制 `conf.py` 或修改快速手册目录。可以仅启用快速手册的英文，同时保留接口手册只有中文。
+
+## 图片组织
+
+- **语言专用图片**：例如中文界面截图，放在 `doc/quickstart/zh_CN/images/`，正文引用 `images/文件名.png`。当前图片占位及路径保持这种形式。
+- **共用图片**：例如不含文字的机器人照片，放在 `doc/quickstart/images/`，各译本通过 `../images/文件名.png` 引用。Sphinx 构建时会复制到对应 HTML/PDF 输出所需的位置。
+
+补图时用 MyST `figure` 替换占位框，例如：
 
 ````markdown
 ```{figure} images/fig-4-11-gazebo.png
@@ -138,12 +185,14 @@ Gazebo 启动结果。
 ```
 ````
 
-多张图共用一个占位框时，应分别插入图片。PNG/JPEG 便于同时生成 HTML 和 PDF；无需先创建空图片文件。图片说明见 `doc/quickstart/images/README.md`。
+不同译本可以使用相同的图标签，因为它们分别构建。共用图片的说明和替代文本仍在各语言正文中翻译。PNG/JPEG 适合同时生成 HTML 和 PDF。
 
-## 来源、维护与发布
+## 迁移与维护
 
-原手册与新章节的对应关系、基础错误修正及待核对内容见 `MAINTENANCE.md`。原文命令仅作为文档整理，没有在机器人上执行，也没有下载或执行原文的远程安装脚本。
+原中文源文件已从 `doc/quickstart/` 移至 `doc/quickstart/zh_CN/`。旧输出目录 `build/docs/quickstart/html/`、`pdf/`、`latex/`、`doctrees/` 不再使用；本次迁移将已有的这些目录归档到 `build/pre-i18n/quickstart/`。其他工作空间中过去生成的旧输出可自行清理；构建不会自动删除它们。
 
-本目录已提供 ament_cmake 包结构，但未执行 bloom-release 或上传网站。包维护者暂沿用当前驱动中的 Yan / yanxiaojia@elibot.cn；包版本 `0.1.0` 与来源手册版本 `Ver2.16.1` 分开管理。原手册保留所有权利，因此未擅自将其改为开源许可，`package.xml` 暂记为 `Proprietary`。正式发布前需由项目方确认维护者、许可及各目标平台依赖。
+原手册对应关系、基础错误修正和待核对项见 `MAINTENANCE.md`。机器人操作命令仅作为文档整理，未执行硬件验证。
 
-当前配置面向独立 Sphinx 和 colcon 构建。后续接入 ROS 官方文档托管时，还需设置 rosdoc2 的入口与 rosdistro 的 `doc` 配置，并验证其统一主题下的输出；bloom 不会自动发布这里的三份 PDF。
+当前提供 ament_cmake 包结构，未执行 bloom-release 或上传网站。包维护者暂沿用现有驱动中的 Yan / yanxiaojia@elibot.cn；包版本 `0.1.0` 与来源手册版本分开管理。原手册保留所有权利，`package.xml` 暂记为 `Proprietary`；正式发布前由项目方确认维护者、许可及目标平台依赖。
+
+接入 ROS 官方文档托管时仍需单独配置 rosdoc2 入口与 rosdistro 的 `doc` 条目，并验证构建。这里的独立语言站点暂未添加网页语言切换器，bloom 也不会自动发布这些 PDF。

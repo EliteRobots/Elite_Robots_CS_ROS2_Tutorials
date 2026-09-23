@@ -13,14 +13,14 @@
 
 | 原文 | PDF 页码 | 新文件 |
 | --- | --- | --- |
-| 封面、阅读说明 | 1、3 | `doc/quickstart/index.md` |
-| 第 1 章概述 | 7～11 | `doc/quickstart/overview.md` |
-| 第 2 章机器人端配置 | 13～26 | `doc/quickstart/robot_setup.md` |
-| 第 3 章本地环境安装 | 27～32 | `doc/quickstart/installation.md` |
-| 第 4.1 节驱动基础教程 | 33～41 | `doc/quickstart/driver.md` |
-| 第 4.2 节 MoveIt 2 | 41～42 | `doc/quickstart/moveit.md` |
-| 第 4.3 节 Gazebo | 42～44 | `doc/quickstart/gazebo.md` |
-| 封底联系方式 | 46 | `doc/quickstart/support.md` |
+| 封面、阅读说明 | 1、3 | `doc/quickstart/zh_CN/index.md` |
+| 第 1 章概述 | 7～11 | `doc/quickstart/zh_CN/overview.md` |
+| 第 2 章机器人端配置 | 13～26 | `doc/quickstart/zh_CN/robot_setup.md` |
+| 第 3 章本地环境安装 | 27～32 | `doc/quickstart/zh_CN/installation.md` |
+| 第 4.1 节驱动基础教程 | 33～41 | `doc/quickstart/zh_CN/driver.md` |
+| 第 4.2 节 MoveIt 2 | 41～42 | `doc/quickstart/zh_CN/moveit.md` |
+| 第 4.3 节 Gazebo | 42～44 | `doc/quickstart/zh_CN/gazebo.md` |
+| 封底联系方式 | 46 | `doc/quickstart/zh_CN/support.md` |
 
 ## 本次做出的基础修正
 
@@ -72,3 +72,15 @@
 - 封底公众号二维码。
 
 共保留原正文 27 幅编号图片以及 1 处二维码占位。封面品牌排版以文字封面代替，不提取原图。
+
+
+## 多语言目录迁移
+
+- 中文正文迁移到 `doc/quickstart/zh_CN/`，内容和章节间相对链接保持不变。
+- 语言相关图片放在各语言目录的 `images/`；无语言文字的共用图片放在 `doc/quickstart/images/`。
+- `doc/documents.json` 按文档及语言管理标题、版本、启用状态。
+- `doc/languages.json` 集中管理语言名称、作者、版权及 PDF 字体配置，预设 `zh_CN`、`en`、`fr`。
+- 构建脚本增加 `--language`，CMake 增加 `DOCS_LANGUAGE`；默认构建所有已启用的文档/语言组合。
+- 成品输出到 `build/docs/<文档>/<语言>/html/` 和 `pdf/<文档>-<语言>.pdf`。
+- 此次仅迁移中文正文，没有创建英文、法文、usage 或接口手册正文。
+- `README.md`、本文件及图片目录说明属于仓库维护资料，不加入正式手册目录。

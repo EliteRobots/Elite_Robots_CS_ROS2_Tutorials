@@ -1,0 +1,17 @@
+{
+  "quickstart": {
+    "title": "CS、ES、LS 系列 ROS 2 软件包快速使用手册",
+    "version": "Ver2.16.1",
+    "enabled": true
+  },
+  "usage": {
+    "title": "ROS 2 软件包使用手册",
+    "version": "",
+    "enabled": false
+  },
+  "interfaces": {
+    "title": "ROS 2 软件包接口手册",
+    "version": "",
+    "enabled": false
+  }
+}

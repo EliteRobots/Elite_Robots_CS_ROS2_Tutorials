@@ -1,0 +1,10 @@
+.wy-nav-content { max-width: 1000px; }
+.rst-content .admonition.figure-placeholder {
+  border: 1px dashed #8b9ba8;
+  background: #f5f7fa;
+  min-height: 5rem;
+}
+.rst-content .admonition.figure-placeholder .admonition-title {
+  background: #526879;
+}
+.rst-content code.literal { overflow-wrap: anywhere; }

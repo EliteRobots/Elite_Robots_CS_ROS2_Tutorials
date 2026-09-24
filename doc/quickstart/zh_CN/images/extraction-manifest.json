@@ -1,0 +1,2553 @@
+{
+  "source": "CS&ES&LS_ROS2软件包快速使用手册_Ver2.16.1.pdf",
+  "source_sha256": "5585c57c835b8fdda9330dfaada6945944529adc2c3eb9a7740cfb7bc28c9eeb",
+  "page_numbering": "PDF physical page, 1-based",
+  "images": [
+    {
+      "file": "fig-2-1-settings.png",
+      "previous_file": "fig-2-1-settings.png",
+      "number": "2.1",
+      "title": "示教器设置",
+      "chapter": "robot_setup",
+      "width": 1279,
+      "height": 799,
+      "sha256": "9efd96e3672b812fcc9c6bfb36240ec6939e42ca26d19afb6c43a454723ba9e4",
+      "original_extraction_file": "fig-2-1-settings.png",
+      "source_note": "Same filename as an extracted source image; subsequent replacement is possible. Image content was not reviewed."
+    },
+    {
+      "file": "fig-2-2-remote-mode-settings.png",
+      "previous_file": "fig-2-2-remote-mode-settings.png",
+      "number": "2.2",
+      "title": "远程控制模式设置",
+      "chapter": "robot_setup",
+      "width": 1279,
+      "height": 798,
+      "sha256": "ae760b31da0b74c130d1f35acd4c6e9f300ccbac5f844497c6767b593804a9a6",
+      "original_extraction_file": "fig-2-2-remote-mode-settings.png",
+      "source_note": "Same filename as an extracted source image; subsequent replacement is possible. Image content was not reviewed."
+    },
+    {
+      "file": "fig-2-3-remote-option.png",
+      "previous_file": "fig-2-3-remote-option.png",
+      "number": "2.3",
+      "title": "远程控制选项",
+      "chapter": "robot_setup",
+      "width": 1281,
+      "height": 801,
+      "sha256": "e318cb2f87623994ce216289c3b573e36d568c55156eb8559764d10d3d4570f7",
+      "original_extraction_file": "fig-2-3-remote-option.png",
+      "source_note": "Same filename as an extracted source image; subsequent replacement is possible. Image content was not reviewed."
+    },
+    {
+      "file": "fig-2-4-remote-control.png",
+      "previous_file": "fig-2-4-remote-control.png",
+      "number": "2.4",
+      "title": "远程控制界面",
+      "chapter": "robot_setup",
+      "width": 1281,
+      "height": 795,
+      "sha256": "dd7cbe04397f8f4f3370f8ba0e366897df264c2c8b25612a5c25917b32f0e9bf",
+      "original_extraction_file": "fig-2-4-remote-control.png",
+      "source_note": "Same filename as an extracted source image; subsequent replacement is possible. Image content was not reviewed."
+    },
+    {
+      "file": "fig-2-5-task.png",
+      "previous_file": "fig-2-5-task.png",
+      "number": "2.5",
+      "title": "选择任务",
+      "chapter": "robot_setup",
+      "width": 1279,
+      "height": 798,
+      "sha256": "bc9183b92c811944e8cb62489a4165c6b844329553a94264e3a744986c61bbd8",
+      "original_extraction_file": "fig-2-5-task.png",
+      "source_note": "Same filename as an extracted source image; subsequent replacement is possible. Image content was not reviewed."
+    },
+    {
+      "file": "fig-2-6-script.png",
+      "previous_file": "fig-2-6-script.png",
+      "number": "2.6",
+      "title": "选择脚本",
+      "chapter": "robot_setup",
+      "width": 1286,
+      "height": 797,
+      "sha256": "a433849ffd8770e67a4850e8b2f3aafdadfd9a624a8e50047688f7e6b322267d",
+      "original_extraction_file": "fig-2-6-script.png",
+      "source_note": "Same filename as an extracted source image; subsequent replacement is possible. Image content was not reviewed."
+    },
+    {
+      "file": "fig-2-7-edit-file.png",
+      "previous_file": "fig-2-7-edit-file.png",
+      "number": "2.7",
+      "title": "编辑文件",
+      "chapter": "robot_setup",
+      "width": 1283,
+      "height": 797,
+      "sha256": "45b153e96dac35fe60c6f0d083050552c032f994bdabb7c0b974ed3e2fc6baca",
+      "original_extraction_file": "fig-2-7-edit-file.png",
+      "source_note": "Same filename as an extracted source image; subsequent replacement is possible. Image content was not reviewed."
+    },
+    {
+      "file": "fig-2-8-edit-script.png",
+      "previous_file": "fig-2-8-edit-script.png",
+      "number": "2.8",
+      "title": "编辑脚本",
+      "chapter": "robot_setup",
+      "width": 1280,
+      "height": 805,
+      "sha256": "5d82955e7404c913229c9ebaae3a3fbfb80e388d8045b6da5938659040490e39",
+      "original_extraction_file": "fig-2-8-edit-script.png",
+      "source_note": "Same filename as an extracted source image; subsequent replacement is possible. Image content was not reviewed."
+    },
+    {
+      "file": "fig-2-9-save-script.png",
+      "previous_file": "fig-2-9-save-script.png",
+      "number": "2.9",
+      "title": "保存脚本",
+      "chapter": "robot_setup",
+      "width": 1283,
+      "height": 798,
+      "sha256": "697996ba7283fe99c84175539052941b43e9247d5b498491b3eebf67632eb0ff",
+      "original_extraction_file": "fig-2-9-save-script.png",
+      "source_note": "Same filename as an extracted source image; subsequent replacement is possible. Image content was not reviewed."
+    },
+    {
+      "file": "fig-2-10-script-name.png",
+      "previous_file": "fig-2-10-script-name.png",
+      "number": "2.10",
+      "title": "设置脚本名称",
+      "chapter": "robot_setup",
+      "width": 1279,
+      "height": 796,
+      "sha256": "14b9c42dd07e7b49f6112c22d3318236aa8e7095ce811bbec1a9b84d793b1ae9",
+      "original_extraction_file": "fig-2-10-script-name.png",
+      "source_note": "Same filename as an extracted source image; subsequent replacement is possible. Image content was not reviewed."
+    },
+    {
+      "file": "fig-2-11-run-test.png",
+      "previous_file": "fig-2-11-run-test.png",
+      "number": "2.11",
+      "title": "运行测试任务",
+      "chapter": "robot_setup",
+      "width": 1279,
+      "height": 803,
+      "sha256": "980b5e77f1103c00314bafa3ce038e00a6b1368a611284c8d8c6784d1c5217aa",
+      "original_extraction_file": "fig-2-11-run-test.png",
+      "source_note": "Same filename as an extracted source image; subsequent replacement is possible. Image content was not reviewed."
+    },
+    {
+      "file": "fig-2-12-simulation-script.png",
+      "previous_file": "fig-2-12-simulation-script.png",
+      "number": "2.12",
+      "title": "找到仿真脚本",
+      "chapter": "robot_setup",
+      "width": 939,
+      "height": 660,
+      "sha256": "bf6ec59cebc48a2d55c15d0dcffaa504672a12b844c33a90cfad243f9238344e",
+      "original_extraction_file": "fig-2-12-simulation-script.png",
+      "source_note": "Same filename as an extracted source image; subsequent replacement is possible. Image content was not reviewed."
+    },
+    {
+      "file": "fig-2-13-image-ready.png",
+      "previous_file": "fig-2-13-image-ready.png",
+      "number": "2.13",
+      "title": "拉取仿真镜像成功",
+      "chapter": "robot_setup",
+      "width": 1102,
+      "height": 779,
+      "sha256": "dee62d93926bc84b8660d84a765cdcf5af9e0f45dd18212aa3a6e3ac20d24f41",
+      "original_extraction_file": "fig-2-13-image-ready.png",
+      "source_note": "Same filename as an extracted source image; subsequent replacement is possible. Image content was not reviewed."
+    },
+    {
+      "file": "fig-2-14-simulator.png",
+      "previous_file": "fig-2-14-simulator.png",
+      "number": "2.14",
+      "title": "仿真器启动成功",
+      "chapter": "robot_setup",
+      "width": 1775,
+      "height": 948,
+      "sha256": "dfb085ad944e322b0c32047ed37078a14ecaf66681983ee6b1bfbaecb732d49c",
+      "original_extraction_file": "fig-2-14-simulator.png",
+      "source_note": "Same filename as an extracted source image; subsequent replacement is possible. Image content was not reviewed."
+    },
+    {
+      "file": "fig-4-1-rviz.png",
+      "previous_file": "fig-4-4-rviz.png",
+      "number": "4.1",
+      "title": "RViz 显示姿态",
+      "chapter": "driver",
+      "width": 1919,
+      "height": 1032,
+      "sha256": "8faff9ea5da7c1ad67cbe62215f041f22808ec14bbd0b41446b9d13ee18d60ce",
+      "original_extraction_file": "fig-4-4-rviz.png",
+      "source_note": "Same filename as an extracted source image; subsequent replacement is possible. Image content was not reviewed."
+    },
+    {
+      "file": "fig-4-2-pendant.png",
+      "previous_file": "fig-4-5-pendant.png",
+      "number": "4.2",
+      "title": "示教器中机器人姿态",
+      "chapter": "driver",
+      "width": 1282,
+      "height": 799,
+      "sha256": "85238fc7d5401444c3d7740c2b37dfc3172eb97101acb3a872615bbdf581212e",
+      "original_extraction_file": "fig-4-5-pendant.png",
+      "source_note": "Same filename as an extracted source image; subsequent replacement is possible. Image content was not reviewed."
+    },
+    {
+      "file": "fig-4-3-standby.png",
+      "previous_file": "fig-4-6-standby.png",
+      "number": "4.3",
+      "title": "转为待机",
+      "chapter": "driver",
+      "width": 1281,
+      "height": 801,
+      "sha256": "a5cb7f12e3801788751338641a5226cf8bbfdc352bb86cbf5b047ccbc2bf3884",
+      "original_extraction_file": "fig-4-6-standby.png",
+      "source_note": "Same filename as an extracted source image; subsequent replacement is possible. Image content was not reviewed."
+    },
+    {
+      "file": "fig-4-4-normal-mode.png",
+      "previous_file": "fig-4-6-1-normal-mode.png",
+      "number": "4.4",
+      "title": "转为正常模式",
+      "chapter": "driver",
+      "width": 1282,
+      "height": 799,
+      "sha256": "34cba7ebae67071e8572c2f4242420c943a253db461c45898028ad000b846e4e",
+      "source_note": "Added after the original PDF extraction; source not recorded."
+    },
+    {
+      "file": "fig-4-5-running-mode.png",
+      "previous_file": "fig-4-6-2-running​-mode.png",
+      "number": "4.5",
+      "title": "转为运行中",
+      "chapter": "driver",
+      "width": 1282,
+      "height": 832,
+      "sha256": "3d5df1dd1e926624423a3bed0145e23f2935e25553a06a8658a9d91e1e67a3d0",
+      "source_note": "Added after the original PDF extraction; source not recorded."
+    },
+    {
+      "file": "fig-4-6-control-timeout.png",
+      "previous_file": "fig-4-7-control-timeout.png",
+      "number": "4.6",
+      "title": "超时接收",
+      "chapter": "driver",
+      "width": 1282,
+      "height": 832,
+      "sha256": "d3f892bdc7f7980d81b4d636fca2212e84748ede03419b6337e0a8554ef3d186",
+      "source_note": "Added after the original PDF extraction; source not recorded."
+    },
+    {
+      "file": "fig-4-7-trajectory-result.png",
+      "previous_file": "fig-4-9-trajectory-result.png",
+      "number": "4.7",
+      "title": "轨迹执行结果",
+      "chapter": "driver",
+      "width": 1282,
+      "height": 832,
+      "sha256": "6170b679a6e5a748d5da0a4416a6baef3da4159026789841778d8ddee6b6565c",
+      "original_extraction_file": "fig-4-9-trajectory-result.png",
+      "source_note": "Same filename as an extracted source image; subsequent replacement is possible. Image content was not reviewed."
+    },
+    {
+      "file": "fig-5-1-moveit-planning.png",
+      "previous_file": "fig-4-10-moveit-planning.png",
+      "number": "5.1",
+      "title": "生成轨迹",
+      "chapter": "moveit",
+      "width": 1126,
+      "height": 600,
+      "sha256": "6cbb0b6f523ee0841edd252e6b746037cbb341fe8b8a7d1262fb94c552e3a796",
+      "original_extraction_file": "fig-4-10-moveit-planning.png",
+      "source_note": "Same filename as an extracted source image; subsequent replacement is possible. Image content was not reviewed."
+    },
+    {
+      "file": "fig-6-1-gazebo.png",
+      "previous_file": "fig-4-11-gazebo.png",
+      "number": "6.1",
+      "title": "Gazebo 启动结果",
+      "chapter": "gazebo",
+      "width": 1880,
+      "height": 1265,
+      "sha256": "17e1cd8f0fb7a88e1085f01ba8bbc107d3612331ebcbf0de7339e8bef6dcc38d",
+      "original_extraction_file": "fig-4-11-gazebo.png",
+      "source_note": "Same filename as an extracted source image; subsequent replacement is possible. Image content was not reviewed."
+    },
+    {
+      "file": "fig-7-1-wechat-qr.png",
+      "previous_file": "wechat-qr.png",
+      "number": "7.1",
+      "title": "封底公众号二维码",
+      "chapter": "support",
+      "width": 258,
+      "height": 258,
+      "sha256": "c783ef3f9ab8c23b3725188531f33b2a7c37449be0ff776e3ec578a03928d209",
+      "original_extraction_file": "wechat-qr.png",
+      "source_note": "Same filename as an extracted source image; subsequent replacement is possible. Image content was not reviewed."
+    }
+  ],
+  "original_extraction": {
+    "note": "Historical records from the PDF extraction. Filenames, dimensions and occurrences refer to that extraction, not necessarily current files.",
+    "images": [
+      {
+        "file": "source-assets/elite-robots-logo.png",
+        "title": "ELITE ROBOTS 标志",
+        "xref": 40,
+        "width": 1182,
+        "height": 384,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 1,
+            "bbox": [
+              31.454999923706055,
+              28.346115112304688,
+              150.51031494140625,
+              67.02398681640625
+            ]
+          },
+          {
+            "pdf_page": 5,
+            "bbox": [
+              56.69300079345703,
+              27.582490921020508,
+              143.9470977783203,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 6,
+            "bbox": [
+              451.33099365234375,
+              27.582490921020508,
+              538.5850830078125,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 7,
+            "bbox": [
+              56.69300079345703,
+              27.582490921020508,
+              143.9470977783203,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 8,
+            "bbox": [
+              451.33099365234375,
+              27.582490921020508,
+              538.5850830078125,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 9,
+            "bbox": [
+              56.69300079345703,
+              27.582490921020508,
+              143.9470977783203,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 10,
+            "bbox": [
+              451.33099365234375,
+              27.582490921020508,
+              538.5850830078125,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 11,
+            "bbox": [
+              56.69300079345703,
+              27.582490921020508,
+              143.9470977783203,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 13,
+            "bbox": [
+              56.69300079345703,
+              27.582490921020508,
+              143.9470977783203,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 14,
+            "bbox": [
+              451.33099365234375,
+              27.582490921020508,
+              538.5850830078125,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 15,
+            "bbox": [
+              56.69300079345703,
+              27.582490921020508,
+              143.9470977783203,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 16,
+            "bbox": [
+              451.33099365234375,
+              27.582490921020508,
+              538.5850830078125,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 17,
+            "bbox": [
+              56.69300079345703,
+              27.582490921020508,
+              143.9470977783203,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 18,
+            "bbox": [
+              451.33099365234375,
+              27.582490921020508,
+              538.5850830078125,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 19,
+            "bbox": [
+              56.69300079345703,
+              27.582490921020508,
+              143.9470977783203,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 20,
+            "bbox": [
+              451.33099365234375,
+              27.582490921020508,
+              538.5850830078125,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 21,
+            "bbox": [
+              56.69300079345703,
+              27.582490921020508,
+              143.9470977783203,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 22,
+            "bbox": [
+              451.33099365234375,
+              27.582490921020508,
+              538.5850830078125,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 23,
+            "bbox": [
+              56.69300079345703,
+              27.582490921020508,
+              143.9470977783203,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 24,
+            "bbox": [
+              451.33099365234375,
+              27.582490921020508,
+              538.5850830078125,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 25,
+            "bbox": [
+              56.69300079345703,
+              27.582490921020508,
+              143.9470977783203,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 26,
+            "bbox": [
+              451.33099365234375,
+              27.582490921020508,
+              538.5850830078125,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 27,
+            "bbox": [
+              56.69300079345703,
+              27.582490921020508,
+              143.9470977783203,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 28,
+            "bbox": [
+              451.33099365234375,
+              27.582490921020508,
+              538.5850830078125,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 29,
+            "bbox": [
+              56.69300079345703,
+              27.582490921020508,
+              143.9470977783203,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 30,
+            "bbox": [
+              451.33099365234375,
+              27.582490921020508,
+              538.5850830078125,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 31,
+            "bbox": [
+              56.69300079345703,
+              27.582490921020508,
+              143.9470977783203,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 32,
+            "bbox": [
+              451.33099365234375,
+              27.582490921020508,
+              538.5850830078125,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 33,
+            "bbox": [
+              56.69300079345703,
+              27.582490921020508,
+              143.9470977783203,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 34,
+            "bbox": [
+              451.33099365234375,
+              27.582490921020508,
+              538.5850830078125,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 35,
+            "bbox": [
+              56.69300079345703,
+              27.582490921020508,
+              143.9470977783203,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 36,
+            "bbox": [
+              451.33099365234375,
+              27.582490921020508,
+              538.5850830078125,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 37,
+            "bbox": [
+              56.69300079345703,
+              27.582490921020508,
+              143.9470977783203,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 38,
+            "bbox": [
+              451.33099365234375,
+              27.582490921020508,
+              538.5850830078125,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 39,
+            "bbox": [
+              56.69300079345703,
+              27.582490921020508,
+              143.9470977783203,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 40,
+            "bbox": [
+              451.33099365234375,
+              27.582490921020508,
+              538.5850830078125,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 41,
+            "bbox": [
+              56.69300079345703,
+              27.582490921020508,
+              143.9470977783203,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 42,
+            "bbox": [
+              451.33099365234375,
+              27.582490921020508,
+              538.5850830078125,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 43,
+            "bbox": [
+              56.69300079345703,
+              27.582490921020508,
+              143.9470977783203,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 44,
+            "bbox": [
+              451.33099365234375,
+              27.582490921020508,
+              538.5850830078125,
+              55.92900085449219
+            ]
+          },
+          {
+            "pdf_page": 46,
+            "bbox": [
+              39.95899963378906,
+              36.850128173828125,
+              159.01431274414062,
+              75.52799987792969
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/cover-illustration.png",
+        "title": "封面插图",
+        "xref": 54,
+        "width": 683,
+        "height": 360,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 1,
+            "bbox": [
+              174.05099487304688,
+              360.75628662109375,
+              418.11676025390625,
+              489.4000244140625
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-01.png",
+        "title": "内嵌列表标记 1",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 7,
+            "bbox": [
+              76.61844635009766,
+              299.12542724609375,
+              80.60355377197266,
+              303.11053466796875
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-02.png",
+        "title": "内嵌列表标记 2",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 7,
+            "bbox": [
+              76.61844635009766,
+              317.90545654296875,
+              80.60355377197266,
+              321.89056396484375
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-03.png",
+        "title": "内嵌列表标记 3",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 7,
+            "bbox": [
+              76.61844635009766,
+              336.6854553222656,
+              80.60355377197266,
+              340.6705627441406
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-04.png",
+        "title": "内嵌列表标记 4",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 7,
+            "bbox": [
+              76.61844635009766,
+              457.8364562988281,
+              80.60355377197266,
+              461.8215637207031
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-05.png",
+        "title": "内嵌列表标记 5",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 7,
+            "bbox": [
+              76.61844635009766,
+              476.616455078125,
+              80.60355377197266,
+              480.6015625
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-06.png",
+        "title": "内嵌列表标记 6",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 7,
+            "bbox": [
+              76.61844635009766,
+              551.7344360351562,
+              80.60355377197266,
+              555.7195434570312
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-07.png",
+        "title": "内嵌列表标记 7",
+        "xref": 0,
+        "width": 6,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 7,
+            "bbox": [
+              104.83487701416016,
+              572.4298095703125,
+              109.21849822998047,
+              576.8134765625
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-08.png",
+        "title": "内嵌列表标记 8",
+        "xref": 0,
+        "width": 6,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 7,
+            "bbox": [
+              104.83487701416016,
+              591.2088623046875,
+              109.21849822998047,
+              595.592529296875
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-09.png",
+        "title": "内嵌列表标记 9",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 7,
+            "bbox": [
+              76.61844635009766,
+              626.8534545898438,
+              80.60355377197266,
+              630.8385620117188
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-10.png",
+        "title": "内嵌列表标记 10",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 7,
+            "bbox": [
+              76.61844635009766,
+              664.4124755859375,
+              80.60355377197266,
+              668.3975830078125
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-11.png",
+        "title": "内嵌列表标记 11",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 8,
+            "bbox": [
+              76.61844635009766,
+              366.5704345703125,
+              80.60355377197266,
+              370.5555419921875
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-12.png",
+        "title": "内嵌列表标记 12",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 8,
+            "bbox": [
+              76.61844635009766,
+              385.3504333496094,
+              80.60355377197266,
+              389.3355407714844
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-13.png",
+        "title": "内嵌列表标记 13",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 8,
+            "bbox": [
+              76.61844635009766,
+              404.13043212890625,
+              80.60355377197266,
+              408.11553955078125
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-14.png",
+        "title": "内嵌列表标记 14",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 8,
+            "bbox": [
+              76.61844635009766,
+              422.9094543457031,
+              80.60355377197266,
+              426.8945617675781
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-15.png",
+        "title": "内嵌列表标记 15",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 8,
+            "bbox": [
+              76.61844635009766,
+              441.689453125,
+              80.60355377197266,
+              445.674560546875
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-16.png",
+        "title": "内嵌列表标记 16",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 8,
+            "bbox": [
+              76.61844635009766,
+              460.46844482421875,
+              80.60355377197266,
+              464.45355224609375
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-17.png",
+        "title": "内嵌列表标记 17",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 8,
+            "bbox": [
+              76.61844635009766,
+              479.2484436035156,
+              80.60355377197266,
+              483.2335510253906
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-18.png",
+        "title": "内嵌列表标记 18",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 8,
+            "bbox": [
+              76.61844635009766,
+              498.0284423828125,
+              80.60355377197266,
+              502.0135498046875
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/note-icon.png",
+        "title": "提示图标",
+        "xref": 160,
+        "width": 277,
+        "height": 277,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 13,
+            "bbox": [
+              76.26799774169922,
+              201.6359405517578,
+              132.96102905273438,
+              258.3289794921875
+            ]
+          },
+          {
+            "pdf_page": 15,
+            "bbox": [
+              76.26799774169922,
+              654.2119750976562,
+              132.96102905273438,
+              710.905029296875
+            ]
+          },
+          {
+            "pdf_page": 16,
+            "bbox": [
+              106.15599822998047,
+              471.27496337890625,
+              162.84902954101562,
+              527.968017578125
+            ]
+          },
+          {
+            "pdf_page": 22,
+            "bbox": [
+              76.26799774169922,
+              545.3509521484375,
+              132.96102905273438,
+              602.0440063476562
+            ]
+          },
+          {
+            "pdf_page": 26,
+            "bbox": [
+              76.26799774169922,
+              92.0169677734375,
+              132.96102905273438,
+              148.7100067138672
+            ]
+          },
+          {
+            "pdf_page": 36,
+            "bbox": [
+              76.26799774169922,
+              112.92295837402344,
+              132.96102905273438,
+              169.61599731445312
+            ]
+          },
+          {
+            "pdf_page": 38,
+            "bbox": [
+              76.26799774169922,
+              410.970947265625,
+              132.96102905273438,
+              467.66400146484375
+            ]
+          },
+          {
+            "pdf_page": 40,
+            "bbox": [
+              76.26799774169922,
+              534.1629028320312,
+              132.96102905273438,
+              590.85595703125
+            ]
+          },
+          {
+            "pdf_page": 41,
+            "bbox": [
+              76.26799774169922,
+              488.33294677734375,
+              132.96102905273438,
+              545.0260009765625
+            ]
+          },
+          {
+            "pdf_page": 42,
+            "bbox": [
+              76.26799774169922,
+              682.7969360351562,
+              132.96102905273438,
+              739.489990234375
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-19.png",
+        "title": "内嵌列表标记 19",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 13,
+            "bbox": [
+              76.61844635009766,
+              530.29345703125,
+              80.60355377197266,
+              534.278564453125
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-20.png",
+        "title": "内嵌列表标记 20",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 13,
+            "bbox": [
+              76.61844635009766,
+              549.073486328125,
+              80.60355377197266,
+              553.05859375
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-2-1-settings.png",
+        "title": "图 2-1：示教器设置",
+        "xref": 165,
+        "width": 1279,
+        "height": 799,
+        "alpha": false,
+        "occurrences": [
+          {
+            "pdf_page": 14,
+            "bbox": [
+              108.7229995727539,
+              138.6795196533203,
+              477.2278137207031,
+              368.8869934082031
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-2-2-remote-mode-settings.png",
+        "title": "图 2-2：远程控制模式设置",
+        "xref": 166,
+        "width": 1279,
+        "height": 798,
+        "alpha": false,
+        "occurrences": [
+          {
+            "pdf_page": 14,
+            "bbox": [
+              100.21900177001953,
+              440.347900390625,
+              485.7319030761719,
+              680.8790283203125
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-2-3-remote-option.png",
+        "title": "图 2-3：远程控制选项",
+        "xref": 170,
+        "width": 1281,
+        "height": 801,
+        "alpha": false,
+        "occurrences": [
+          {
+            "pdf_page": 15,
+            "bbox": [
+              100.21900177001953,
+              71.99559020996094,
+              485.7319030761719,
+              313.05401611328125
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-2-4-remote-control.png",
+        "title": "图 2-4：远程控制界面",
+        "xref": 171,
+        "width": 1281,
+        "height": 795,
+        "alpha": false,
+        "occurrences": [
+          {
+            "pdf_page": 15,
+            "bbox": [
+              100.21900177001953,
+              358.479248046875,
+              485.7319030761719,
+              597.7319946289062
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-21.png",
+        "title": "内嵌列表标记 21",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 16,
+            "bbox": [
+              102.91944885253906,
+              642.0814208984375,
+              106.90455627441406,
+              646.0665283203125
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-2-5-task.png",
+        "title": "图 2-5：选择任务",
+        "xref": 185,
+        "width": 1279,
+        "height": 798,
+        "alpha": false,
+        "occurrences": [
+          {
+            "pdf_page": 17,
+            "bbox": [
+              108.7229995727539,
+              71.99562072753906,
+              477.2278137207031,
+              301.91497802734375
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-22.png",
+        "title": "内嵌列表标记 22",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 17,
+            "bbox": [
+              102.91944885253906,
+              347.1954345703125,
+              106.90455627441406,
+              351.1805419921875
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-2-6-script.png",
+        "title": "图 2-6：选择脚本",
+        "xref": 186,
+        "width": 1286,
+        "height": 797,
+        "alpha": false,
+        "occurrences": [
+          {
+            "pdf_page": 17,
+            "bbox": [
+              108.7229995727539,
+              367.14874267578125,
+              477.2278137207031,
+              595.530029296875
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-23.png",
+        "title": "内嵌列表标记 23",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 17,
+            "bbox": [
+              102.91944885253906,
+              640.8104248046875,
+              106.90455627441406,
+              644.7955322265625
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-2-7-edit-file.png",
+        "title": "图 2-7：编辑文件",
+        "xref": 190,
+        "width": 1283,
+        "height": 797,
+        "alpha": false,
+        "occurrences": [
+          {
+            "pdf_page": 18,
+            "bbox": [
+              108.7229995727539,
+              72.00070190429688,
+              477.2278137207031,
+              300.916015625
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-2-8-edit-script.png",
+        "title": "图 2-8：编辑脚本",
+        "xref": 191,
+        "width": 1280,
+        "height": 805,
+        "alpha": false,
+        "occurrences": [
+          {
+            "pdf_page": 18,
+            "bbox": [
+              108.7229995727539,
+              346.3380126953125,
+              477.2278137207031,
+              578.093017578125
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-24.png",
+        "title": "内嵌列表标记 24",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 18,
+            "bbox": [
+              102.91944885253906,
+              623.3734741210938,
+              106.90455627441406,
+              627.3585815429688
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-25.png",
+        "title": "内嵌列表标记 25",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 18,
+            "bbox": [
+              102.91944885253906,
+              724.0924682617188,
+              106.90455627441406,
+              728.0775756835938
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-2-9-save-script.png",
+        "title": "图 2-9：保存脚本",
+        "xref": 198,
+        "width": 1283,
+        "height": 798,
+        "alpha": false,
+        "occurrences": [
+          {
+            "pdf_page": 19,
+            "bbox": [
+              108.7229995727539,
+              72.00047302246094,
+              477.2278137207031,
+              301.2030029296875
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-2-10-script-name.png",
+        "title": "图 2-10：设置脚本名称",
+        "xref": 199,
+        "width": 1279,
+        "height": 796,
+        "alpha": false,
+        "occurrences": [
+          {
+            "pdf_page": 19,
+            "bbox": [
+              108.7229995727539,
+              346.6278991699219,
+              477.2278137207031,
+              575.9710083007812
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-2-11-run-test.png",
+        "title": "图 2-11：运行测试任务",
+        "xref": 209,
+        "width": 1279,
+        "height": 803,
+        "alpha": false,
+        "occurrences": [
+          {
+            "pdf_page": 21,
+            "bbox": [
+              108.7229995727539,
+              387.6880187988281,
+              477.2278137207031,
+              619.0479736328125
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-26.png",
+        "title": "内嵌列表标记 26",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 22,
+            "bbox": [
+              102.91944885253906,
+              98.74945068359375,
+              106.90455627441406,
+              102.73455810546875
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-27.png",
+        "title": "内嵌列表标记 27",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 22,
+            "bbox": [
+              102.91944885253906,
+              136.30844116210938,
+              106.90455627441406,
+              140.29354858398438
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-28.png",
+        "title": "内嵌列表标记 28",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 22,
+            "bbox": [
+              102.91944885253906,
+              155.08843994140625,
+              106.90455627441406,
+              159.07354736328125
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-29.png",
+        "title": "内嵌列表标记 29",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 22,
+            "bbox": [
+              102.91944885253906,
+              211.4274444580078,
+              106.90455627441406,
+              215.4125518798828
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-30.png",
+        "title": "内嵌列表标记 30",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 22,
+            "bbox": [
+              102.91944885253906,
+              230.2074432373047,
+              106.90455627441406,
+              234.1925506591797
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-31.png",
+        "title": "内嵌列表标记 31",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 22,
+            "bbox": [
+              102.91944885253906,
+              248.9864501953125,
+              106.90455627441406,
+              252.9715576171875
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-32.png",
+        "title": "内嵌列表标记 32",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 22,
+            "bbox": [
+              102.91944885253906,
+              286.5454406738281,
+              106.90455627441406,
+              290.5305480957031
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-33.png",
+        "title": "内嵌列表标记 33",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 22,
+            "bbox": [
+              102.91944885253906,
+              324.10546875,
+              106.90455627441406,
+              328.090576171875
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-2-12-simulation-script.png",
+        "title": "图 2-12：找到仿真脚本",
+        "xref": 235,
+        "width": 939,
+        "height": 660,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 24,
+            "bbox": [
+              122.89700317382812,
+              342.3330993652344,
+              463.0552978515625,
+              581.4219970703125
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-2-13-image-ready.png",
+        "title": "图 2-13：拉取仿真镜像成功",
+        "xref": 249,
+        "width": 1102,
+        "height": 779,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 25,
+            "bbox": [
+              128.56600952148438,
+              232.2793731689453,
+              457.3858947753906,
+              464.72100830078125
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-2-14-simulator.png",
+        "title": "图 2-14：仿真器启动成功",
+        "xref": 251,
+        "width": 1775,
+        "height": 948,
+        "alpha": false,
+        "occurrences": [
+          {
+            "pdf_page": 25,
+            "bbox": [
+              100.21900177001953,
+              536.260498046875,
+              485.7319030761719,
+              742.156982421875
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-3-1-ros2-help.png",
+        "title": "图 3-1：安装成功",
+        "xref": 284,
+        "width": 874,
+        "height": 392,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 28,
+            "bbox": [
+              100.21900177001953,
+              502.943603515625,
+              485.7319030761719,
+              675.8510131835938
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-34.png",
+        "title": "内嵌列表标记 34",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 29,
+            "bbox": [
+              76.61844635009766,
+              237.20245361328125,
+              80.60355377197266,
+              241.18756103515625
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-35.png",
+        "title": "内嵌列表标记 35",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 29,
+            "bbox": [
+              76.61844635009766,
+              255.9814453125,
+              80.60355377197266,
+              259.966552734375
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-36.png",
+        "title": "内嵌列表标记 36",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 29,
+            "bbox": [
+              76.61844635009766,
+              274.7614440917969,
+              80.60355377197266,
+              278.7465515136719
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-37.png",
+        "title": "内嵌列表标记 37",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 29,
+            "bbox": [
+              76.61844635009766,
+              293.54144287109375,
+              80.60355377197266,
+              297.52655029296875
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-38.png",
+        "title": "内嵌列表标记 38",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 29,
+            "bbox": [
+              76.61844635009766,
+              312.3204345703125,
+              80.60355377197266,
+              316.3055419921875
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-39.png",
+        "title": "内嵌列表标记 39",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 29,
+            "bbox": [
+              76.61844635009766,
+              331.1004333496094,
+              80.60355377197266,
+              335.0855407714844
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-40.png",
+        "title": "内嵌列表标记 40",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 29,
+            "bbox": [
+              76.61844635009766,
+              349.87945556640625,
+              80.60355377197266,
+              353.86456298828125
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-41.png",
+        "title": "内嵌列表标记 41",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 30,
+            "bbox": [
+              76.61844635009766,
+              123.5064468383789,
+              80.60355377197266,
+              127.4915542602539
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-42.png",
+        "title": "内嵌列表标记 42",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 30,
+            "bbox": [
+              76.61844635009766,
+              142.28643798828125,
+              80.60355377197266,
+              146.27154541015625
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-43.png",
+        "title": "内嵌列表标记 43",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 30,
+            "bbox": [
+              76.61844635009766,
+              161.06643676757812,
+              80.60355377197266,
+              165.05154418945312
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-44.png",
+        "title": "内嵌列表标记 44",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 30,
+            "bbox": [
+              76.61844635009766,
+              179.84544372558594,
+              80.60355377197266,
+              183.83055114746094
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-45.png",
+        "title": "内嵌列表标记 45",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 30,
+            "bbox": [
+              76.61844635009766,
+              198.6254425048828,
+              80.60355377197266,
+              202.6105499267578
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-46.png",
+        "title": "内嵌列表标记 46",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 30,
+            "bbox": [
+              76.61844635009766,
+              217.4054412841797,
+              80.60355377197266,
+              221.3905487060547
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-47.png",
+        "title": "内嵌列表标记 47",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 32,
+            "bbox": [
+              76.61844635009766,
+              650.533447265625,
+              80.60355377197266,
+              654.5185546875
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-48.png",
+        "title": "内嵌列表标记 48",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 32,
+            "bbox": [
+              76.61844635009766,
+              688.0924682617188,
+              80.60355377197266,
+              692.0775756835938
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-49.png",
+        "title": "内嵌列表标记 49",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 32,
+            "bbox": [
+              76.61844635009766,
+              706.8724365234375,
+              80.60355377197266,
+              710.8575439453125
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-4-1-power-on.png",
+        "title": "图 4-1：打开电源",
+        "xref": 343,
+        "width": 1282,
+        "height": 803,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 33,
+            "bbox": [
+              100.21900177001953,
+              380.24517822265625,
+              485.7319030761719,
+              621.7169799804688
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-4-2-brake-release.png",
+        "title": "图 4-2：释放抱闸",
+        "xref": 348,
+        "width": 1280,
+        "height": 804,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 34,
+            "bbox": [
+              100.21900177001953,
+              71.99772644042969,
+              485.73187255859375,
+              314.14801025390625
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-4-3-normal-mode.png",
+        "title": "图 4-3：正常模式",
+        "xref": 350,
+        "width": 1280,
+        "height": 803,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 34,
+            "bbox": [
+              100.21900177001953,
+              383.83489990234375,
+              485.73187255859375,
+              625.6840209960938
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-50.png",
+        "title": "内嵌列表标记 50",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 35,
+            "bbox": [
+              76.61844635009766,
+              79.97044372558594,
+              80.60355377197266,
+              83.95555114746094
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-51.png",
+        "title": "内嵌列表标记 51",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 35,
+            "bbox": [
+              76.61844635009766,
+              98.74945068359375,
+              80.60355377197266,
+              102.73455810546875
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-52.png",
+        "title": "内嵌列表标记 52",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 35,
+            "bbox": [
+              76.61844635009766,
+              117.52944946289062,
+              80.60355377197266,
+              121.51455688476562
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-4-4-rviz.png",
+        "title": "图 4-4：RViz 显示姿态",
+        "xref": 357,
+        "width": 1832,
+        "height": 972,
+        "alpha": false,
+        "occurrences": [
+          {
+            "pdf_page": 35,
+            "bbox": [
+              100.21900177001953,
+              161.63331604003906,
+              485.7319030761719,
+              366.17401123046875
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-4-5-pendant.png",
+        "title": "图 4-5：示教器中机器人姿态",
+        "xref": 358,
+        "width": 1123,
+        "height": 645,
+        "alpha": false,
+        "occurrences": [
+          {
+            "pdf_page": 35,
+            "bbox": [
+              100.21900177001953,
+              409.8800048828125,
+              485.73187255859375,
+              631.301025390625
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-4-6-standby.png",
+        "title": "图 4-6：转为待机",
+        "xref": 367,
+        "width": 918,
+        "height": 200,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 36,
+            "bbox": [
+              100.21900177001953,
+              390.1052551269531,
+              485.7319030761719,
+              474.0950012207031
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-4-7-task-status.png",
+        "title": "图 4-7：任务状态返回结果",
+        "xref": 378,
+        "width": 918,
+        "height": 261,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 37,
+            "bbox": [
+              100.21900177001953,
+              71.99638366699219,
+              485.7319030761719,
+              181.60299682617188
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-53.png",
+        "title": "内嵌列表标记 53",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 38,
+            "bbox": [
+              76.61844635009766,
+              284.0374450683594,
+              80.60355377197266,
+              288.0225524902344
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-54.png",
+        "title": "内嵌列表标记 54",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 38,
+            "bbox": [
+              76.61844635009766,
+              302.81646728515625,
+              80.60355377197266,
+              306.80157470703125
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-55.png",
+        "title": "内嵌列表标记 55",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 38,
+            "bbox": [
+              76.61844635009766,
+              321.596435546875,
+              80.60355377197266,
+              325.58154296875
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-56.png",
+        "title": "内嵌列表标记 56",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 38,
+            "bbox": [
+              76.61844635009766,
+              359.15545654296875,
+              80.60355377197266,
+              363.14056396484375
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-4-8-controllers.png",
+        "title": "图 4-8：控制器列表",
+        "xref": 395,
+        "width": 918,
+        "height": 553,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 39,
+            "bbox": [
+              100.21900177001953,
+              71.99337768554688,
+              485.7319030761719,
+              304.2250061035156
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-4-9-trajectory-result.png",
+        "title": "图 4-9：轨迹执行结果",
+        "xref": 405,
+        "width": 1760,
+        "height": 948,
+        "alpha": false,
+        "occurrences": [
+          {
+            "pdf_page": 40,
+            "bbox": [
+              100.21900177001953,
+              197.50173950195312,
+              485.7319030761719,
+              405.15301513671875
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-57.png",
+        "title": "内嵌列表标记 57",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 41,
+            "bbox": [
+              76.61844635009766,
+              264.07745361328125,
+              80.60355377197266,
+              268.06256103515625
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-58.png",
+        "title": "内嵌列表标记 58",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 41,
+            "bbox": [
+              76.61844635009766,
+              282.8564453125,
+              80.60355377197266,
+              286.841552734375
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-59.png",
+        "title": "内嵌列表标记 59",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 41,
+            "bbox": [
+              76.61844635009766,
+              301.6364440917969,
+              80.60355377197266,
+              305.6215515136719
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-60.png",
+        "title": "内嵌列表标记 60",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 41,
+            "bbox": [
+              76.61844635009766,
+              320.41644287109375,
+              80.60355377197266,
+              324.40155029296875
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-61.png",
+        "title": "内嵌列表标记 61",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 42,
+            "bbox": [
+              76.61844635009766,
+              214.429443359375,
+              80.60355377197266,
+              218.41455078125
+            ]
+          }
+        ]
+      },
+      {
+        "file": "source-assets/inline-marker-62.png",
+        "title": "内嵌列表标记 62",
+        "xref": 0,
+        "width": 5,
+        "height": 5,
+        "alpha": true,
+        "occurrences": [
+          {
+            "pdf_page": 42,
+            "bbox": [
+              76.61844635009766,
+              233.20944213867188,
+              80.60355377197266,
+              237.19454956054688
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-4-10-moveit-planning.png",
+        "title": "图 4-10：生成轨迹",
+        "xref": 426,
+        "width": 1126,
+        "height": 600,
+        "alpha": false,
+        "occurrences": [
+          {
+            "pdf_page": 42,
+            "bbox": [
+              100.21900177001953,
+              253.17071533203125,
+              485.73187255859375,
+              458.5950012207031
+            ]
+          }
+        ]
+      },
+      {
+        "file": "fig-4-11-gazebo.png",
+        "title": "图 4-11：Gazebo 启动结果",
+        "xref": 434,
+        "width": 1880,
+        "height": 1265,
+        "alpha": false,
+        "occurrences": [
+          {
+            "pdf_page": 43,
+            "bbox": [
+              100.21900177001953,
+              242.40402221679688,
+              485.7319030761719,
+              501.80499267578125
+            ]
+          }
+        ]
+      },
+      {
+        "file": "wechat-qr.png",
+        "title": "封底公众号二维码",
+        "xref": 456,
+        "width": 258,
+        "height": 258,
+        "alpha": false,
+        "occurrences": [
+          {
+            "pdf_page": 46,
+            "bbox": [
+              446.65301513671875,
+              595.6229858398438,
+              559.2930297851562,
+              708.2630004882812
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "unused_assets": [
+    "source-assets/cover-illustration.png",
+    "source-assets/elite-robots-logo.png",
+    "source-assets/inline-marker-01.png",
+    "source-assets/inline-marker-02.png",
+    "source-assets/inline-marker-03.png",
+    "source-assets/inline-marker-04.png",
+    "source-assets/inline-marker-05.png",
+    "source-assets/inline-marker-06.png",
+    "source-assets/inline-marker-07.png",
+    "source-assets/inline-marker-08.png",
+    "source-assets/inline-marker-09.png",
+    "source-assets/inline-marker-10.png",
+    "source-assets/inline-marker-11.png",
+    "source-assets/inline-marker-12.png",
+    "source-assets/inline-marker-13.png",
+    "source-assets/inline-marker-14.png",
+    "source-assets/inline-marker-15.png",
+    "source-assets/inline-marker-16.png",
+    "source-assets/inline-marker-17.png",
+    "source-assets/inline-marker-18.png",
+    "source-assets/inline-marker-19.png",
+    "source-assets/inline-marker-20.png",
+    "source-assets/inline-marker-21.png",
+    "source-assets/inline-marker-22.png",
+    "source-assets/inline-marker-23.png",
+    "source-assets/inline-marker-24.png",
+    "source-assets/inline-marker-25.png",
+    "source-assets/inline-marker-26.png",
+    "source-assets/inline-marker-27.png",
+    "source-assets/inline-marker-28.png",
+    "source-assets/inline-marker-29.png",
+    "source-assets/inline-marker-30.png",
+    "source-assets/inline-marker-31.png",
+    "source-assets/inline-marker-32.png",
+    "source-assets/inline-marker-33.png",
+    "source-assets/inline-marker-34.png",
+    "source-assets/inline-marker-35.png",
+    "source-assets/inline-marker-36.png",
+    "source-assets/inline-marker-37.png",
+    "source-assets/inline-marker-38.png",
+    "source-assets/inline-marker-39.png",
+    "source-assets/inline-marker-40.png",
+    "source-assets/inline-marker-41.png",
+    "source-assets/inline-marker-42.png",
+    "source-assets/inline-marker-43.png",
+    "source-assets/inline-marker-44.png",
+    "source-assets/inline-marker-45.png",
+    "source-assets/inline-marker-46.png",
+    "source-assets/inline-marker-47.png",
+    "source-assets/inline-marker-48.png",
+    "source-assets/inline-marker-49.png",
+    "source-assets/inline-marker-50.png",
+    "source-assets/inline-marker-51.png",
+    "source-assets/inline-marker-52.png",
+    "source-assets/inline-marker-53.png",
+    "source-assets/inline-marker-54.png",
+    "source-assets/inline-marker-55.png",
+    "source-assets/inline-marker-56.png",
+    "source-assets/inline-marker-57.png",
+    "source-assets/inline-marker-58.png",
+    "source-assets/inline-marker-59.png",
+    "source-assets/inline-marker-60.png",
+    "source-assets/inline-marker-61.png",
+    "source-assets/inline-marker-62.png",
+    "source-assets/note-icon.png"
+  ]
+}

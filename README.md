@@ -2,7 +2,7 @@
 
 采用 **Sphinx + MyST Markdown**，按 **文档类型 → 语言 → 章节** 组织。每个文档/语言组合独立生成 HTML 站点及 PDF，具有各自的目录、搜索索引和输出路径。
 
-目前只编写中文快速手册，依据 **CS&ES&LS_ROS2软件包快速使用手册_Ver2.16.1.pdf**（2026-08-07）重写，尚未按当前驱动接口调整。
+目前只编写中文快速手册，依据 **CS&ES&LS_ROS2软件包快速使用手册_Ver2.16.1.pdf**（2026-08-07）重写，已结合当前工作空间的驱动、机器人描述和 Gazebo 仿真源码修订；核对范围及待验证项见 `MAINTENANCE.md`。
 
 ## 目录结构
 
@@ -170,13 +170,13 @@ install/elite_robots_cs_tutorials/share/elite_robots_cs_tutorials/manuals/quicks
 
 ## 图片组织
 
-- **语言专用图片**：例如中文界面截图，放在 `doc/quickstart/zh_CN/images/`，正文引用 `images/文件名.png`。当前图片占位及路径保持这种形式。
+- **语言专用图片**：例如中文界面截图，放在 `doc/quickstart/zh_CN/images/`，正文引用 `images/文件名.png`。当前正文图片使用这种引用方式。
 - **共用图片**：例如不含文字的机器人照片，放在 `doc/quickstart/images/`，各译本通过 `../images/文件名.png` 引用。Sphinx 构建时会复制到对应 HTML/PDF 输出所需的位置。
 
-补图时用 MyST `figure` 替换占位框，例如：
+新增或替换配图时使用 MyST `figure`，例如：
 
 ````markdown
-```{figure} images/fig-4-11-gazebo.png
+```{figure} images/fig-6-1-gazebo.png
 :name: gazebo-startup
 :width: 90%
 :alt: Gazebo 场景中的机器人模型

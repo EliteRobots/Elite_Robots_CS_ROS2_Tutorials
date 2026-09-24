@@ -21,7 +21,11 @@
 | 日本公司 | 1F, RT Shirakawa Building, 2-6-1 Sakae, Naka-ku, Nagoya, Aichi 460-0008, Japan |
 | 墨西哥服务中心 | Calzada del pedregal 523, fraccionamiento el pedregal |
 
-```{admonition} 图片占位 · 原手册封底：公众号二维码
-:class: figure-placeholder
-待补充公众号二维码。建议文件名：`images/wechat-qr.png`。
+```{figure} images/fig-7-1-wechat-qr.png
+:name: fig-7-1-wechat-qr
+:alt: 封底公众号二维码
+:width: 160px
+:align: center
+
+封底公众号二维码
 ```

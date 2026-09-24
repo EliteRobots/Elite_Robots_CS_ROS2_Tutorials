@@ -18,36 +18,50 @@ ROS 2 程序通常按软件包（package）组织，在工作空间（workspace�
 - **RViz 可视化**：显示机器人模型、关节状态和规划结果，辅助预览运动与交互控制。
 - **Gazebo 物理仿真**：在仿真环境中测试机器人运动、控制程序及场景交互。
 
-## 软件包结构
+## 软件包列表
 
-以下名称沿用原手册的软件包结构。
+```{list-table}
+:header-rows: 1
+:widths: 52 48
 
-```{admonition} 图片占位 · 原图 1-1：ELITE ROS 2 软件包结构
-:class: figure-placeholder
-待补充软件包关系图。建议文件名：`images/fig-1-1-package-structure.png`。
+* - 软件包
+  - 用途
+* - `elite_robots`
+  - 提供一个统一安装入口的元软件包，用于安装 Elite Robots 的 ROS 2 软件包。
+* - `elite_robots_msgs`
+  - 机器人状态、IO 及服务等自定义消息接口。
+* - `elite_robots_dashboard_msgs`
+  - Dashboard 相关消息与服务接口；部分 Dashboard 服务使用 `elite_robots_msgs`
+* - `elite_robots_controllers`
+  - 机器人控制器实现
+* - `elite_robots_calibration`
+  - 从实体机器人读取标定数据
+* - `elite_robots_description`
+  - 机器人描述文件和模型
+* - `elite_robots_driver`
+  - 通信、硬件接口、驱动与示例
+* - `elite_cs_series_sdk`
+  - 驱动依赖的机器人 C++ 通信 SDK
+* - `elite_robots_simulation_gz`
+  - Gazebo 仿真配置与示例（仅限 Humble）
+* - `elite_robots_moveit_config`
+  - MoveIt 2 配置与示例
 ```
-
-| 软件包 | 用途 |
-| --- | --- |
-| `eli_common_interface` | 共用的服务与消息接口 |
-| `eli_dashboard_interface` | Dashboard 节点使用的接口 |
-| `eli_cs_controllers` | 机器人控制器实现 |
-| `eli_cs_robot_calibration` | 从实体机器人读取标定数据 |
-| `eli_cs_robot_description` | 机器人描述文件和模型 |
-| `eli_cs_robot_driver` | 通信、硬件接口、驱动与示例 |
-| `eli_cs_robot_simulation_gz` | Gazebo 仿真配置与示例 |
-| `eli_cs_robot_moveit_config` | MoveIt 2 配置与示例 |
 
 ## 支持的平台与硬件要求
 
-原手册的适用范围为 **CS、ES 系列全部机型及 LS65**；正式测试和支持的平台为 **Ubuntu 22.04（Jammy Jellyfish）+ ROS 2 Humble**。
+支持的机器人型号：
+- CS系列：CS63, CS63a, CS66, CS68, CS612, CS616, CS618F, CS620, CS625, CS630, CS66A, CS520H
+- ES系列：ES63, ES63a, ES66, ES68, ES612, ES616, ES618F, ES620, ES625, ES630, ES66A, ES520H
+- LS系列：LS65
 
-| 组件 | 原手册建议 |
-| --- | --- |
-| CPU | 64 位 Intel i5 / i7 或同等 AMD 处理器，推荐多核 |
-| 内存 | 至少 8 GB，推荐 16 GB |
-| 存储 | 至少 30 GB 可用空间，建议 SSD |
-| GPU | 可选；支持 CUDA 的 NVIDIA GPU 可用于需要加速的感知应用 |
+正式测试和支持的平台:
+- **Ubuntu 22.04 (Jammy Jellyfish)+ ROS 2 Humble**
+- **Ubuntu 24.04 (Noble Numbat)+ ROS 2 Jazzy**
+
+本手册命令以 Humble 为例。Jazzy 环境应使用对应发行版的软件包与源码分支，不要混用 Humble 的安装命令。
+
+`cs_type` 是启动文件接受的配置名称，当前驱动和描述包允许：`cs63`、`cs63a`、`cs66`、`cs68`、`cs612`、`cs616`、`cs618f`、`cs620`、`cs625`、`cs630`、`cs66a`、`cs520h`、`ls65`。名称区分大小写；当前启动文件没有 `es66` 等 `es*` 选项，ES 系列请先确认对应的型号配置。Gazebo 支持的选项以其启动文件为准。
 
 MoveIt 2 规划和 RViz 可视化需要一定内存。GPU 不是本手册基础控制流程的必需条件。
 
@@ -55,14 +69,9 @@ MoveIt 2 规划和 RViz 可视化需要一定内存。GPU 不是本手册基础�
 
 以下命令中的包名、节点名、接口类型及路径均需替换为实际值。
 
-### 工作空间与节点
+### 节点
 
 ```bash
-# 构建工作空间并加载环境
-cd ~/elite_ros_ws
-colcon build
-source install/setup.bash
-
 # 查询软件包及安装路径
 ros2 pkg list
 ros2 pkg prefix <package_name>
@@ -76,7 +85,7 @@ ros2 node list
 ros2 node info <node_name>
 ```
 
-在启动程序的终端按 `Ctrl+C` 可停止该前台程序。原手册中的 `ros2 node kill` 不是 ROS 2 Humble 的标准命令；`roslaunch` 属于 ROS 1，ROS 2 应使用 `ros2 launch`。
+在启动程序的终端按 `Ctrl+C` 可停止该前台程序。
 
 ### 话题与接口
 

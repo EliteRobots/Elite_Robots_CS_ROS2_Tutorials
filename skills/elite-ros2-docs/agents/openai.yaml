@@ -1,0 +1,4 @@
+interface:
+  display_name: "Elite ROS 2 文档维护"
+  short_description: "维护多语言 MyST 手册、核对 ROS 2 命令并构建 HTML/PDF"
+  default_prompt: "使用 $elite-ros2-docs 维护当前仓库的文档，按任务核对源码、整理配图并验证构建。"

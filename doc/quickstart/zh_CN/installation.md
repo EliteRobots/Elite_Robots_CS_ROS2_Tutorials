@@ -1,121 +1,205 @@
 # 本地环境安装
 
-本章沿用原手册的 **Ubuntu 22.04 + ROS 2 Humble + MoveIt 2 + Gazebo Fortress** 环境及安装路线。安装命令用于复现原手册环境，尚未针对当前项目依赖做调整。
+ROS 2 拥有许多发行版本，此处的安装教程以**Ubuntu 22.04**系统中在线安装**ROS 2 Humble**为例，其他发行版或安装方式请查阅 [ROS 2 官方安装文档](https://docs.ros.org/en/humble/Installation.html)。
 
 ## 安装 ROS 2 Humble
 
-### 官方软件包安装方式
+### 区域设置
 
-先配置软件包源：
+请确保系统使用支持 UTF-8 的区域设置。如果你处在精简环境中（例如 Docker 容器），区域设置可能是 POSIX 之类的最小配置。官方使用以下设置进行测试；使用其他支持 UTF-8 的区域设置通常也没有问题。
+
+```bash
+locale  # check for UTF-8
+
+sudo apt update && sudo apt install locales
+sudo locale-gen en_US en_US.UTF-8
+sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+locale  # verify settings
+```
+
+### 设置软件源
+
+你需要将 ROS 2 apt 软件仓库添加到系统中。
+
+首先，确保已启用 [Ubuntu Universe 软件仓库](https://help.ubuntu.com/community/Repositories/Ubuntu)。
 
 ```bash
 sudo apt install software-properties-common
 sudo add-apt-repository universe
-sudo apt update
-sudo apt install curl -y
-
-sudo curl -sSL \
-  https://raw.githubusercontent.com/ros/rosdistro/master/ros.key \
-  -o /usr/share/keyrings/ros-archive-keyring.gpg
-
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" \
-  | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
 ```
 
-安装桌面版本，其中包含 RViz 等可视化工具；`ros-dev-tools` 提供常用开发工具：
+[ros-apt-source](https://github.com/ros-infrastructure/ros-apt-source/) 软件包为各个 ROS 软件仓库提供密钥和 apt 软件源配置。安装 ros2-apt-source 软件包后，系统会完成 ROS 2 软件仓库的配置。ROS 软件仓库发布该软件包的新版本时，仓库配置也会自动更新。
 
 ```bash
+sudo apt update && sudo apt install curl -y
+export ROS_APT_SOURCE_VERSION=$(curl -s https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest | grep -F "tag_name" | awk -F'"' '{print $4}')
+curl -L -o /tmp/ros2-apt-source.deb "https://github.com/ros-infrastructure/ros-apt-source/releases/download/${ROS_APT_SOURCE_VERSION}/ros2-apt-source_${ROS_APT_SOURCE_VERSION}.$(. /etc/os-release && echo ${UBUNTU_CODENAME:-${VERSION_CODENAME}})_all.deb"
+sudo dpkg -i /tmp/ros2-apt-source.deb
+```
+
+### 安装 ROS 2 软件包
+
+设置软件仓库后，更新 apt 软件仓库缓存。
+```bash
 sudo apt update
-sudo apt upgrade
+```
+
+
+桌面版安装：包含 ROS、RViz、演示程序和教程。
+```bash
 sudo apt install ros-humble-desktop
+```
+
+安装开发工具：用于构建 ROS 软件包的编译器及其他工具。
+```bash
 sudo apt install ros-dev-tools
 ```
 
-配置 Bash 终端环境：
+### 配置环境
+
+#### 加载配置脚本
+
+加载以下文件来配置环境：
 
 ```bash
-echo 'source /opt/ros/humble/setup.bash' >> ~/.bashrc
-source ~/.bashrc
-```
-
-若 `.bashrc` 已有相同配置，无需重复追加。仅希望在当前终端生效时，可以直接执行 `source /opt/ros/humble/setup.bash`。
-
-### 原手册提供的替代安装方式
-
-原手册也提供了以下安装入口，和上述方式任选其一：
-
-```bash
-wget http://fishros.com/install -O fishros && . fishros
-```
-
-按脚本提示操作完成安装。
-
-### 验证安装
-
-```bash
-ros2 --help
-```
-
-终端应显示 ROS 2 命令帮助。
-
-```{admonition} 图片占位 · 原图 3-1：ROS 2 安装成功
-:class: figure-placeholder
-待补充 `ros2 --help` 输出截图。建议文件名：`images/fig-3-1-ros2-help.png`。
-```
-
-## 安装 MoveIt 2
-
-MoveIt 2 提供运动规划、正逆运动学、碰撞检测、轨迹生成与优化、机器人控制集成、抓取操作及 RViz 调试能力。
-
-按原手册安装 MoveIt 2 和 MoveIt Servo：
-
-```bash
-sudo apt update
-sudo apt install ros-humble-moveit
-sudo apt install ros-humble-moveit-servo
 source /opt/ros/humble/setup.bash
 ```
 
-原手册参考链接：[MoveIt 2 二进制安装指南](https://moveit.ai/install-moveit2/binary/)。
-
-## 安装 Gazebo Fortress
-
-Gazebo Fortress 属于原 Ignition Gazebo 系列，用于机器人物理仿真。它提供渲染、物理模拟、场景编辑及通信能力，可通过 ROS 集成组件与 ROS 2 配合使用。
-
-### 准备基础工具并安装 Fortress
-
-```bash
-sudo apt-get update
-sudo apt-get install lsb-release gnupg
-
-sudo curl https://packages.osrfoundation.org/gazebo.gpg \
-  --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg
-
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" \
-  | sudo tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null
-
-sudo apt-get update
-sudo apt-get install ignition-fortress
+```{note}
+如果你使用的不是 bash，请将 .bash 替换为相应 shell 的后缀。可用文件包括 setup.bash、setup.sh 和 setup.zsh。
 ```
 
-### 安装 ROS 2 集成并配置环境
-
+为了日后方便，可以把配置脚本写入环境中，这样每次启动终端都会自动加载`/opt/ros/humble/setup.bash`脚本：
 ```bash
-sudo apt install -y ros-humble-ros-gz
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 ```
 
-原手册给出的环境加载路径为 `/usr/share/gz/setup.bash`。该路径需要结合实际安装结果确认；若该文件存在，可按原手册追加：
+### 试运行示例
 
+在一个终端中运行 C++ talker：
 ```bash
-echo 'source /usr/share/gz/setup.bash' >> ~/.bashrc
-source ~/.bashrc
+ros2 run demo_nodes_cpp talker
 ```
 
-原手册参考链接：[Gazebo Fortress 安装指南](https://gazebosim.org/docs/fortress/install_ubuntu/)。
+在另一个终端加载环境后运行 Python listener：
+```bash
+source /opt/ros/humble/setup.bash
+ros2 run demo_nodes_py listener
+```
 
-### 虚拟机中的渲染问题
+你应该会看到 talker 显示它正在 Publishing（发布）消息，而 listener 显示 I heard（我收到了）这些消息。这说明 C++ 和 Python API 均能正常工作。成功了！
 
-如果在 Ubuntu 虚拟机中出现网格闪烁或空白渲染窗口，原手册建议尝试软件渲染：
+## 安装 Elite Robots ROS 2 驱动
+
+### 在线安装
+
+先加载所用 ROS 发行版的环境，确认 `ROS_DISTRO` 已设置。以下安装方式要求该发行版的软件源中已有对应二进制包；可先用 `apt-cache policy ros-${ROS_DISTRO}-elite-robots` 查看候选版本。若无候选版本，改用下方源码构建流程。二进制发布版与工作空间中的最新源码可能存在接口差异，本手册以当前源码为核对依据。
+
+```bash
+sudo apt install ros-${ROS_DISTRO}-elite-robots
+
+# （可选）如果需要使用 Gazebo（仅humble可用）
+sudo apt install ros-humble-elite-robots-simulation-gz
+```
+
+### 编译安装
+
+1. 创建工作空间并下载源码
+```bash
+mkdir -p ~/elite_ros_ws/src
+
+cd ~/elite_ros_ws/src
+
+# ROS2 驱动
+git clone --branch ${ROS_DISTRO} --single-branch https://github.com/EliteRobots/Elite_Robots_CS_ROS2_Driver.git
+
+# 机器人描述文件和模型
+git clone --branch ${ROS_DISTRO} --single-branch https://github.com/EliteRobots/Elite_Robots_CS_ROS2_Description.git
+
+# 机器人SDK
+git clone https://github.com/EliteRobots/Elite_Robots_CS_SDK.git
+
+# （可选）如果需要使用 Gazebo（仅humble可用）
+git clone --branch humble --single-branch https://github.com/EliteRobots/Elite_Robots_CS_ROS2_GZ_Simulation.git
+```
+
+2. 安装依赖
+```bash
+cd ~/elite_ros_ws
+
+sudo rosdep init # 首次执行需要
+
+rosdep update
+
+rosdep install --ignore-src --rosdistro "$ROS_DISTRO" --from-paths src -y
+```
+
+3. 编译与加载配置
+
+```bash
+colcon build
+```
+
+编译成功会有类似如下的输出：
+```
+Starting >>> elite_robots_description
+Starting >>> elite_cs_series_sdk
+Starting >>> elite_robots_msgs
+Starting >>> elite_robots_dashboard_msgs
+Finished <<< elite_robots_description [15.6s]
+Starting >>> elite_robots_moveit_config
+[Processing: elite_cs_series_sdk, elite_robots_dashboard_msgs, elite_robots_moveit_config, elite_robots_msgs]
+Finished <<< elite_robots_moveit_config [39.3s]
+Starting >>> elite_robots_simulation_gz
+Finished <<< elite_robots_simulation_gz [10.7s]
+[Processing: elite_cs_series_sdk, elite_robots_dashboard_msgs, elite_robots_msgs]
+Finished <<< elite_robots_dashboard_msgs [1min 49s]
+Finished <<< elite_cs_series_sdk [2min 10s]
+Starting >>> elite_robots_calibration
+Finished <<< elite_robots_msgs [2min 19s]
+Starting >>> elite_robots_controllers
+Starting >>> elite_robots_driver
+[Processing: elite_robots_calibration, elite_robots_controllers, elite_robots_driver]
+[Processing: elite_robots_calibration, elite_robots_controllers, elite_robots_driver]
+Finished <<< elite_robots_calibration [1min 36s]
+Finished <<< elite_robots_controllers [1min 32s]
+[Processing: elite_robots_driver]
+[Processing: elite_robots_driver]
+Finished <<< elite_robots_driver [2min 38s]
+Starting >>> elite_robots
+Finished <<< elite_robots [4.79s]
+
+Summary: 10 packages finished [5min 3s]
+```
+> 只要最后的`Summary`没有提示failed、aborted就认为是编译成功
+
+使用下面的命令加载配置：
+
+```bash
+source ~/elite_ros_ws/install/setup.bash
+```
+
+如需每次新开终端自动加载，可以运行：
+
+```bash
+echo 'source ~/elite_ros_ws/install/setup.bash' >> ~/.bashrc
+```
+
+## 验证
+
+```bash
+ros2 launch elite_robots_description view_cs.launch.py cs_type:=cs66
+```
+
+运行后会出现一个显示了 CS66 的 rviz 界面，以及一个操控面板。
+
+完成后继续阅读[驱动入门](driver.md)，验证状态反馈与基本控制。
+
+## 虚拟机中的渲染问题
+
+如果在 Ubuntu 虚拟机中出现网格闪烁或空白渲染窗口，建议尝试软件渲染：
 
 ```bash
 echo 'export LIBGL_ALWAYS_SOFTWARE=true' >> ~/.bashrc
@@ -123,66 +207,3 @@ source ~/.bashrc
 ```
 
 该设置用于处理虚拟机图形加速受限的情况。
-
-## 安装 ELITE SDK
-
-ELITE SDK 是用于 CS、ES 系列机器人的 C++ 库。按原手册要求，应在安装 ROS 2 驱动前先安装 SDK，推荐使用源码编译安装。
-
-SDK 的完整安装和使用步骤请参阅《C++ SDK 快速使用手册》。原手册未在本章提供 SDK 构建命令，因此本版也不补写与当前 SDK 版本绑定的安装步骤。
-
-## 获取并编译 ROS 2 驱动
-
-### 创建工作空间并下载源码
-
-```bash
-mkdir -p ~/elite_ros_ws/src
-cd ~/elite_ros_ws/src
-git clone https://github.com/Elite-Robots/Elite_Robots_CS_ROS2_Driver.git
-```
-
-### 安装依赖
-
-```bash
-cd ~/elite_ros_ws
-sudo rosdep init
-rosdep update
-rosdep install --ignore-src --rosdistro "$ROS_DISTRO" --from-paths src -y
-```
-
-`rosdep init` 仅需在系统首次初始化时执行。执行依赖安装前，应已加载 ROS 2 Humble 环境，使 `ROS_DISTRO` 为 `humble`。
-
-### 编译并加载工作空间
-
-```bash
-cd ~/elite_ros_ws
-colcon build
-source ~/elite_ros_ws/install/setup.bash
-```
-
-如需每次新开终端自动加载，可以追加一次：
-
-```bash
-echo 'source ~/elite_ros_ws/install/setup.bash' >> ~/.bashrc
-source ~/.bashrc
-```
-
-### 验证驱动启动
-
-先按[机器人端配置](robot_setup.md)准备实体机器人或虚拟示教器，再替换参数执行：
-
-```bash
-ros2 launch eli_cs_robot_driver elite_control.launch.py \
-  robot_ip:=<robot_ip> \
-  local_ip:=<local_ip> \
-  cs_type:=<cs_type>
-```
-
-| 参数 | 含义 |
-| --- | --- |
-| `robot_ip` | 实体机器人 IP；原手册的虚拟示教器场景填写本地计算机 IP |
-| `local_ip` | 运行驱动的计算机 IP |
-| `cs_type` | 机器人型号，例如 `cs66`、`cs63` |
-
-原手册还列出了 `cc612` 这一型号字符串，其准确拼写待后续核对。本版不将其擅自替换为其他型号。
-
-完成后继续阅读[驱动入门](driver.md)，验证状态反馈与基本控制。

@@ -40,7 +40,7 @@ ros2 run elite_robots_simulation_gz gz_control.py --example
 
 ## 使用 MoveIt 2 控制 Gazebo 机器人
 
-当前工作空间的 `elite_sim_moveit.launch.py` 仍引用旧的 `cs_moveit.launch.py`，与当前 MoveIt 包不匹配。使用以下分步方式启动，每个终端都先加载 ROS 2 和工作空间环境；若前一节仿真仍在运行，先停止它再切换到本流程。
+以下介绍分别启动 Gazebo 和 MoveIt 2 的方式，每个终端都先加载 ROS 2 和工作空间环境；若前一节仿真仍在运行，先停止它再切换到本流程。
 
 **终端一：启动 Gazebo，关闭其附带的 RViz。**
 
@@ -55,7 +55,7 @@ ros2 launch elite_robots_simulation_gz elite_sim_control.launch.py \
 ros2 topic echo /clock --once
 ```
 
-Gazebo 运行时应收到递增的时间。当前仿真启动文件未显式配置时钟桥接；若没有 `/clock` 消息，按 `Ctrl+C` 退出等待，安装并启动桥接，保持该终端运行：
+Gazebo 运行时应收到递增的时间。若没有 `/clock` 消息，按 `Ctrl+C` 退出等待，安装并启动桥接，保持该终端运行：
 
 ```bash
 sudo apt install ros-humble-ros-gz-bridge

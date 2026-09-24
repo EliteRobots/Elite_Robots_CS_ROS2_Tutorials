@@ -2,9 +2,9 @@
 
 采用 **Sphinx + MyST Markdown**，按 **文档类型 → 语言 → 章节** 组织。每个文档/语言组合独立生成 HTML 站点及 PDF，具有各自的目录、搜索索引和输出路径。
 
-当前中文快速手册版本为 **1.0.0**，适配版本及面向读者的修订记录分别见正文首页和 `doc/quickstart/zh_CN/changelog.md`。手册版本独立于 ROS 包版本。
+当前中、英文快速手册版本均为 **1.0.0**，适配版本及面向读者的修订记录分别见正文首页和各译本的 `changelog.md`。手册版本独立于 ROS 包版本。
 
-目前只编写中文快速手册，已结合当前工作空间的驱动、机器人描述和 Gazebo 仿真源码核对；核对范围及待验证项见 `MAINTENANCE.md`。
+目前已编写中、英文快速手册，已结合当前工作空间的驱动、机器人描述和 Gazebo 仿真源码核对；核对范围及待验证项见 `MAINTENANCE.md`。
 
 ## 目录结构
 
@@ -15,6 +15,7 @@ doc/
 ├── conf.py                   # 共用 Sphinx 配置
 ├── _static/                  # 共用 HTML 样式
 └── quickstart/
+    ├── en/                   # 英文正文和独立图片目录
     └── zh_CN/
         ├── index.md
         ├── overview.md
@@ -31,9 +32,9 @@ CMakeLists.txt
 package.xml
 ```
 
-后续英文和法文快速手册分别放入 `doc/quickstart/en/`、`doc/quickstart/fr/`；usage 和接口手册分别使用 `doc/usage/<语言>/`、`doc/interfaces/<语言>/`。保持各译本的章节文件名一致，方便对照维护。
+英文快速手册位于 `doc/quickstart/en/`，后续法文版放入 `doc/quickstart/fr/`；usage 和接口手册分别使用 `doc/usage/<语言>/`、`doc/interfaces/<语言>/`。保持各译本的章节文件名一致，方便对照维护。
 
-`languages.json` 预设 `zh_CN`、`en`、`fr`，但语言配置不代表已有译文。`documents.json` 中目前仅启用 `quickstart/zh_CN`；usage、interfaces 尚未启用。
+`languages.json` 预设 `zh_CN`、`en`、`fr`，但语言配置不代表已有译文。`documents.json` 中目前启用 `quickstart/zh_CN` 和 `quickstart/en`；usage、interfaces 尚未启用。
 
 `README.md`、`MAINTENANCE.md` 和图片目录中的 README 是仓库维护资料，不参与正式 HTML/PDF 的正文构建。
 
@@ -63,7 +64,7 @@ PDF 字体由 `languages.json` 配置：西文使用 Latin Modern 和 DejaVu，�
 ## 直接构建
 
 ```bash
-# 所有已启用的文档及译本；目前仅中文快速手册
+# 所有已启用的文档及译本；目前为中、英文快速手册
 .venv/bin/python scripts/build_docs.py --format all
 
 # 只构建中文快速手册
@@ -92,7 +93,7 @@ PDF 字体由 `languages.json` 配置：西文使用 Latin Modern 和 DejaVu，�
 | 文档/语言 | HTML 入口 | PDF |
 | --- | --- | --- |
 | 中文快速手册 | `build/docs/quickstart/zh_CN/html/index.html` | `build/docs/quickstart/zh_CN/pdf/quickstart-zh_CN.pdf` |
-| 英文快速手册（后续） | `build/docs/quickstart/en/html/index.html` | `build/docs/quickstart/en/pdf/quickstart-en.pdf` |
+| 英文快速手册 | `build/docs/quickstart/en/html/index.html` | `build/docs/quickstart/en/pdf/quickstart-en.pdf` |
 | 法文使用手册（后续） | `build/docs/usage/fr/html/index.html` | `build/docs/usage/fr/pdf/usage-fr.pdf` |
 
 HTML 是独立多页面站点，PDF 是独立的一本手册。PDF 文件名带语言代码，复制到同一目录时也不会覆盖。构建将 Sphinx 警告视为失败。
@@ -109,12 +110,16 @@ python3 -m http.server 8000 --directory build/docs
 
 ROS 包名为 `elite_robots_cs_tutorials`。默认构建所有已启用译本的 HTML；PDF 通过 `BUILD_DOCS_PDF` 启用。
 
+先按上面的“安装构建依赖”准备文档环境。CMake 默认优先使用本仓库的 `.venv/bin/python`，没有该环境时使用找到的 `Python3_EXECUTABLE`。文档解释器独立于 ament 使用的 Python，不需要激活 `.venv`，也不需要覆盖整个包的 `Python3_EXECUTABLE`。
+
+准备好依赖后，在工作空间直接执行 `colcon build` 即可构建 HTML。需要显式选择其他文档环境时，传入 `-DDOCS_PYTHON_EXECUTABLE=/path/to/python`；设为空字符串可恢复自动选择。若所选解释器缺少 Sphinx 或 MyST，会在 CMake 配置阶段报告该解释器路径及处理方法，不会自动安装依赖。
+
+
 ```bash
 source /opt/ros/humble/setup.bash
 cd ~/elite_ros_ws
 colcon build --packages-select elite_robots_cs_tutorials \
   --cmake-args \
-  -DPython3_EXECUTABLE="$PWD/src/Elite_Robots_CS_ROS2_Tutorials/.venv/bin/python" \
   -DBUILD_DOCS=ON \
   -DBUILD_DOCS_PDF=ON \
   -DDOCS_DOCUMENT=all \
@@ -140,14 +145,14 @@ install/elite_robots_cs_tutorials/share/elite_robots_cs_tutorials/manuals/quicks
 
 ## 新增语言版本
 
-以英文快速手册为例：
+英文版已启用。新增其他语言时，以法文快速手册为例：
 
-1. 创建 `doc/quickstart/en/index.md` 及章节文件，编写英文内容和该版本的 `toctree`。也要翻译正文标题、图片说明和首页文本；配置不会自动翻译正文。
+1. 创建 `doc/quickstart/fr/index.md` 及章节文件，编写法文内容和该版本的 `toctree`。也要翻译正文标题、图片说明和首页文本；配置不会自动翻译正文。
 2. 在 `doc/documents.json` 的 `quickstart.languages` 中新增以下成员：
 
    ```json
-   "en": {
-     "title": "CS, ES and LS Series ROS 2 Quickstart Guide",
+   "fr": {
+     "title": "Guide de démarrage ROS 2 pour les séries CS, ES et LS",
      "version": "1.0.0",
      "enabled": true
    }
@@ -157,10 +162,10 @@ install/elite_robots_cs_tutorials/share/elite_robots_cs_tutorials/manuals/quicks
 
    ```bash
    .venv/bin/python scripts/build_docs.py \
-     --document quickstart --language en --format all
+     --document quickstart --language fr --format all
    ```
 
-法语同理使用 `fr`。新增其他语言时，先在 `languages.json` 中添加对应的 Sphinx 语言代码、作者、版权与字体配置。译文尚未准备好时，可将该译本设为 `enabled: false`。
+新增其他语言时，先在 `languages.json` 中添加对应的 Sphinx 语言代码、作者、版权与字体配置。译文尚未准备好时，可将该译本设为 `enabled: false`。
 
 每个译本独立记录版本号，以反映翻译进度；正文首页和修订记录中的文档版本需与清单一致。该方案采用独立 Markdown 译本，不使用 gettext/PO 文件。
 
@@ -209,3 +214,13 @@ HTML 使用仓库内的 `elite` 主题，继承 Sphinx `basic`，无需安装第
 - 搜索使用 Sphinx 自带索引。使用 `--format all`，或输出目录中已有对应 PDF 时，显示 PDF 下载入口；只构建 HTML 且无 PDF 时不显示。
 - 各语言仍独立构建，页头显示当前语言及文档版本。未启用的译本和其他手册不显示跳转入口。
 - PDF 继续使用现有 XeLaTeX 排版，不继承 HTML CSS。正式正文不显示资料来源说明；图片提取元数据作为维护记录保留。
+
+## 英文快速手册
+
+英文版位于 `doc/quickstart/en/`，与中文版本同为 `1.0.0`。正文、图注、替代文本和示例注释已翻译，命令及接口标识保留。24 幅现有截图复制到英文版独立的 `images/` 目录，图片中的界面文字暂保持原样，后续可逐一替换为英文截图。
+
+```bash
+.venv/bin/python scripts/build_docs.py --document quickstart --language en --format all
+```
+
+未指定语言的默认构建现在会同时生成中文和英文版本。只需中文时传入 `--language zh_CN`，或在 colcon 中设置 `-DDOCS_LANGUAGE=zh_CN`。

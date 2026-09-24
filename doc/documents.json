@@ -6,6 +6,11 @@
         "title": "CS、ES、LS 系列 ROS 2 软件包快速使用手册",
         "version": "1.0.0",
         "enabled": true
+      },
+      "en": {
+        "title": "CS, ES and LS Series ROS 2 Quickstart Guide",
+        "version": "1.0.0",
+        "enabled": true
       }
     }
   },

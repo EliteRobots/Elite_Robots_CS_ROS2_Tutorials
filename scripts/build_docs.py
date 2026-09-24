@@ -62,7 +62,12 @@ def main():
             parser.error("Missing PDF tools: " + ", ".join(missing) + ". See README.md.")
     for key, code in builds:
         output = args.output.resolve() / key / code
-        env = dict(os.environ, ELITE_DOCUMENT=key, ELITE_LANGUAGE=code)
+        env = dict(
+            os.environ, ELITE_DOCUMENT=key, ELITE_LANGUAGE=code,
+            ELITE_PDF_AVAILABLE="1" if (
+                "pdf" in formats or (output / "pdf" / f"{key}-{code}.pdf").is_file()
+            ) else "0",
+        )
         for fmt in formats:
             builder = "latexpdf" if fmt == "pdf" else fmt
             subprocess.run([

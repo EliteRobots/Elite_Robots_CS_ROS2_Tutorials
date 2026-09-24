@@ -2,7 +2,9 @@
 
 采用 **Sphinx + MyST Markdown**，按 **文档类型 → 语言 → 章节** 组织。每个文档/语言组合独立生成 HTML 站点及 PDF，具有各自的目录、搜索索引和输出路径。
 
-目前只编写中文快速手册，依据 **CS&ES&LS_ROS2软件包快速使用手册_Ver2.16.1.pdf**（2026-08-07）重写，已结合当前工作空间的驱动、机器人描述和 Gazebo 仿真源码修订；核对范围及待验证项见 `MAINTENANCE.md`。
+当前中文快速手册版本为 **1.0.0**，适配版本及面向读者的修订记录分别见正文首页和 `doc/quickstart/zh_CN/changelog.md`。手册版本独立于 ROS 包版本。
+
+目前只编写中文快速手册，已结合当前工作空间的驱动、机器人描述和 Gazebo 仿真源码核对；核对范围及待验证项见 `MAINTENANCE.md`。
 
 ## 目录结构
 
@@ -23,6 +25,7 @@ doc/
         ├── moveit.md
         ├── gazebo.md
         ├── support.md
+        ├── changelog.md
         └── images/           # 中文界面截图
 scripts/build_docs.py
 CMakeLists.txt
@@ -146,7 +149,7 @@ install/elite_robots_cs_tutorials/share/elite_robots_cs_tutorials/manuals/quicks
    ```json
    "en": {
      "title": "CS, ES and LS Series ROS 2 Quickstart Guide",
-     "version": "Ver2.16.1",
+     "version": "1.0.0",
      "enabled": true
    }
    ```
@@ -160,7 +163,7 @@ install/elite_robots_cs_tutorials/share/elite_robots_cs_tutorials/manuals/quicks
 
 法语同理使用 `fr`。新增其他语言时，先在 `languages.json` 中添加对应的 Sphinx 语言代码、作者、版权与字体配置。译文尚未准备好时，可将该译本设为 `enabled: false`。
 
-每个译本独立记录版本号，以反映翻译进度；正文内展示的来源版本也需同步维护。该方案采用独立 Markdown 译本，不使用 gettext/PO 文件。
+每个译本独立记录版本号，以反映翻译进度；正文首页和修订记录中的文档版本需与清单一致。该方案采用独立 Markdown 译本，不使用 gettext/PO 文件。
 
 ## 新增 usage 或接口手册
 
@@ -191,8 +194,19 @@ Gazebo 启动结果。
 
 原中文源文件已从 `doc/quickstart/` 移至 `doc/quickstart/zh_CN/`。旧输出目录 `build/docs/quickstart/html/`、`pdf/`、`latex/`、`doctrees/` 不再使用；本次迁移将已有的这些目录归档到 `build/pre-i18n/quickstart/`。其他工作空间中过去生成的旧输出可自行清理；构建不会自动删除它们。
 
-原手册对应关系、基础错误修正和待核对项见 `MAINTENANCE.md`。机器人操作命令仅作为文档整理，未执行硬件验证。
+源码核对记录和待确认项见 `MAINTENANCE.md`。机器人操作命令仅作为文档整理，未执行硬件验证。
 
 当前提供 ament_cmake 包结构，未执行 bloom-release 或上传网站。包维护者暂沿用现有驱动中的 Yan / yanxiaojia@elibot.cn；包版本 `0.1.0` 与来源手册版本分开管理。原手册保留所有权利，`package.xml` 暂记为 `Proprietary`；正式发布前由项目方确认维护者、许可及目标平台依赖。
 
 接入 ROS 官方文档托管时仍需单独配置 rosdoc2 入口与 rosdistro 的 `doc` 条目，并验证构建。这里的独立语言站点暂未添加网页语言切换器，bloom 也不会自动发布这些 PDF。
+
+## HTML 主题
+
+HTML 使用仓库内的 `elite` 主题，继承 Sphinx `basic`，无需安装第三方主题包或从外部 CDN 加载样式。布局参考 Elite 技术文档站点：白色顶栏、浅灰色章节目录及页内目录、蓝色选中项和主标题竖线。
+
+- `doc/_themes/elite/layout.html`：共用页面布局、搜索入口和前后章节导航。
+- `doc/_static/manual.css`：配色、排版及响应式布局；`manual.js`：移动导航、代码复制和页内目录高亮。
+- `doc/_static/elite-logo.png`：本地品牌 Logo；`doc/conf.py`：主题及中、英、法界面文字配置。
+- 搜索使用 Sphinx 自带索引。使用 `--format all`，或输出目录中已有对应 PDF 时，显示 PDF 下载入口；只构建 HTML 且无 PDF 时不显示。
+- 各语言仍独立构建，页头显示当前语言及文档版本。未启用的译本和其他手册不显示跳转入口。
+- PDF 继续使用现有 XeLaTeX 排版，不继承 HTML CSS。正式正文不显示资料来源说明；图片提取元数据作为维护记录保留。

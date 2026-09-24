@@ -153,7 +153,7 @@ sleep(1)
 
 #### 在计算机启动 TCP 服务
 
-将下列代码保存为 `sdk_connection_test.py`。本版将原示例的监听地址改为通过参数传入 Local IP，以便机器人通过局域网连接；仅监听 `localhost` 无法接受远端机器人的连接。
+将下列代码保存为 `sdk_connection_test.py`。通过参数传入 Local IP，以便机器人通过局域网连接；仅监听 `localhost` 无法接受远端机器人的连接。
 
 ```python
 import argparse

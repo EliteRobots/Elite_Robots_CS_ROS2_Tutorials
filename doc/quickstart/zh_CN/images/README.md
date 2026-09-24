@@ -29,6 +29,6 @@
 | 4.7 | `fig-4-7-trajectory-result.png` | 轨迹执行结果 | 图 4-9：轨迹执行结果（PDF 40 页） |
 | 5.1 | `fig-5-1-moveit-planning.png` | 生成轨迹 | 图 4-10：生成轨迹（PDF 42 页） |
 | 6.1 | `fig-6-1-gazebo.png` | Gazebo 启动结果 | 图 4-11：Gazebo 启动结果（PDF 43 页） |
-| 7.1 | `fig-7-1-wechat-qr.png` | 封底公众号二维码 | 封底公众号二维码（PDF 46 页） |
+| 7.1 | `fig-7-1-wechat-qr.png` | 微信公众号二维码 | 封底公众号二维码（PDF 46 页） |
 
 正文共 24 幅图片。`extraction-manifest.json` 的 `images` 记录当前正文图片；`original_extraction` 保留完整的历史提取记录（其中部分图片已删除），`unused_assets` 列出未插入正文的辅助资源。

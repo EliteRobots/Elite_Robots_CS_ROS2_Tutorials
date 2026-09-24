@@ -59,7 +59,7 @@
 ## 多语言目录迁移
 
 - 中文正文迁移到 `doc/quickstart/zh_CN/`，内容和章节间相对链接保持不变。
-- 语言相关图片放在各语言目录的 `images/`；无语言文字的共用图片放在 `doc/quickstart/images/`。
+- 语言相关图片放在各语言目录的 `images/`；当前没有共用图片，已移除仅含说明文件的 `doc/quickstart/images/`，后续需要时再创建。
 - `doc/documents.json` 按文档及语言管理标题、版本、启用状态。
 - `doc/languages.json` 集中管理语言名称、作者、版权及 PDF 字体配置，预设 `zh_CN`、`en`、`fr`。
 - 构建脚本增加 `--language`，CMake 增加 `DOCS_LANGUAGE`；默认构建所有已启用的文档/语言组合。

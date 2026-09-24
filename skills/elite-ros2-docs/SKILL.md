@@ -34,7 +34,7 @@ description: 维护 Elite_Robots_CS_ROS2_Tutorials 的 MyST 文档、独立多�
 
 ## 图片与编号
 
-语言专用图片放在 `doc/<document>/<language>/images/`，无语言文字的共用资源放在 `doc/<document>/images/`。使用 MyST `figure`，设置唯一的 `:name:`、简明 `:alt:` 和图注。
+语言专用图片放在 `doc/<document>/<language>/images/`，无语言文字的共用资源可按需创建 `doc/<document>/images/` 存放，没有共用资源时不保留占位目录。使用 MyST `figure`，设置唯一的 `:name:`、简明 `:alt:` 和图注。
 
 章节序号取自当前 `toctree` 的顺序，图序号按章节内出现顺序计算。当前中文快速手册采用 `fig-章-序号-说明.png`；显示图号由 Sphinx `numfig` 自动生成，不在图注重复手写。跨文引用图号时使用 `{numref}` 指向标签。
 

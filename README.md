@@ -15,7 +15,6 @@ doc/
 ├── conf.py                   # 共用 Sphinx 配置
 ├── _static/                  # 共用 HTML 样式
 └── quickstart/
-    ├── images/               # 不含语言文字的共用图片
     └── zh_CN/
         ├── index.md
         ├── overview.md
@@ -174,7 +173,7 @@ install/elite_robots_cs_tutorials/share/elite_robots_cs_tutorials/manuals/quicks
 ## 图片组织
 
 - **语言专用图片**：例如中文界面截图，放在 `doc/quickstart/zh_CN/images/`，正文引用 `images/文件名.png`。当前正文图片使用这种引用方式。
-- **共用图片**：例如不含文字的机器人照片，放在 `doc/quickstart/images/`，各译本通过 `../images/文件名.png` 引用。Sphinx 构建时会复制到对应 HTML/PDF 输出所需的位置。
+- **共用图片（按需创建）**：当前没有共用图片，因此未保留共用目录。后续需要时创建 `doc/quickstart/images/`，各译本通过 `../images/文件名.png` 引用。Sphinx 构建时会复制到对应 HTML/PDF 输出所需的位置。
 
 新增或替换配图时使用 MyST `figure`，例如：
 

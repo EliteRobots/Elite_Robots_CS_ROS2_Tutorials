@@ -1,6 +1,6 @@
 ---
 name: elite-ros2-docs
-description: 维护 Elite_Robots_CS_ROS2_Tutorials 的 MyST 文档、独立多语言手册、图片编号及 Sphinx HTML/PDF 构建；用于编写、翻译或校对快速手册、usage、接口及多机械臂文档，以及与相邻 ROS 2 软件包核对命令。不用于实现机器人驱动功能。
+description: 维护 Elite_Robots_CS_ROS2_Tutorials 的多语言 MyST 手册、Tutorials 与示例下载；用于编写、翻译或校对快速手册、接口、多机械臂及进阶教程，核对 ROS 2 源码并构建 Sphinx HTML/PDF。不用于实现机器人驱动功能。
 ---
 
 # Elite ROS 2 文档维护
@@ -18,7 +18,7 @@ description: 维护 Elite_Robots_CS_ROS2_Tutorials 的 MyST 文档、独立多�
 ## 文档与语言结构
 
 - 正文位于 `doc/<document>/<language>/`，每个组合以 `index.md` 的 `toctree` 组织章节，独立生成 HTML 站点和 PDF。
-- `doc/documents.json` 管理 `quickstart`、`usage`、`interfaces`、`multi_arm` 等手册及各译本的启用状态和版本。读取实际配置，不因存在预留项而自动编写或启用正文。
+- `doc/documents.json` 管理 `quickstart`、`usage`、`interfaces`、`multi_arm`、`tutorials` 等手册及各译本的启用状态和版本。读取实际配置，不因存在预留项而自动编写或启用正文。
 - `doc/languages.json` 管理语言元数据及 PDF 字体。新增语言时同时检查此文件和文档清单；配置了语言不等于已有译文。
 - 保持不同译本的章节文件名对应；章节链接使用相对路径。修改某个译本不等于其他译本已同步，不应自动提高未更新译本的版本号。
 - `doc/conf.py`、`doc/_static/` 和 `scripts/build_docs.py` 是共用构建配置。仅涉及正文时通常无需更改它们。
@@ -27,6 +27,14 @@ description: 维护 Elite_Robots_CS_ROS2_Tutorials 的 MyST 文档、独立多�
 新增手册/译本时先完成有效的 `index.md` 和所引用正文，再注册并启用对应组合。构建以清单为准，不为缺失译本生成空白成品或自动回退中文。新增文档类型时按需更新 README 和构建参数帮助文字，不把文档类型硬编码为固定枚举。
 
 翻译以指定语言正文为依据，保持章节顺序、接口标识、消息字段与常量、参数默认值、可执行命令一致；翻译表格、提示和链接文字，保留原有验证范围。可对照代码块、章节覆盖及生成页面的语言检查遗漏；不要把翻译工作描述为重新完成硬件或跨发行版验证。
+
+## Tutorials 与整包下载
+
+Tutorials 解释建模、配置关系和应用开发步骤；quickstart 保持最短启动流程。教程按 `doc/tutorials/<语言>/<主题>/` 组织，通过译本首页和主题 `index.md` 的 toctree 接入。扩展约定写在 README，不在正文加入未来包规划或空章节。源仓库提交、适配修改及验证记录集中在 MAINTENANCE，不为示例重复创建迁移说明或无实际用途的资源清单。
+
+完整示例维护在 `doc/tutorials/examples/<主题>/`。文档内单文件用 literalinclude 和 download 引用；整包下载由 `documents.json` 的 `downloads` 映射声明，键为 ZIP 名称（不带后缀），值为相对该文档根目录的示例目录。`conf.py` 的 builder-inited 回调从当前源码生成 `doc/<document>/downloads/*.zip`，生成目录应忽略提交，不手动维护压缩包副本。
+
+教程首页、主题开篇和末尾保留整包下载，准备页说明解压到同一个工作空间的 `src/`。使用本站 MyST download 链接；PDF 提示从 HTML 同名章节下载。示例修改后重建相关译本，核对 ZIP 文件列表和字节、一级目录、`.setup_assistant` 等隐藏配置及模型资源；确认缓存和构建目录未混入，页面下载与生成包一致。MoveIt 示例适配时按 [教程核对入口](references/source-map.md#moveit-教程示例) 检查模型与控制配置。
 
 ## 校对机器人操作内容
 
@@ -48,7 +56,7 @@ description: 维护 Elite_Robots_CS_ROS2_Tutorials 的 MyST 文档、独立多�
 
 章节序号取自当前 `toctree` 的顺序，图序号按章节内出现顺序计算。当前中文快速手册采用 `fig-章-序号-说明.png`；显示图号由 Sphinx `numfig` 自动生成，不在图注重复手写。跨文引用图号时使用 `{numref}` 指向标签。
 
-增删或重排图片时，一并检查文件名、`figure` 路径、`:name:`、交叉引用、图片 README 及 `extraction-manifest.json`。避免不可见字符，先核对目标文件名，防止重命名覆盖已有图片。用户只要求整理编号时保留图片字节，无需解读图像内容。
+增删或重排图片时，一并检查文件名、`figure` 路径、`:name:`、交叉引用及已有的图片 README、`extraction-manifest.json`；没有清单的教程不必创建清单。主题内图片可放在 `<语言>/<主题>/images/`。避免不可见字符，先核对目标文件名，防止重命名覆盖已有图片。用户只要求整理编号时保留图片字节，无需解读图像内容。
 
 当前提取清单将 `images`（正文现有图片）、`original_extraction`（历史 PDF 提取记录）和 `unused_assets`（辅助资源）分开记录。重命名后更新现有记录，保持原提取记录可追溯；不能因同名就断言用户替换后的图片仍是原图。仅按授权删除资源，未引用的辅助图片不必自动清理。
 
@@ -72,3 +80,7 @@ description: 维护 Elite_Robots_CS_ROS2_Tutorials 的 MyST 文档、独立多�
 构建脚本将 Sphinx 警告视为失败。按改动检查失效链接、缺图、重复标签、实际生成的图号，以及 LaTeX 日志中的缺字和溢出。长包名/控制器名的表格可使用 MyST `list-table` 的 `:widths:` 调整列宽。不要只凭存在旧成品就声称本次构建成功。
 
 提交前查看 diff 和 `git diff --check`；未跟踪的新文件不会被普通 diff 检查覆盖，暂存后再用 `git diff --cached --check` 检查实际提交内容。用户要求提交时纳入其指定范围；构建产物、虚拟环境及临时检查文件不入库。交付说明给出修改要点、真实验证结果和成品路径；尚未运行的硬件/仿真流程明确说明。
+
+## 技能维护
+
+本技能的受版本管理源文件位于项目 `skills/elite-ros2-docs/`。需要更新时先修改项目版本，验证 frontmatter、相对引用和 `agents/openai.yaml`，再按用户授权同步到环境技能目录，并核对文件一致；不要只改环境副本而漏掉项目提交。

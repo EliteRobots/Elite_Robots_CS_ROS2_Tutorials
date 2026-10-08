@@ -4,7 +4,7 @@
 
 当前中、英文快速手册版本均为 **1.0.0**，适配版本及面向读者的修订记录分别见正文首页和各译本的 `changelog.md`。手册版本独立于 ROS 包版本。
 
-目前已编写中、英文快速手册、接口手册及多机械臂手册（均为 1.0.0）。接口手册按本次指定源码目录独立核对，版本基线与快速手册不同；核对范围及待验证项见 `MAINTENANCE.md`。
+目前已编写中、英文快速手册、接口手册、多机械臂手册及 Tutorials（均为 1.0.0）。接口手册按本次指定源码目录独立核对，版本基线与快速手册不同；核对范围及待验证项见 `MAINTENANCE.md`。
 
 ## 目录结构
 
@@ -14,6 +14,10 @@ doc/
 ├── languages.json            # 共用语言元数据与字体配置
 ├── conf.py                   # 共用 Sphinx 配置
 ├── _static/                  # 共用 HTML 样式
+├── tutorials/
+│   ├── examples/moveit/     # 共用的工作单元和 C++ 示例包
+│   ├── en/moveit/           # 英文 MoveIt 教程及配图
+│   └── zh_CN/moveit/        # 中文 MoveIt 教程及配图
 ├── multi_arm/
 │   ├── examples/            # 共用完整 launch 模板
 │   ├── en/                  # 英文多机械臂手册
@@ -41,7 +45,7 @@ package.xml
 
 英文快速手册位于 `doc/quickstart/en/`，后续法文版放入 `doc/quickstart/fr/`；usage 和接口手册分别使用 `doc/usage/<语言>/`、`doc/interfaces/<语言>/`。保持各译本的章节文件名一致，方便对照维护。
 
-`languages.json` 预设 `zh_CN`、`en`、`fr`，但语言配置不代表已有译文。`documents.json` 中目前启用 `quickstart/zh_CN`、`quickstart/en`、`interfaces/zh_CN`、`interfaces/en`、`multi_arm/zh_CN` 和 `multi_arm/en`；usage 尚未启用。
+`languages.json` 预设 `zh_CN`、`en`、`fr`，但语言配置不代表已有译文。`documents.json` 中目前启用 `quickstart/zh_CN`、`quickstart/en`、`interfaces/zh_CN`、`interfaces/en`、`multi_arm/zh_CN`、`multi_arm/en`、`tutorials/zh_CN` 和 `tutorials/en`；usage 尚未启用。
 
 `README.md`、`MAINTENANCE.md` 和图片目录中的 README 是仓库维护资料，不参与正式 HTML/PDF 的正文构建。
 
@@ -71,7 +75,7 @@ PDF 字体由 `languages.json` 配置：西文使用 Latin Modern 和 DejaVu，�
 ## 直接构建
 
 ```bash
-# 所有已启用的文档及译本；目前为中、英文 quickstart、interfaces 和 multi_arm
+# 所有已启用的文档及译本；目前为中、英文 quickstart、interfaces、multi_arm 和 tutorials
 .venv/bin/python scripts/build_docs.py --format all
 
 # 只构建中文快速手册
@@ -105,6 +109,8 @@ PDF 字体由 `languages.json` 配置：西文使用 Latin Modern 和 DejaVu，�
 | 英文接口手册 | `build/docs/interfaces/en/html/index.html` | `build/docs/interfaces/en/pdf/interfaces-en.pdf` |
 | 中文多机械臂手册 | `build/docs/multi_arm/zh_CN/html/index.html` | `build/docs/multi_arm/zh_CN/pdf/multi_arm-zh_CN.pdf` |
 | 英文多机械臂手册 | `build/docs/multi_arm/en/html/index.html` | `build/docs/multi_arm/en/pdf/multi_arm-en.pdf` |
+| 中文教程 | `build/docs/tutorials/zh_CN/html/index.html` | `build/docs/tutorials/zh_CN/pdf/tutorials-zh_CN.pdf` |
+| 英文教程 | `build/docs/tutorials/en/html/index.html` | `build/docs/tutorials/en/pdf/tutorials-en.pdf` |
 | 法文使用手册（后续） | `build/docs/usage/fr/html/index.html` | `build/docs/usage/fr/pdf/usage-fr.pdf` |
 
 HTML 是独立多页面站点，PDF 是独立的一本手册。PDF 文件名带语言代码，复制到同一目录时也不会覆盖。构建将 Sphinx 警告视为失败。
@@ -270,3 +276,26 @@ HTML 使用仓库内的 `elite` 主题，继承 Sphinx `basic`，无需安装第
 colcon 可设置 `-DDOCS_DOCUMENT=multi_arm -DDOCS_LANGUAGE=all`。两个完整模板放在 `doc/multi_arm/examples/`，正文以 literalinclude 展示，并提供下载链接；修改模板后应重建两种语言。HTML 展示完整代码块；PDF 将同一模板按连续行分段排版，下载文件始终为完整脚本。
 
 手册说明独立多臂控制与联合规划的区别，补充启动链日志限制及逐臂验证步骤。模板只做离线语法与配置生成检查，未启动实体机器人、fake hardware 或 MoveIt。
+
+## Tutorials（中英文 1.0.0）
+
+正文位于 `doc/tutorials/<语言>/`，各译本通过首页 toctree 组织主题目录。MoveIt 教程位于 `moveit/`，覆盖工作空间准备、自定义工作单元、驱动接入、Setup Assistant、控制器映射、标定和 C++ 规划。它解释配置关系和开发步骤；quickstart 继续承担最短启动流程。
+
+```bash
+.venv/bin/python scripts/build_docs.py --document tutorials --format all
+```
+
+colcon 使用 `-DDOCS_DOCUMENT=tutorials`。不需要修改通用构建脚本、主题或 CMake 文档类型枚举。新增包的教程时，在每个已有译本下增加主题子目录及 `index.md`，再接入该译本首页 toctree；对应示例放在 `doc/tutorials/examples/<主题>/`。这项组织约定仅用于仓库维护，不写入面向读者的正文。
+
+四个共用示例包位于 `doc/tutorials/examples/moveit/`。它们是文档资源，默认文档构建不启动 ROS 节点；按教程复制到独立工作空间后构建。正文通过 literalinclude 引用源文件并提供单文件下载，HTML 显示完整代码，PDF 按连续行分段。模型参数以示例描述包为唯一维护来源，控制包安装相同数据到驱动要求的路径。
+
+来源仓库、提交、章节对应、截图保留情况和离线验证结果见 `MAINTENANCE.md`。
+
+
+### 示例整包下载
+
+中英文 MoveIt 教程的开头、工作空间准备页和末尾均提供 `hello_moveit.zip`、`my_elite_robot_cell.zip` 下载。下载内容来自当前仓库 `doc/tutorials/examples/moveit/`，包含模型、配置、源码和隐藏的 `.setup_assistant` 文件。
+
+`doc/documents.json` 中的 `tutorials.downloads` 将压缩包名映射到示例目录；`doc/conf.py` 在 Sphinx 读取正文前重新打包。修改示例后正常构建文档即可更新下载，无需维护第二份源码。ZIP 固定条目时间并排序，源码与权限未变时字节保持一致；排除 Git、Python 缓存及 build/install/log 目录。生成文件位于 `doc/tutorials/downloads/`，已加入 `.gitignore`，由 Sphinx 复制到 HTML 的 `_downloads`，随成品站点提供下载。
+
+PDF 提示读者从 HTML 同名章节下载，不依赖 GitHub 或另一个托管地址。

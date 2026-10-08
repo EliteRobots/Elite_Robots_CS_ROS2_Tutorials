@@ -2,6 +2,8 @@
 import json
 import os
 from pathlib import Path
+from io import BytesIO
+from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
 
 DOC_DIR = Path(__file__).resolve().parent
 document_id = os.environ.get("ELITE_DOCUMENT", "quickstart")
@@ -137,3 +139,34 @@ html_context = {
     "elite_output_name": output_name,
     "elite_pdf_available": os.environ.get("ELITE_PDF_AVAILABLE") == "1",
 }
+
+
+def prepare_example_downloads(app):
+    """Package the current example sources before Sphinx resolves downloads."""
+    document_root = DOC_DIR / document_id
+    excluded = {".git", "__pycache__", "build", "install", "log"}
+    for name, relative_source in documents[document_id].get("downloads", {}).items():
+        source = document_root / relative_source
+        if not source.is_dir():
+            raise FileNotFoundError(f"Missing download source: {source}")
+        buffer = BytesIO()
+        with ZipFile(buffer, "w", compression=ZIP_DEFLATED) as archive:
+            for path in sorted(source.rglob("*")):
+                relative = path.relative_to(source)
+                if (not path.is_file() or excluded.intersection(relative.parts)
+                        or path.suffix in {".pyc", ".pyo"}):
+                    continue
+                info = ZipInfo((Path(source.name) / relative).as_posix())
+                info.create_system = 3
+                info.external_attr = (path.stat().st_mode & 0xFFFF) << 16
+                info.compress_type = ZIP_DEFLATED
+                archive.writestr(info, path.read_bytes())
+        target = document_root / "downloads" / f"{name}.zip"
+        target.parent.mkdir(parents=True, exist_ok=True)
+        content = buffer.getvalue()
+        if not target.exists() or target.read_bytes() != content:
+            target.write_bytes(content)
+
+
+def setup(app):
+    app.connect("builder-inited", prepare_example_downloads)

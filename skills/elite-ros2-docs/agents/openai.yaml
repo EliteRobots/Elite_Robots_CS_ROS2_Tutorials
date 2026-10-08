@@ -1,4 +1,4 @@
 interface:
   display_name: "Elite ROS 2 文档维护"
-  short_description: "维护多语言接口与多臂 MyST 手册、核对源码并构建 HTML/PDF"
-  default_prompt: "使用 $elite-ros2-docs 维护或翻译当前仓库的手册，按指定源码基线核对接口及多臂模板，并验证对应语言的构建。"
+  short_description: "维护多语言 MyST 手册与 Tutorials、示例下载及 HTML/PDF 构建"
+  default_prompt: "使用 $elite-ros2-docs 维护或翻译当前仓库的手册与教程，按指定源码核对接口和示例，并验证文档构建及下载。"

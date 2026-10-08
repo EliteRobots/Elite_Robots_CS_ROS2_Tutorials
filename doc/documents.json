@@ -47,5 +47,24 @@
         "enabled": true
       }
     }
+  },
+  "tutorials": {
+    "enabled": true,
+    "downloads": {
+      "hello_moveit": "examples/moveit/hello_moveit",
+      "my_elite_robot_cell": "examples/moveit/my_elite_robot_cell"
+    },
+    "languages": {
+      "zh_CN": {
+        "title": "Elite Robots ROS 2 Tutorials",
+        "version": "1.0.0",
+        "enabled": true
+      },
+      "en": {
+        "title": "Elite Robots ROS 2 Tutorials",
+        "version": "1.0.0",
+        "enabled": true
+      }
+    }
   }
 }

@@ -40,6 +40,16 @@
 - `OnProcessExit` 只代表进程退出，若未检查退出码便不能宣称成功；某一臂启动链结束也不代表其他臂就绪。文档应给出逐臂状态查询。
 - 纯配置生成函数可离线检查 YAML 键、关节数量和前缀、运动学规划组与 RViz 映射。此类检查不等同于 fake hardware、MoveIt 或实机运行验证。
 
+## MoveIt 教程示例
+
+正文位于 `doc/tutorials/<语言>/moveit/`，源码位于 `doc/tutorials/examples/moveit/hello_moveit/` 和 `my_elite_robot_cell/`。这些示例需要独立于底层驱动核对；上游教程中的包名或 launch 参数可能已经过期。
+
+- 模型：Description 的 `cs_macro.xacro`、`cs.ros2_control.xacro`，以及示例的场景/控制 Xacro。检查唯一根连杆、关节与连杆前缀、控制标签数量和网格/纹理引用；保留 DAE 引用的纹理，不因正文未直接引用而删除。
+- 标定：追踪驱动如何定位 `description_package/config/<型号>/`。当前示例描述包维护唯一一份参数，控制包 CMake 安装相同数据；MoveIt 的 `.setup_assistant` 指向描述包模型。不要传递底层 launch 没有声明和使用的标定覆盖参数。
+- 控制：包装 `start_robot.launch.py`、两份 MoveIt 控制器 YAML 和 `move_group.launch.py` 必须使用相同关节集合及动作名称。分别检查 fake 的标准控制器和实体的 scaled 控制器；MoveIt 侧开关不负责启动硬件。
+- C++：检查 SRDF 规划组、参考坐标系、末端、有效四元数、状态回调、规划与执行结果，以及客户端 launch 注入的 URDF/SRDF/运动学参数。
+- 验证可离线展开 fake/实体 Xacro、用 MoveItConfigsBuilder 加载配置、编译示例；编译安装放临时工作空间，防止缓存混入源码或 ZIP。不为文档验证运行运动示例。ZIP 中保留 `.setup_assistant` 和四个包的完整资源，文件删除后重建下载以排除旧内容。
+
 ## SDK：Elite_Robots_CS_SDK
 
 仅在解释底层通信、固件要求或 ELIBOTSim 时继续查阅：

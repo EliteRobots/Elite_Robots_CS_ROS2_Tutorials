@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<robot name="my_elite_robot_cell" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!--First, include the macro from our custom description-->
+  <xacro:include filename="$(find my_elite_robot_cell_description)/urdf/my_elite_robot_cell_macro.xacro"/>
+  <!--The elite_robots_description package already provides a control tag for the ELITE arm, we can directly include-->
+  <xacro:include filename="$(find elite_robots_description)/urdf/cs.ros2_control.xacro"/>
+
+  <!-- These argument names match elite_control.launch.py. -->
+  <xacro:arg name="cs_type" default="cs63"/>
+  <xacro:arg name="joint_limit_params" default="$(find my_elite_robot_cell_control)/config/$(arg cs_type)/joint_limits.yaml"/>
+  <xacro:arg name="kinematics_params" default="$(find my_elite_robot_cell_control)/config/$(arg cs_type)/default_kinematics.yaml"/>
+  <xacro:arg name="physical_params" default="$(find my_elite_robot_cell_control)/config/$(arg cs_type)/physical_parameters.yaml"/>
+  <xacro:arg name="visual_params" default="$(find my_elite_robot_cell_control)/config/$(arg cs_type)/visual_parameters.yaml"/>
+
+  <xacro:arg name="robot_ip" default="0.0.0.0"/>
+  <xacro:arg name="local_ip" default="0.0.0.0"/>
+  <xacro:arg name="headless_mode" default="false" />
+  <xacro:arg name="script_filename" default="$(find elite_robots_driver)/resources/external_control.script"/>
+  <xacro:arg name="output_recipe_filename" default="$(find elite_robots_driver)/resources/output_recipe.txt"/>
+  <xacro:arg name="input_recipe_filename" default="$(find elite_robots_driver)/resources/input_recipe.txt"/>
+  <xacro:arg name="use_fake_hardware" default="false" />
+  <xacro:arg name="fake_sensor_commands" default="false" />
+  <xacro:arg name="tf_prefix" default="cs63_"/>
+  <xacro:arg name="safety_limits" default="true"/>
+  <xacro:arg name="safety_pos_margin" default="0.15"/>
+  <xacro:arg name="safety_k_position" default="20"/>
+  <xacro:arg name="tool_voltage" default="0"/>
+  <xacro:arg name="reverse_port" default="50001"/>
+  <xacro:arg name="script_sender_port" default="50002"/>
+  <xacro:arg name="script_command_port" default="50004"/>
+  <xacro:arg name="trajectory_port" default="50003"/>
+
+
+  <link name="world" />
+
+  <!--Create the scene description including the robot-->
+  <xacro:my_elite_robot_cell
+    parent="world"
+    cs_type="$(arg cs_type)"
+    tf_prefix="$(arg tf_prefix)"
+    safety_limits="$(arg safety_limits)"
+    safety_pos_margin="$(arg safety_pos_margin)"
+    safety_k_position="$(arg safety_k_position)"
+    joint_limits_parameters_file="$(arg joint_limit_params)"
+    kinematics_parameters_file="$(arg kinematics_params)"
+    physical_parameters_file="$(arg physical_params)"
+    visual_parameters_file="$(arg visual_params)"
+  >
+    <origin xyz="0 0 1" rpy="0 0 0" />
+  </xacro:my_elite_robot_cell>
+
+
+  <!--Create the control tag for the ELITE robot-->
+  <xacro:cs_ros2_control
+    name="$(arg cs_type)"
+    tf_prefix="$(arg tf_prefix)"
+    robot_ip="$(arg robot_ip)"
+    local_ip="$(arg local_ip)"
+    script_filename="$(arg script_filename)"
+    output_recipe_filename="$(arg output_recipe_filename)"
+    input_recipe_filename="$(arg input_recipe_filename)"
+    use_fake_hardware="$(arg use_fake_hardware)"
+    fake_sensor_commands="$(arg fake_sensor_commands)"
+    headless_mode="$(arg headless_mode)"
+    tool_voltage="$(arg tool_voltage)"
+    reverse_port="$(arg reverse_port)"
+    script_sender_port="$(arg script_sender_port)"
+    script_command_port="$(arg script_command_port)"
+    trajectory_port="$(arg trajectory_port)"
+  />
+
+  <!--If you had more controlled devices in your description, e.g. a gripper, you can add another ros2_control tag here-->
+
+</robot>

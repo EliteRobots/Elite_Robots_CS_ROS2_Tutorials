@@ -157,3 +157,64 @@ HTML 改为本地 `elite` 主题，继承 Sphinx `basic`，通过模板、CSS �
 - 长模板在 HTML 中完整展示，PDF 按连续 32 行分段并保持段内完整，引用同一源文件，不删减代码。两种语言各 8 个 HTML 页面、197 个本地链接/锚点检查通过，下载文件字节与源模板一致。
 - `git diff --check` 通过；未执行机器人运动、状态切换、fake hardware 或 MoveIt 集成运行。构建产物与临时检查脚本不入库。
 - 输出：`build/docs/multi_arm/<语言>/html/index.html` 和 `build/docs/multi_arm/<语言>/pdf/multi_arm-<语言>.pdf`。
+
+## Tutorials 迁移（1.0.0，2026-10-08）
+
+### 来源与组织
+
+- 用户指定来源：[Elite-Robots/Elite_Robots_CS_Ros2_Tutorials](https://github.com/Elite-Robots/Elite_Robots_CS_Ros2_Tutorials)，main 提交 `6488bbff2c8631c1e076150687df9e7c3605332b`。
+- 读取 `README.md`、`README_CN.md`、`tutorials/Elite Robots ROS2 教程.md`、`tutorials/Elite Robots ROS2 tutorials.md`，以及 `hello_moveit/`、`my_elite_robot_cell/` 中的配套实现。按用户要求不保留迁入的独立 LICENSE 文件；示例 package.xml 中的许可声明保留，hello_moveit 的 TODO 声明按源仓库根许可补为 Apache-2.0。
+- 注册独立的 `tutorials/zh_CN` 和 `tutorials/en`，各八个 Markdown 文件。结构为 `doc/tutorials/<语言>/<主题>/`，当前主题 `moveit`；通用构建脚本和主题不需增加固定类型分支。扩展约定仅写 README，正式正文无预留章节或未来包规划。
+- 两种语言各保留 13 幅原截图，字节未修改，放在各自 `moveit/images/`。截图中的旧路径、界面和旧示例运行效果不作为当前参数依据；正文说明以当前文字和配套文件为准。
+- 四个语言无关示例包放在 `doc/tutorials/examples/moveit/`，通过 literalinclude 与单文件下载引用同一份代码。`examples/COLCON_IGNORE` 防止作为文档资源扫描时误识别；教程明确复制两个子目录到独立工作空间后构建。它们随现有 CMake 的 `doc` 资源安装，无需启动节点。
+
+| 原教程范围 | 中英文对应章节 |
+| --- | --- |
+| README 安装/构建与自定义工作单元概述 | `moveit/index.md`、`moveit/preparation.md` |
+| 1. 组装 URDF：工作单元描述、宏与 RViz | `moveit/workcell.md` |
+| 2. 启动驱动：ros2_control、标定与包装 launch | `moveit/control.md` |
+| 3. MoveIt 配置：Setup Assistant、限制与运行 | `moveit/configuration.md` |
+| 4. C++：创建包、节点、位姿/关节目标与执行 | `moveit/cpp.md` |
+
+### 源码核对与修正
+
+以 `/home/cc/project/elite_ros_ws/src` 为本次基线：
+
+- Driver：humble，`f36c67135dc300043ff86e5e70fbdc9b36131799`，ROS 包版本 1.2.0；核对时工作树干净。
+- Description：humble，`edbbfdca9220ce264c99ec51d37440ff4fa13a9a`，版本 1.0.0；核对时工作树干净。
+- 本机 Humble 的 MoveItConfigsBuilder、launch 生成函数与 C++ 头文件用于确认配置加载和客户端 API。构建使用该工作空间已安装的驱动/模型下层环境；已用 cmp 确认其 `cs_macro.xacro`、`cs.ros2_control.xacro` 和 `elite_control.launch.py` 与上述源码一致。
+- 将源文和示例中的 `eli_cs_robot_description`、`eli_cs_robot_driver`、`eli_cs_robot_calibration`、`eli_cs_controllers` 改为实际 `elite_robots_*` 名称。移除示例清单中非 ROS 包名的 SDK 直接依赖，保留驱动声明的传递依赖；修正源码中的 TODO 包描述、许可及依赖。
+- 自定义包名保持 `my_elite_robot_cell_*` 与 `hello_moveit`。示例只声明已完整配置的六轴 CS63，不沿用原包装 launch 接受其他型号但缺少对应配置的行为。
+- 保留桌子、显示器、墙体和机械臂的结构与资源。补齐场景宏的前缀/安全参数传递，控制 Xacro 使用驱动实际传入的脚本、配方、回连端口和工具参数名；仅添加一个 ros2_control 系统。
+- 当前驱动 launch 从 description_package 的 config/cs63 读取参数，不声明原文中的 kinematics_params_file。将模型参数集中维护于示例描述包，控制包 CMake 安装同一来源的副本；标定导出后替换该源文件并重建两个包，确保 MoveIt 与驱动的几何一致。取消原示例中未被使用的独立 my_elite_robot_calibration.yaml。
+- fake hardware 默认使用标准 joint_trajectory_controller，实体模式命令明确使用 scaled_joint_trajectory_controller；MoveIt 包装 launch 根据 use_fake_hardware 选择对应 YAML。此参数只决定 MoveIt 映射，不启动硬件。显式选用 OMPL，避免自动加载未使用的规划器。
+- 保留原关节限制示例 4.0 rad/s² 和 0.1 缩放，去除“机械臂没有物理加速度限制”和“保守安全值”的泛化结论；说明其为规划示例值，需要结合实际应用确定。
+- C++ 示例将零四元数改为单位四元数，指定 world/cs63_tool0，增加执行器线程、当前状态等待、显式关节名、规划/执行结果判断、失败退出及默认仅规划开关。客户端 launch 直接注入同一工作单元 URDF、SRDF 和运动学参数，补全 CMake 与 package.xml。
+- 本次未修改相邻驱动、模型仓库或已有 quickstart/interfaces/multi_arm 正文；未执行硬件、fake hardware、Gazebo、MoveIt 节点启动或机器人运动。
+
+### 验证
+
+- 四个示例包通过本机 Humble colcon 编译，包括 hello_moveit C++；构建、安装和日志仅位于 `/tmp/elite-tutorials-validation/`。
+- 离线展开显示模型及 fake/实体控制模型，检查唯一 world 根、六轴关节名、单个 ros2_control 系统、两种硬件插件、脚本/配方/IP/端口参数、网格资源路径，以及显示与控制几何相同。
+- 用实际 MoveItConfigsBuilder 加载两套控制器配置，核对 URDF、SRDF 链、碰撞排除项引用的连杆、关节限制与 URDF 速度上限、控制器动作及关节集合。检查全部 Python/XML 语法、构造所有 launch 描述，不访问或执行其中节点。
+- 两个译本的章节路径、bash/XML 命令及 literalinclude 来源一致；所有 PDF 代码分段连续且覆盖完整源文件。长代码在 PDF 中以 24 行以内的 minipage 分段，HTML 和下载保持完整。
+
+- 最终执行 `.venv/bin/python scripts/build_docs.py --format all`，八个启用组合的 HTML/PDF 全部成功。新增教程 Sphinx 无警告，最终 XeLaTeX 日志无 Overfull、无 Missing character。
+- 中文 10 个 HTML 页面共 400 个本地链接/资源引用、英文 10 页共 390 个引用检查通过；每种语言的 10 个代码下载均与源文件字节一致，各 13 幅图片与源仓库字节一致。
+- `git diff --check` 通过；未跟踪的新文件另行检查无行尾空格。构建产物、编译输出、临时校验脚本不入库。
+- 成品：`build/docs/tutorials/<语言>/html/index.html`、`build/docs/tutorials/<语言>/pdf/tutorials-<语言>.pdf`。本次验证不包括实体机器人或仿真集成运行；Jazzy 未验证。
+
+## Tutorials 示例整包下载（2026-10-08）
+
+- 按用户要求，在中英文 Tutorials 首页、MoveIt 开篇、工作空间准备页及 C++ 章节末尾加入 `hello_moveit.zip` 与 `my_elite_robot_cell.zip` 下载，来源为当前仓库的示例目录。
+- `doc/documents.json` 声明下载目录映射，Sphinx `builder-inited` 回调从当前文件生成 ZIP。输出保留一级示例目录，分别包含一个和三个 ROS 包；保留 `.setup_assistant`、模型和配置文件，排除构建目录、Git 和 Python 缓存。压缩包加入 `.gitignore`，不维护源码副本。
+- 文档使用本地 MyST download 链接，由 Sphinx 将 ZIP 复制到站点 `_downloads`；没有 GitHub 下载跳转。准备页以下载、解压到同一个工作空间的 src、安装依赖并构建为主流程，保留已有 checkout 的复制方式。PDF 指向 HTML 同名章节的下载入口。
+- 验证 ZIP 分别包含 5 和 35 个文件，文件列表及每个文件字节与当前示例一致；解压后分别识别一个和三个 package.xml。测试了隐藏配置保留、缓存排除、源文件修改/删除后更新，以及源文件不变时 ZIP 字节与修改时间稳定。
+- 共享配置改动后，八个已启用文档组合的 HTML/PDF 全部构建通过；随后为首页补充链接，仅重建中英文 Tutorials。最终教程 Sphinx 无警告，PDF 无 Overfull 或 Missing character。各语言四个入口页面的两个 ZIP 均为有效的本站下载，下载文件与生成 ZIP 字节一致。
+
+## 提交前清理与技能同步（2026-10-08）
+
+- 删除两份重复的示例 `MIGRATION.md`，迁移来源及适配说明集中保留在本文件；删除未使用的 `pilz_cartesian_limits.yaml`，示例所有规划入口均显式使用 OMPL。
+- 核查 DAE 的纹理引用、Xacro/launch 的配置和模型引用、正文图片引用；保留运行和文档需要的资源。ZIP 属于用户需要的下载成品，保持自动生成和 Git 忽略，不纳入提交。
+- 清理后重新构建中英文 Tutorials HTML/PDF，两个下载包分别为 4 和 33 个文件，与当前源码逐文件一致；使用当前源目录加载 fake/实体两套 MoveIt 配置通过，不依赖被删除的 Pilz 文件。
+- 先更新项目 `skills/elite-ros2-docs/` 的 SKILL.md、源码核对入口及 UI 元数据，增加 Tutorials、整包下载、资源清理和项目优先的技能维护说明；技能验证通过后同步到环境 `/home/cc/.codex/skills/elite-ros2-docs/`，再次验证并核对三个文件一致。

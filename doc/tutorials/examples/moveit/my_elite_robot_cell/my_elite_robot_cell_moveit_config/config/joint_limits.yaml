@@ -1,0 +1,36 @@
+default_velocity_scaling_factor: 0.1
+default_acceleration_scaling_factor: 0.1
+
+# Planning limits: velocity in rad/s, acceleration in rad/s^2.
+# Example values; select acceleration limits for the actual application.
+joint_limits:
+  cs63_elbow_joint:
+    has_velocity_limits: true
+    max_velocity: 3.1415926535897931
+    has_acceleration_limits: true
+    max_acceleration: 4.0
+  cs63_shoulder_lift_joint:
+    has_velocity_limits: true
+    max_velocity: 3.1415926535897931
+    has_acceleration_limits: true
+    max_acceleration: 4.0
+  cs63_shoulder_pan_joint:
+    has_velocity_limits: true
+    max_velocity: 3.1415926535897931
+    has_acceleration_limits: true
+    max_acceleration: 4.0
+  cs63_wrist_1_joint:
+    has_velocity_limits: true
+    max_velocity: 6.2831853071795862
+    has_acceleration_limits: true
+    max_acceleration: 4.0
+  cs63_wrist_2_joint:
+    has_velocity_limits: true
+    max_velocity: 6.2831853071795862
+    has_acceleration_limits: true
+    max_acceleration: 4.0
+  cs63_wrist_3_joint:
+    has_velocity_limits: true
+    max_velocity: 6.2831853071795862
+    has_acceleration_limits: true
+    max_acceleration: 4.0

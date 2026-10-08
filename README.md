@@ -4,7 +4,7 @@
 
 当前中、英文快速手册版本均为 **1.0.0**，适配版本及面向读者的修订记录分别见正文首页和各译本的 `changelog.md`。手册版本独立于 ROS 包版本。
 
-目前已编写中、英文快速手册，已结合当前工作空间的驱动、机器人描述和 Gazebo 仿真源码核对；核对范围及待验证项见 `MAINTENANCE.md`。
+目前已编写中、英文快速手册及中、英文接口手册（均为 1.0.0）。接口手册按本次指定源码目录独立核对，版本基线与快速手册不同；核对范围及待验证项见 `MAINTENANCE.md`。
 
 ## 目录结构
 
@@ -14,6 +14,9 @@ doc/
 ├── languages.json            # 共用语言元数据与字体配置
 ├── conf.py                   # 共用 Sphinx 配置
 ├── _static/                  # 共用 HTML 样式
+├── interfaces/
+│   ├── en/                  # 英文接口手册及独立目录
+│   └── zh_CN/               # 中文接口手册及独立目录
 └── quickstart/
     ├── en/                   # 英文正文和独立图片目录
     └── zh_CN/
@@ -34,7 +37,7 @@ package.xml
 
 英文快速手册位于 `doc/quickstart/en/`，后续法文版放入 `doc/quickstart/fr/`；usage 和接口手册分别使用 `doc/usage/<语言>/`、`doc/interfaces/<语言>/`。保持各译本的章节文件名一致，方便对照维护。
 
-`languages.json` 预设 `zh_CN`、`en`、`fr`，但语言配置不代表已有译文。`documents.json` 中目前启用 `quickstart/zh_CN` 和 `quickstart/en`；usage、interfaces 尚未启用。
+`languages.json` 预设 `zh_CN`、`en`、`fr`，但语言配置不代表已有译文。`documents.json` 中目前启用 `quickstart/zh_CN`、`quickstart/en`、`interfaces/zh_CN` 和 `interfaces/en`；usage 尚未启用。
 
 `README.md`、`MAINTENANCE.md` 和图片目录中的 README 是仓库维护资料，不参与正式 HTML/PDF 的正文构建。
 
@@ -64,7 +67,7 @@ PDF 字体由 `languages.json` 配置：西文使用 Latin Modern 和 DejaVu，�
 ## 直接构建
 
 ```bash
-# 所有已启用的文档及译本；目前为中、英文快速手册
+# 所有已启用的文档及译本；目前为中、英文快速手册和中、英文接口手册
 .venv/bin/python scripts/build_docs.py --format all
 
 # 只构建中文快速手册
@@ -94,6 +97,8 @@ PDF 字体由 `languages.json` 配置：西文使用 Latin Modern 和 DejaVu，�
 | --- | --- | --- |
 | 中文快速手册 | `build/docs/quickstart/zh_CN/html/index.html` | `build/docs/quickstart/zh_CN/pdf/quickstart-zh_CN.pdf` |
 | 英文快速手册 | `build/docs/quickstart/en/html/index.html` | `build/docs/quickstart/en/pdf/quickstart-en.pdf` |
+| 中文接口手册 | `build/docs/interfaces/zh_CN/html/index.html` | `build/docs/interfaces/zh_CN/pdf/interfaces-zh_CN.pdf` |
+| 英文接口手册 | `build/docs/interfaces/en/html/index.html` | `build/docs/interfaces/en/pdf/interfaces-en.pdf` |
 | 法文使用手册（后续） | `build/docs/usage/fr/html/index.html` | `build/docs/usage/fr/pdf/usage-fr.pdf` |
 
 HTML 是独立多页面站点，PDF 是独立的一本手册。PDF 文件名带语言代码，复制到同一目录时也不会覆盖。构建将 Sphinx 警告视为失败。
@@ -173,7 +178,7 @@ install/elite_robots_cs_tutorials/share/elite_robots_cs_tutorials/manuals/quicks
 
 创建 `doc/usage/<语言>/index.md` 或 `doc/interfaces/<语言>/index.md`，编写相应章节，然后将 `documents.json` 中该文档的 `enabled` 改为 `true`，并在 `languages` 中注册至少一个译本。
 
-不需要复制 `conf.py` 或修改快速手册目录。可以仅启用快速手册的英文，同时保留接口手册只有中文。
+不需要复制 `conf.py` 或修改快速手册目录。各手册可独立启用语言；目前 quickstart 和 interfaces 均已启用中文和英文。
 
 ## 图片组织
 
@@ -224,3 +229,23 @@ HTML 使用仓库内的 `elite` 主题，继承 Sphinx `basic`，无需安装第
 ```
 
 未指定语言的默认构建现在会同时生成中文和英文版本。只需中文时传入 `--language zh_CN`，或在 colcon 中设置 `-DDOCS_LANGUAGE=zh_CN`。
+
+## 中文接口手册（1.0.0）
+
+正文位于 `doc/interfaces/zh_CN/`，覆盖 Description、Driver、GZ Simulation 九个 ROS 包的接口。其版本基线是本次指定的 `/home/cc/elite_ros_ws/src`：Description 1.0.0、Driver 1.0.3、Gazebo 1.0.1；不要与快速手册的适配版本混用。
+
+```bash
+.venv/bin/python scripts/build_docs.py --document interfaces --language zh_CN --format all
+```
+
+入口为 `build/docs/interfaces/zh_CN/html/index.html`，PDF 为 `build/docs/interfaces/zh_CN/pdf/interfaces-zh_CN.pdf`。消息定义和 launch 参数索引已与指定源码核对，硬件及仿真流程尚未运行验证。英文接口手册现已翻译并启用，详见下一节。
+
+## 英文接口手册（1.0.0）
+
+正文位于 `doc/interfaces/en/`，12 个 Markdown 文件与中文接口手册保持相同的章节文件名和目录顺序。译本沿用中文 1.0.0 的 Humble 源码基线、接口限制及验证范围，英文修订日期为 2026-09-28；Jazzy 对应源码尚未核对。命令、字段、常量与参数值保持一致。
+
+```bash
+.venv/bin/python scripts/build_docs.py --document interfaces --language en --format all
+```
+
+英文入口为 `build/docs/interfaces/en/html/index.html`，PDF 为 `build/docs/interfaces/en/pdf/interfaces-en.pdf`。未指定语言时，接口手册会同时构建中文和英文；使用 `--document interfaces --language en` 仅构建英文接口手册。

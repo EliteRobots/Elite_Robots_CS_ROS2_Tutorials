@@ -19,7 +19,18 @@
     "languages": {}
   },
   "interfaces": {
-    "enabled": false,
-    "languages": {}
+    "enabled": true,
+    "languages": {
+      "zh_CN": {
+        "title": "Elite Robots ROS 2 接口手册",
+        "version": "1.0.0",
+        "enabled": true
+      },
+      "en": {
+        "title": "Elite Robots ROS 2 Interface Reference",
+        "version": "1.0.0",
+        "enabled": true
+      }
+    }
   }
 }

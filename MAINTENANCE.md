@@ -5,7 +5,7 @@
 - 文件：`CS&ES&LS_ROS2软件包快速使用手册_Ver2.16.1.pdf`。
 - 原手册版本：Ver2.16.1；封面日期：2026-08-07；PDF 共 46 页。
 - 本版最初按原 PDF 重写，现已结合用户修订及当前工作空间源码校对命令与接口。
-- 仅编写快速手册；usage 和接口手册仅在构建清单中预留，未生成正文。
+- 最初仅编写快速手册；现已新增中英文接口手册，其独立源码基线见文末记录；usage 仍预留。
 
 ## 章节对应
 
@@ -64,7 +64,7 @@
 - `doc/languages.json` 集中管理语言名称、作者、版权及 PDF 字体配置，预设 `zh_CN`、`en`、`fr`。
 - 构建脚本增加 `--language`，CMake 增加 `DOCS_LANGUAGE`；默认构建所有已启用的文档/语言组合。
 - 成品输出到 `build/docs/<文档>/<语言>/html/` 和 `pdf/<文档>-<语言>.pdf`。
-- 最初仅迁移中文正文；现已补充英文 quickstart，法文、usage 和接口手册尚未编写。
+- 最初仅迁移中文正文；现已补充英文 quickstart 及中英文接口手册，法文和 usage 尚未编写。
 - `README.md`、本文件及图片目录说明属于仓库维护资料，不加入正式手册目录。
 
 ## 文档版本与适配版本（2026-09-24）
@@ -88,3 +88,56 @@ HTML 改为本地 `elite` 主题，继承 Sphinx `basic`，通过模板、CSS �
 - 24 幅正文图片原样复制至英文图片目录，图注及替代文本译为英文，未重新分析图片内容；中文正文仅修正下述目录结构。英文版首页说明截图界面语言保持原样。
 
 - 构建英文版时发现首页二级标题会让 LaTeX 中的正文目录嵌套为下级章节；中英文首页改用带显式锚点的 `rubric`，保持版本链接有效，并恢复独立的八章及对应图号。
+
+## 中文接口手册源码基线（2026-09-24）
+
+用户本次明确指定 `/home/cc/elite_ros_ws/src`，它与 Tutorials 所在的 `/home/cc/project/elite_ros_ws/src` 不是同一份 checkout。接口手册以本次指定目录为准，不沿用快速手册的包版本或 Gazebo 修复结论。三个源码仓库核对时工作树均干净，均为 `humble` 分支：
+
+| 仓库 | HEAD | package.xml 版本 |
+| --- | --- | --- |
+| Elite_Robots_CS_ROS2_Description | `edbbfdca9220ce264c99ec51d37440ff4fa13a9a` | 1.0.0 |
+| Elite_Robots_CS_ROS2_Driver | `ce37530dd197d1ff4669b193f50803acd9622461` | 七包均为 1.0.3 |
+| Elite_Robots_CS_ROS2_GZ_Simulation | `241d9836ae4b42eecf48459181c3467523610dce` | 1.0.1 |
+
+核对入口：各 `package.xml`、`CMakeLists.txt`，Description 的 launch/URDF，Driver 的 launch、控制器 YAML、hardware_interface、Dashboard/Primary/script/loader/controller_stopper 源码、控制器实现与参数定义、全部 msg/srv、MoveIt launch/SRDF/Servo 配置、校准与示例，以及 GZ launch/YAML/脚本。标准动作字段辅助核对了本机 `/opt/ros/humble/share/control_msgs/action/FollowJointTrajectory.action`，未将其视为仓库锁定的依赖版本。
+
+接口手册独立注册为 `interfaces/zh_CN` 1.0.0，消息章节完整纳入 6 个 msg、11 个 srv，launch 索引从所核对源码声明提取并配中文语义。未改动这三个仓库、快速手册正文和未编写语言的版本。
+
+本次发现并在接口文档说明的实现限制（非已修复声明）：
+
+- GPIO 速度滑块实际范围为 [0.01, 1.0]，与 srv 注释不一致；IO 数字边界使用 `<= count`，模拟通道校验范围也过宽。
+- 异步等待标记为 2.0，等待超时后部分服务仍转为 bool，可能返回 true；要求应用读回状态。
+- hardware `joint_efforts_` 来自 `getActualJointCurrent()`，不能按力矩解释。
+- 速度缩放广播器比较单次 period，且 `Duration(1.0 / publish_rate_, 0.0)` 存在秒值转换问题，不能保证配置的 100 Hz。
+- robot_mode/safety_mode/task_running 只在变化时发布；只有 task_running 设置 transient_local，初始值未变化不保证已发样本。
+- 组件进程在 Dashboard 初次连接失败后移除节点；controller stopper 仍等待 Dashboard 查询服务。
+- Xacro tool_voltage 参数未被硬件初始化应用，工具通信参数不是已实现的 ROS 串口接口。
+- MoveIt/GZ 的 prefix 与 Description 的 tf_prefix 不一致，非空前缀不能直接使用；MoveIt 的 use_sim_time 未同步到 Servo/RViz。
+- GZ 1.0.1 组合 launch 引用不存在的 cs_moveit.launch.py；没有启动 /clock 桥；部分 YAML 使用遗留 cs_controllers 插件名。正文提供默认标准控制器的分步启动方式。
+- GZ CMake 安装的脚本名为 gz_control.py，源文件注释中的 gz_control 不准确；脚本及驱动单目标示例固定六轴无前缀名称。
+- 校准 launch 的 target_filename 映射节点 output_filename，结果不会自动注入模型；驱动 launch 无独立校准路径覆盖项。
+
+仍需确认：模拟输出写入值的量纲/范围、工具模式枚举及工具反馈物理量的控制器版本契约；ROS 封装没有给出完整约束，正文不凭字段名虚构范围。实机、ELIBOTSim、Gazebo、Servo 与非空前缀流程均未运行验证。本次构建验证结果如下。
+
+### 接口手册交付验证
+
+- 执行 `.venv/bin/python scripts/build_docs.py --format all`，中英文 quickstart 与中文 interfaces 的 HTML/PDF 均成功生成（Sphinx 警告作为错误）。
+- 针对长接口名调整接口手册表格后，再执行 `--document interfaces --language zh_CN --format all` 成功，最终 PDF 共 42 页。
+- 最终接口 PDF 的 XeLaTeX 日志无 Overfull、无 Missing character；保留引擎通用 cmap 提示及少量 Underfull 排版提示，不影响构建。
+- 校验接口 HTML 的 14 个页面（含索引/搜索辅助页）中的 672 个本地链接及锚点，全部有效。
+- 17 个自定义类型的字段、常量、顺序与指定源码一致；Dashboard/Primary/script/GPIO/自由拖动/速度缩放的自定义端点名称均已覆盖。
+- `git diff --check` 通过；未执行机器人控制、实机测试、ELIBOTSim、Gazebo 或 Servo 集成运行。
+- 输出：`build/docs/interfaces/zh_CN/html/index.html`、`build/docs/interfaces/zh_CN/pdf/interfaces-zh_CN.pdf`。构建产物未纳入版本管理。
+
+## 英文接口手册（1.0.0，2026-09-28）
+
+- 新增 `doc/interfaces/en/` 全部 12 个章节文件，章节文件名和目录顺序与中文 1.0.0 对齐；启用 `interfaces/en` 独立 HTML/PDF。
+- 翻译正文、表格、提示、目录、链接文字、消息字段说明和 launch 参数索引；保留所有 bash/text/yaml 代码块原文，覆盖 6 个 msg、11 个 srv。
+- 沿用中文于 2026-09-24 核对的 Description 1.0.0、Driver 1.0.3、GZ 1.0.1 基线及已知限制。本次为翻译，未重新声明代码修复或进行机器人/仿真验证。
+- 结合用户关于分支的澄清，英文首页明确 Humble 是源码核对基线，不是要求文档仓库按发行版分支；Jazzy 尚未核对。中文正文及版本号未改动。
+- 对照检查：12 个对应文件的标题层级数量一致，bash/text/yaml 代码块逐字相同；英文正文无遗留中文，接口标识和默认值保持不变。
+
+- 构建验证：先独立构建英文接口手册，再执行 `.venv/bin/python scripts/build_docs.py --format all`，四个已启用组合（quickstart/interfaces × zh_CN/en）的 HTML/PDF 均成功；Sphinx 无警告。
+- 英文最终 PDF 为 42 页，XeLaTeX 日志无 Overfull 和 Missing character。英文 HTML 共 14 页（含辅助页），672 个本地链接/锚点有效，页面语言均为 en，可见文本无遗留中文。
+- 中英文接口手册 toctree 顺序相同；所有中文正文中的技术标识均在对应英文文件中保留。`git diff --check` 通过。
+- 英文输出：`build/docs/interfaces/en/html/index.html`、`build/docs/interfaces/en/pdf/interfaces-en.pdf`。构建产物及临时校验脚本未纳入版本管理。

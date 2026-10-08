@@ -41,7 +41,7 @@ def select_builds(documents, languages, document_id, language):
 def main():
     root = Path(__file__).resolve().parents[1]
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--document", default="all", help="all, quickstart, usage, interfaces")
+    parser.add_argument("--document", default="all", help="all or a document ID in doc/documents.json")
     parser.add_argument("--language", default="all", help="all or a code in doc/languages.json")
     parser.add_argument("--format", choices=("html", "pdf", "all", "latex"), default="all")
     parser.add_argument("--output", type=Path, default=root / "build" / "docs")

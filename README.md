@@ -4,7 +4,7 @@
 
 当前中、英文快速手册版本均为 **1.0.0**，适配版本及面向读者的修订记录分别见正文首页和各译本的 `changelog.md`。手册版本独立于 ROS 包版本。
 
-目前已编写中、英文快速手册及中、英文接口手册（均为 1.0.0）。接口手册按本次指定源码目录独立核对，版本基线与快速手册不同；核对范围及待验证项见 `MAINTENANCE.md`。
+目前已编写中、英文快速手册、接口手册及多机械臂手册（均为 1.0.0）。接口手册按本次指定源码目录独立核对，版本基线与快速手册不同；核对范围及待验证项见 `MAINTENANCE.md`。
 
 ## 目录结构
 
@@ -14,6 +14,10 @@ doc/
 ├── languages.json            # 共用语言元数据与字体配置
 ├── conf.py                   # 共用 Sphinx 配置
 ├── _static/                  # 共用 HTML 样式
+├── multi_arm/
+│   ├── examples/            # 共用完整 launch 模板
+│   ├── en/                  # 英文多机械臂手册
+│   └── zh_CN/               # 中文多机械臂手册
 ├── interfaces/
 │   ├── en/                  # 英文接口手册及独立目录
 │   └── zh_CN/               # 中文接口手册及独立目录
@@ -37,7 +41,7 @@ package.xml
 
 英文快速手册位于 `doc/quickstart/en/`，后续法文版放入 `doc/quickstart/fr/`；usage 和接口手册分别使用 `doc/usage/<语言>/`、`doc/interfaces/<语言>/`。保持各译本的章节文件名一致，方便对照维护。
 
-`languages.json` 预设 `zh_CN`、`en`、`fr`，但语言配置不代表已有译文。`documents.json` 中目前启用 `quickstart/zh_CN`、`quickstart/en`、`interfaces/zh_CN` 和 `interfaces/en`；usage 尚未启用。
+`languages.json` 预设 `zh_CN`、`en`、`fr`，但语言配置不代表已有译文。`documents.json` 中目前启用 `quickstart/zh_CN`、`quickstart/en`、`interfaces/zh_CN`、`interfaces/en`、`multi_arm/zh_CN` 和 `multi_arm/en`；usage 尚未启用。
 
 `README.md`、`MAINTENANCE.md` 和图片目录中的 README 是仓库维护资料，不参与正式 HTML/PDF 的正文构建。
 
@@ -67,7 +71,7 @@ PDF 字体由 `languages.json` 配置：西文使用 Latin Modern 和 DejaVu，�
 ## 直接构建
 
 ```bash
-# 所有已启用的文档及译本；目前为中、英文快速手册和中、英文接口手册
+# 所有已启用的文档及译本；目前为中、英文 quickstart、interfaces 和 multi_arm
 .venv/bin/python scripts/build_docs.py --format all
 
 # 只构建中文快速手册
@@ -99,6 +103,8 @@ PDF 字体由 `languages.json` 配置：西文使用 Latin Modern 和 DejaVu，�
 | 英文快速手册 | `build/docs/quickstart/en/html/index.html` | `build/docs/quickstart/en/pdf/quickstart-en.pdf` |
 | 中文接口手册 | `build/docs/interfaces/zh_CN/html/index.html` | `build/docs/interfaces/zh_CN/pdf/interfaces-zh_CN.pdf` |
 | 英文接口手册 | `build/docs/interfaces/en/html/index.html` | `build/docs/interfaces/en/pdf/interfaces-en.pdf` |
+| 中文多机械臂手册 | `build/docs/multi_arm/zh_CN/html/index.html` | `build/docs/multi_arm/zh_CN/pdf/multi_arm-zh_CN.pdf` |
+| 英文多机械臂手册 | `build/docs/multi_arm/en/html/index.html` | `build/docs/multi_arm/en/pdf/multi_arm-en.pdf` |
 | 法文使用手册（后续） | `build/docs/usage/fr/html/index.html` | `build/docs/usage/fr/pdf/usage-fr.pdf` |
 
 HTML 是独立多页面站点，PDF 是独立的一本手册。PDF 文件名带语言代码，复制到同一目录时也不会覆盖。构建将 Sphinx 警告视为失败。
@@ -249,3 +255,18 @@ HTML 使用仓库内的 `elite` 主题，继承 Sphinx `basic`，无需安装第
 ```
 
 英文入口为 `build/docs/interfaces/en/html/index.html`，PDF 为 `build/docs/interfaces/en/pdf/interfaces-en.pdf`。未指定语言时，接口手册会同时构建中文和英文；使用 `--document interfaces --language en` 仅构建英文接口手册。
+
+## 多机械臂手册（multi_arm，中英文 1.0.0）
+
+正文位于 `doc/multi_arm/zh_CN/` 与 `doc/multi_arm/en/`，两种语言具有相同章节。参考相邻 Driver 仓库 `elite_robots_driver/doc/MultiArm_CN.md`，以 `/home/cc/project/elite_ros_ws/src` 下 Driver 1.2.0、Description 1.0.0 的 Humble 源码核对，区别于 interfaces 手册的旧版基线。
+
+```bash
+# 中英文 HTML/PDF
+.venv/bin/python scripts/build_docs.py --document multi_arm --format all
+# 仅英文
+.venv/bin/python scripts/build_docs.py --document multi_arm --language en --format all
+```
+
+colcon 可设置 `-DDOCS_DOCUMENT=multi_arm -DDOCS_LANGUAGE=all`。两个完整模板放在 `doc/multi_arm/examples/`，正文以 literalinclude 展示，并提供下载链接；修改模板后应重建两种语言。HTML 展示完整代码块；PDF 将同一模板按连续行分段排版，下载文件始终为完整脚本。
+
+手册说明独立多臂控制与联合规划的区别，补充启动链日志限制及逐臂验证步骤。模板只做离线语法与配置生成检查，未启动实体机器人、fake hardware 或 MoveIt。

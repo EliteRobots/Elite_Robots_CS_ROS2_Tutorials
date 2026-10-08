@@ -6,7 +6,7 @@ find_package(Python3 REQUIRED COMPONENTS Interpreter)
 
 option(BUILD_DOCS "Build the enabled manuals" ON)
 option(BUILD_DOCS_PDF "Also build PDF manuals (requires LaTeX)" OFF)
-set(DOCS_DOCUMENT "all" CACHE STRING "all, quickstart, usage, or interfaces")
+set(DOCS_DOCUMENT "all" CACHE STRING "all or a document ID in doc/documents.json")
 set(DOCS_LANGUAGE "all" CACHE STRING "all or a language code from doc/languages.json")
 
 # Keep the documentation environment separate from ament's system Python.

@@ -141,3 +141,19 @@ HTML 改为本地 `elite` 主题，继承 Sphinx `basic`，通过模板、CSS �
 - 英文最终 PDF 为 42 页，XeLaTeX 日志无 Overfull 和 Missing character。英文 HTML 共 14 页（含辅助页），672 个本地链接/锚点有效，页面语言均为 en，可见文本无遗留中文。
 - 中英文接口手册 toctree 顺序相同；所有中文正文中的技术标识均在对应英文文件中保留。`git diff --check` 通过。
 - 英文输出：`build/docs/interfaces/en/html/index.html`、`build/docs/interfaces/en/pdf/interfaces-en.pdf`。构建产物及临时校验脚本未纳入版本管理。
+
+## 多机械臂手册（1.0.0，2026-10-08）
+
+- 用户指定参考 `/home/cc/project/elite_ros_ws/src/Elite_Robots_CS_ROS2_Driver/elite_robots_driver/doc/MultiArm_CN.md`。该目录与旧 interfaces 手册使用的 `/home/cc/elite_ros_ws/src` 不同，不将旧版 1.0.3 的限制套用到本次 1.2.0 文档。
+- Driver：humble，HEAD `f36c671`，包版本 1.2.0，核对时工作树干净；Description：HEAD `edbbfdc`，包版本 1.0.0。
+- 核对单臂驱动 launch 的 controller_manager_name/spawn_controllers、绝对控制器路径、update rate 节点键；MoveIt launch 的 prefix/tf_prefix、绝对配置路径、kinematics_file/rviz_config_file/prefer_scaled_controller；配套五轴/六轴控制器 YAML、运动学和 RViz 模板及 Description 的 mock 资源。
+- 新增独立 `multi_arm/zh_CN` 与 `multi_arm/en`，各六个 Markdown 文件，共享两个完整 Python launch 模板，通过 literalinclude 和 download 同时用于正文与下载。
+- 参考中的两段 Python 原样提取，仅将最终绿色日志从“All required controllers are ready.”改为“Arm2 spawner chain exited; verify both controller managers.”：OnProcessExit 不检查退出码，且 arm2 结束不保证 arm1 已完成。
+- 正文说明该方案是两个独立单臂规划实例，不提供联合模型、跨臂碰撞检测或同步执行；实际安装变换需单独集成。临时文件 delete=False、模板文本替换依赖固定结构、local_ip 未由包装模板暴露、OMPL/关节限制配置未整体前缀化等边界亦已说明。
+- 离线验证两份 Python 语法，运行其中纯配置生成函数：arm1/arm2 × cs63/cs520h × driver/MoveIt 共 8 组控制器 YAML 的键、前缀与关节数通过；两臂的运动学规划组和 RViz namespace/轨迹话题通过。未运行 launch 或连接硬件。
+- 中英文 bash/text 代码块一致；修订日期为 2026-10-08，文档版本均为 1.0.0。仅更新构建参数帮助文字以适配动态文档清单，未改动相邻驱动实现及旧手册正文。
+
+- 构建验证：`--format all` 已成功构建六个启用组合的 HTML/PDF；之后仅调整 multi_arm 的 PDF 长代码分页，并重新构建中英文 multi_arm HTML/PDF 成功。最终中文版 25 页，英文版 24 页，均无 Overfull 或 Missing character；Sphinx 无警告。
+- 长模板在 HTML 中完整展示，PDF 按连续 32 行分段并保持段内完整，引用同一源文件，不删减代码。两种语言各 8 个 HTML 页面、197 个本地链接/锚点检查通过，下载文件字节与源模板一致。
+- `git diff --check` 通过；未执行机器人运动、状态切换、fake hardware 或 MoveIt 集成运行。构建产物与临时检查脚本不入库。
+- 输出：`build/docs/multi_arm/<语言>/html/index.html` 和 `build/docs/multi_arm/<语言>/pdf/multi_arm-<语言>.pdf`。

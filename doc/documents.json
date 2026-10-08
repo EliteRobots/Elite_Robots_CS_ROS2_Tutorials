@@ -32,5 +32,20 @@
         "enabled": true
       }
     }
+  },
+  "multi_arm": {
+    "enabled": true,
+    "languages": {
+      "zh_CN": {
+        "title": "Elite Robots ROS 2 多机械臂使用手册",
+        "version": "1.0.0",
+        "enabled": true
+      },
+      "en": {
+        "title": "Elite Robots ROS 2 Multi-Arm Guide",
+        "version": "1.0.0",
+        "enabled": true
+      }
+    }
   }
 }

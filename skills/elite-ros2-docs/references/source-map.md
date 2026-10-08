@@ -1,6 +1,6 @@
 # ROS 2 文档源码核对入口
 
-仅在校对操作命令与实现时查阅。路径相对于 Tutorials 所在的工作空间 `src/`；仓库可迁移，先定位实际目录。下列文件是查找入口，具体值应每次读取当前版本，不把历史默认值固化为规则。
+仅在校对操作命令与实现时查阅。下列路径默认相对于 Tutorials 所在工作空间的 `src/`；用户另行指定源码目录时以该目录为准。仓库可迁移，先定位实际 checkout，不混用同名仓库的版本。下列文件是查找入口，具体值应每次读取当前版本，不把历史默认值固化为规则。
 
 ## Driver：Elite_Robots_CS_ROS2_Driver
 
@@ -28,6 +28,17 @@
 检查 `launch/elite_sim_control.launch.py`、`launch/elite_sim_moveit.launch.py`、`config/`、`scripts/gz_control.py`、`CMakeLists.txt` 和 `package.xml`。
 
 追踪组合 launch 引用的文件是否确实存在、默认轨迹控制器是否与 MoveIt 一致，以及使用仿真时间的节点是否能收到 `/clock`。不要因为顶层 launch 文件存在就认为组合启动有效。程序脚本的 CLI 可能使用 argparse，与驱动示例的 ROS 参数格式不同。
+
+## 多机械臂组合
+
+参考入口为 Driver 的 `elite_robots_driver/doc/MultiArm_CN.md`；正式手册在 Tutorials 的 `doc/multi_arm/<language>/`，共享模板在 `doc/multi_arm/examples/`。参考中的 launch 代码也需与当前被包含入口核对，不把说明文字或最后一行日志作为运行成功证据。
+
+- 驱动 `elite_control.launch.py`：检查 `controller_manager_name`、`spawn_controllers`、绝对控制器 YAML 路径、命名空间内的 update rate 键，以及 spawner 目标。参数是否存在和实际作用以当前版本为准。
+- MoveIt `elite_moveit.launch.py`：追踪 `prefix`/`tf_prefix`、自定义控制器/运动学/RViz 文件和 `prefer_scaled_controller`；检查 fake 模式的控制器选择是否与包装模板一致。
+- 控制器 YAML、`config/kinematics.yaml`、`config/ompl_planning.yaml`、关节限制 YAML、`srdf/` 和 `rviz/view_robot.rviz`：检查每臂关节名、规划组、动作目标及显示 namespace；不能假设所有配置均已自动加前缀。
+- 每臂区分 ROS namespace、joint/TF prefix、管理器、控制器 IP 和回连端口。前缀不设置实际安装变换；多个 MoveIt 实例不自动形成联合碰撞场景或同步执行。
+- `OnProcessExit` 只代表进程退出，若未检查退出码便不能宣称成功；某一臂启动链结束也不代表其他臂就绪。文档应给出逐臂状态查询。
+- 纯配置生成函数可离线检查 YAML 键、关节数量和前缀、运动学规划组与 RViz 映射。此类检查不等同于 fake hardware、MoveIt 或实机运行验证。
 
 ## SDK：Elite_Robots_CS_SDK
 

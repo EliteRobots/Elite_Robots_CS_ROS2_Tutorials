@@ -6,7 +6,7 @@ Document version: **1.0.0** · Revision date: **2026-10-08**
 
 This manual assembles a dual-arm system from two independent single-arm instances. It covers driver isolation, controller configuration, startup checks, and optional separate MoveIt instances.
 
-```{rubric} Applicable versions and validation scope
+```{rubric} Applicable versions
 ```
 
 Check the version requirements using the following ROS packages:
@@ -25,8 +25,6 @@ Check the version requirements using the following ROS packages:
   - `≥ 1.0.0`
   - `≥ 1.0.0`
 ```
-
-Source and documentation checks were performed; physical robot, fake hardware, and MoveIt integration tests were not run. The corresponding Jazzy versions have not been reviewed. This guide does not use the older interface reference's Driver 1.0.3 baseline.
 
 ```{rubric} Reading order
 ```

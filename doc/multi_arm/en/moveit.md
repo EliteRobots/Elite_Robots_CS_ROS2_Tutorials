@@ -1,10 +1,10 @@
-# Control two arms with the MoveIt example
+# Dual-arm MoveIt guide
 
-## Get the example
+## Prepare the example files
 
 For MoveIt planning and execution, download {download}`dual_moveit.launch.py <../examples/dual_moveit.launch.py>` into the `~/dual_arm_launch` directory created earlier, or save the complete code at the end of this chapter as `~/dual_arm_launch/dual_moveit.launch.py`. This example starts two independent MoveIt instances, each controlling its own arm.
 
-## Launch the example
+## Launch MoveIt
 
 Start the driver and verify both trajectory controllers as described in the [driver chapter](driver.md). Then source ROS and the workspace in another terminal:
 
@@ -33,7 +33,7 @@ Select the corresponding planning group in each RViz and check Move Group Namesp
 
 If RViz does not show the expected content, inspect the generated temporary configuration for the group name, namespace, and display_planned_path. String replacements depend on the installed RViz template. End-effector poses, TF, and model base positions must still match the physical installation.
 
-## How the example matches each arm
+## How MoveIt configuration is adapted
 
 The template generates three temporary configurations per arm:
 
@@ -45,7 +45,7 @@ The template generates three temporary configurations per arm:
 
 The template neither combines planning scenes nor completely rewrites OMPL or joint limit YAML for multiple arms; it generates only the three files above. For a specific planner or per-joint limit overrides, verify planning group/joint names against custom configuration rather than assuming every single-arm setting receives a prefix automatically.
 
-## Configure the example
+## Parameters and configuration
 
 `arm1_cs_type` and `arm2_cs_type` both default to `cs63` and must match the driver. Five-axis example, with the driver's arm2 configured for the same model:
 

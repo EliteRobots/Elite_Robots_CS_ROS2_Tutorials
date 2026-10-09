@@ -29,7 +29,7 @@
 ```{rubric} 阅读顺序
 ```
 
-完成[使用前准备](overview.md)后，按[使用 example 驱动双臂](driver.md)获取示例、启动并检查，再阅读示例讲解和配置方法。需要规划时，按相同顺序阅读 [MoveIt example](moveit.md)。遇到问题时查看[常见问题与单臂回退](operation.md)。
+完成[使用前准备](overview.md)后，按[双臂驱动使用指南](driver.md)获取示例、启动并检查，再阅读示例讲解和配置方法。需要规划时，按相同顺序阅读 [双臂 MoveIt 使用指南](moveit.md)。遇到问题时查看[常见问题与单臂回退](operation.md)。
 
 ```{toctree}
 :maxdepth: 2

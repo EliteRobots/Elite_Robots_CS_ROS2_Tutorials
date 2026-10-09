@@ -1,6 +1,6 @@
-# Control two arms with the example
+# Dual-arm driver guide
 
-## Get the example
+## Prepare the example files
 
 Create `~/dual_arm_launch` to hold the example launch files:
 
@@ -71,7 +71,7 @@ Both use `control_msgs/action/FollowJointTrajectory`. Goals for arm1 must use jo
 
 An existing action does not prove the robot is ready to move. Physical robots also require a valid external control connection, task state, active controller, and a checked motion envelope. This manual performs no motion validation and provides no target positions intended to fit arbitrary dual-arm layouts.
 
-## How the example controls two arms
+## How the dual-arm driver works
 
 The template reads the driver controller YAML for each arm's model. Models ending in `h` use `elite_cs_controllers_5f.yaml`; others use `elite_cs_controllers.yaml`. It qualifies top-level node keys with the arm's absolute names, replaces `$(var tf_prefix)` with its prefix, and writes a temporary file.
 
@@ -118,7 +118,7 @@ ROS namespaces isolate nodes, services, topics, and actions. Prefixes isolate jo
 
 Robot communication ports on the same ROS computer must also be distinct. The four port types are reverse, script sender, trajectory, and script command: arm1 defaults to 50001–50004 and arm2 to 50101–50104.
 
-## Configure the example
+## Parameters and configuration
 
 Override these defaults on the command line:
 

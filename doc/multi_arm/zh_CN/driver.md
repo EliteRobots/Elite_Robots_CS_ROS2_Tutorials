@@ -1,6 +1,6 @@
-# 使用 example 驱动双臂
+# 双臂驱动使用指南
 
-## 获取 example
+## 准备示例文件
 
 创建 `~/dual_arm_launch` 目录，用于保存示例 launch 文件：
 
@@ -71,7 +71,7 @@ ros2 topic echo /arm2/joint_states --once
 
 动作存在不等于机器人可运动。真机还需检查外部控制连接、任务状态、控制器激活状态及运动范围。本手册不执行运动验证，也不提供可直接套用到任意双臂布局的目标位置。
 
-## example 如何驱动双臂
+## 双臂驱动的实现原理
 
 模板根据各臂型号读取驱动包的控制器 YAML。型号以 `h` 结尾时选用 `elite_cs_controllers_5f.yaml`，其他型号使用 `elite_cs_controllers.yaml`。它将顶层节点键改为该臂的绝对名称，并把 `$(var tf_prefix)` 替换为对应前缀，写入临时文件。
 
@@ -118,7 +118,7 @@ ROS namespace 隔离节点、服务、话题和动作；前缀隔离关节、连
 
 同一 ROS 计算机上的机器人通信端口也必须避免冲突。四类端口依次为 reverse、script sender、trajectory、script command：arm1 默认使用 50001～50004，arm2 默认使用 50101～50104。
 
-## 如何配置 example
+## 参数与配置说明
 
 以下默认值可在命令行覆盖：
 
@@ -154,7 +154,7 @@ ros2 launch dual_arm_control.launch.py \
 
 `local_ip` 未由双臂包装模板单独暴露，沿用单臂入口的自动选择行为；多网卡环境若需为每臂指定回连地址，应在自定义包装文件中添加并传递对应参数。
 
-## example 完整代码
+## 完整示例代码
 
 ````{only} html
 ```{literalinclude} ../examples/dual_arm_control.launch.py

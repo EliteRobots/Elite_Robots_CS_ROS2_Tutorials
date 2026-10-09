@@ -1,10 +1,10 @@
-# 使用 example 通过 MoveIt 控制双臂
+# 双臂 MoveIt 使用指南
 
-## 获取 example
+## 准备示例文件
 
-需要 MoveIt 规划与执行时，下载 {download}`dual_moveit.launch.py <../examples/dual_moveit.launch.py>` 到前面创建的 `~/dual_arm_launch` 目录；也可以将本章末尾的完整代码保存为 `~/dual_arm_launch/dual_moveit.launch.py`。该 example 启动两个独立的 MoveIt 实例，分别控制各自机械臂。
+需要 MoveIt 规划与执行时，下载 {download}`dual_moveit.launch.py <../examples/dual_moveit.launch.py>` 到前面创建的 `~/dual_arm_launch` 目录；也可以将本章末尾的完整代码保存为 `~/dual_arm_launch/dual_moveit.launch.py`。该示例启动两个独立的 MoveIt 实例，分别控制各自机械臂。
 
-## 启动 example
+## 启动 MoveIt
 
 先按[驱动章节](driver.md)启动双臂驱动并确认两套轨迹控制器，再开终端加载 ROS 与工作空间环境：
 
@@ -33,7 +33,7 @@ ros2 action list -t
 
 若 RViz 未显示预期内容，检查生成的临时配置是否包含正确的组名、namespace 和 display_planned_path 路径；字符串替换依赖当前包内 RViz 模板内容。末端位姿、TF 和模型基座位置仍需与实际安装关系一致。
 
-## example 如何匹配每台机械臂
+## MoveIt 配置的适配原理
 
 模板为每臂生成三个临时配置：
 
@@ -45,7 +45,7 @@ ros2 action list -t
 
 模板没有合并两臂规划场景，也没有为 OMPL 或关节限制 YAML 做完整的多臂改写；它仅生成上述三个文件。需要特定规划器或每关节覆盖限制时，应检查规划组/关节名与自定义配置的匹配，不应假定所有单臂配置都自动添加了前缀。
 
-## 如何配置 example
+## 参数与配置说明
 
 参数 `arm1_cs_type`、`arm2_cs_type` 默认均为 `cs63`；必须与驱动保持一致。五轴示例（驱动中的 arm2 也需选择同一型号）：
 
@@ -58,7 +58,7 @@ ros2 launch dual_moveit.launch.py \
 
 `launch_rviz` 默认 true，对两个实例同时生效，可设为 false 关闭两个 RViz。此方案仍使用系统时间。
 
-## example 完整代码
+## 完整示例代码
 
 ````{only} html
 ```{literalinclude} ../examples/dual_moveit.launch.py

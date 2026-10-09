@@ -29,7 +29,7 @@ Check the version requirements using the following ROS packages:
 ```{rubric} Reading order
 ```
 
-After [Before you start](overview.md), follow [Control two arms with the example](driver.md): get the example, launch it, and check the result, then read the explanation and configuration guidance. Follow the same sequence in the [MoveIt example](moveit.md) when planning is required. See [Troubleshooting and returning to single-arm operation](operation.md) if needed.
+After [Before you start](overview.md), follow [Dual-arm driver guide](driver.md): get the example, launch it, and check the result, then read the explanation and configuration guidance. Follow the same sequence in the [Dual-arm MoveIt guide](moveit.md) when planning is required. See [Troubleshooting and returning to single-arm operation](operation.md) if needed.
 
 ```{toctree}
 :maxdepth: 2

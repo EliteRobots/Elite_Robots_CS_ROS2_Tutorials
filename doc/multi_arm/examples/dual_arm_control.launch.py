@@ -124,7 +124,7 @@ def arm_group(
                 OnProcessExit(
                     target_action=spawner_nodes[-1],
                     on_exit=[
-                        LogInfo(msg="\033[92mArm2 spawner chain exited; verify both controller managers.\033[0m")
+                        LogInfo(msg="\033[92mAll required controllers are ready.\033[0m")
                     ],
                 )
             )

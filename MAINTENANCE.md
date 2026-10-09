@@ -158,6 +158,16 @@ HTML 改为本地 `elite` 主题，继承 Sphinx `basic`，通过模板、CSS �
 - `git diff --check` 通过；未执行机器人运动、状态切换、fake hardware 或 MoveIt 集成运行。构建产物与临时检查脚本不入库。
 - 输出：`build/docs/multi_arm/<语言>/html/index.html` 和 `build/docs/multi_arm/<语言>/pdf/multi_arm-<语言>.pdf`。
 
+## 多机械臂原文替换（1.0.0，2026-10-09）
+
+- 按用户要求，中文直接采用 `/home/cc/project/elite_ros_ws/src/Elite_Robots_CS_ROS2_Driver/elite_robots_driver/doc/MultiArm_CN.md`，英文直接采用同目录 `MultiArm.md`，替换上次另行编写的正文。来源仓库分支 `humble`，提交 `f36c67135dc300043ff86e5e70fbdc9b36131799`，`elite_robots` 包版本 1.2.0，读取时工作树干净。
+- 原文导言保留在各译本 `index.md`，原文六节依次对应 `launch_files.md`、`driver.md`、`startup.md`、`control.md`、`moveit.md`、`single_arm.md`。仅提升章节标题层级并添加 toctree，不叠加自动编号；旧版 overview、operation、changelog 已移除。
+- bash/text 代码块改为 MyST `code-block`；两份原文完全相同的 Python 代码提取到共用 examples，以 `literalinclude` 引用，将模板文件名展示转换为同名 download 链接。HTML 保持完整代码，PDF 按连续 32 行分段，无遗漏。驱动模板的最终日志恢复为源文档中的 `All required controllers are ready.`，不保留上次的改写。
+- 将上述格式转换还原后，两份文档均与各自源文件逐字一致；共用模板与原文代码一致，Python 静态语法解析通过。本次未重新校对驱动实现，也未执行硬件、fake hardware、MoveIt 或运动操作；上节记录仅描述旧版的历史工作。
+- 执行 `.venv/bin/python scripts/build_docs.py --document multi_arm --format all` 成功生成中英文 HTML/PDF，Sphinx 无警告，最终 LaTeX 日志无 Overfull 或 Missing character。LaTeX 仍提示 cmap 在 XeLaTeX 下退出，以及英文构建依赖中的旧 hook 弃用提示。
+- 两种语言分别核对 9 个 HTML 页面、144 个本地链接/锚点、2 个下载文件及完整代码展示；下载字节与共用模板一致。已清理本次输出中被替换章节的旧 HTML 和旧模板下载副本，`git diff --check` 通过。
+- 成品仍位于 `build/docs/multi_arm/<语言>/html/index.html` 和 `build/docs/multi_arm/<语言>/pdf/multi_arm-<语言>.pdf`；未修改共用构建配置、相邻源码或其他手册。
+
 ## Tutorials 迁移（1.0.0，2026-10-08）
 
 ### 来源与组织

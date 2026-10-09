@@ -264,7 +264,7 @@ HTML 使用仓库内的 `elite` 主题，继承 Sphinx `basic`，无需安装第
 
 ## 多机械臂手册（multi_arm，中英文 1.0.0）
 
-正文位于 `doc/multi_arm/zh_CN/` 与 `doc/multi_arm/en/`，两种语言具有相同章节。参考相邻 Driver 仓库 `elite_robots_driver/doc/MultiArm_CN.md`，以 `/home/cc/project/elite_ros_ws/src` 下 Driver 1.2.0、Description 1.0.0 的 Humble 源码核对，区别于 interfaces 手册的旧版基线。
+正文位于 `doc/multi_arm/zh_CN/` 与 `doc/multi_arm/en/`，分别直接采用指定 Driver 仓库 `elite_robots_driver/doc/MultiArm_CN.md` 与 `MultiArm.md` 的原文。按原文六节组织章节，仅适配 Sphinx + MyST 格式，保留文字、命令及完整代码；来源路径与版本记录见 `MAINTENANCE.md`。
 
 ```bash
 # 中英文 HTML/PDF
@@ -275,7 +275,7 @@ HTML 使用仓库内的 `elite` 主题，继承 Sphinx `basic`，无需安装第
 
 colcon 可设置 `-DDOCS_DOCUMENT=multi_arm -DDOCS_LANGUAGE=all`。两个完整模板放在 `doc/multi_arm/examples/`，正文以 literalinclude 展示，并提供下载链接；修改模板后应重建两种语言。HTML 展示完整代码块；PDF 将同一模板按连续行分段排版，下载文件始终为完整脚本。
 
-手册说明独立多臂控制与联合规划的区别，补充启动链日志限制及逐臂验证步骤。模板只做离线语法与配置生成检查，未启动实体机器人、fake hardware 或 MoveIt。
+本次替换不保留旧版另行补写的说明及修订记录，也不修改源文档中的模板。文档构建不启动实体机器人、fake hardware 或 MoveIt。
 
 ## Tutorials（中英文 1.0.0）
 

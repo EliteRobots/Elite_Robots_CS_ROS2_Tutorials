@@ -1,44 +1,40 @@
-# Elite Robots ROS 2 Multi-Arm Guide
+# Composing Multiple Elite Arms in This Project
 
-**ELITE ROBOTS**
+This document is self-contained. The two launch files can be created in any
+directory; they do not need to be installed into a ROS package:
 
-Document version: **1.0.0** · Revision date: **2026-10-08**
-
-This manual assembles a dual-arm system from two independent single-arm instances. It covers driver isolation, controller configuration, startup checks, and optional separate MoveIt instances.
-
-```{rubric} Applicable versions
+```{code-block} text
+dual_arm_control.launch.py
+dual_moveit.launch.py
 ```
 
-Check the version requirements using the following ROS packages:
+Copy the complete code from the corresponding sections below into those files.
+After sourcing the workspace, run them directly by filename from their
+directory:
 
-```{list-table}
-:header-rows: 1
-:widths: 56 22 22
-
-* - Package to check
-  - Humble
-  - Jazzy
-* - `elite_robots`
-  - `≥ 1.2.0`
-  - `≥ 1.2.0`
-* - `elite_robots_description`
-  - `≥ 1.0.0`
-  - `≥ 1.0.0`
+```{code-block} bash
+cd ~/dual_arm_launch
+ros2 launch dual_arm_control.launch.py
+ros2 launch dual_moveit.launch.py
 ```
 
-```{rubric} Reading order
+The driver package provides the reusable single-arm entry point:
+
+```{code-block} text
+elite_robots_driver/launch/elite_control.launch.py
 ```
 
-After [Before you start](overview.md), follow [Dual-arm driver guide](driver.md): get the example, launch it, and check the result, then read the explanation and configuration guidance. Follow the same sequence in the [Dual-arm MoveIt guide](moveit.md) when planning is required. See [Troubleshooting and returning to single-arm operation](operation.md) if needed.
+The dual-arm launch file includes it twice and assigns each arm its own
+namespace, TF/joint prefix, controller manager, communication ports, and
+controllers.
 
 ```{toctree}
 :maxdepth: 2
-:numbered:
-:caption: Contents
 
-overview
+launch_files
 driver
+startup
+control
 moveit
-operation
-changelog
+single_arm
 ```

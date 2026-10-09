@@ -8,9 +8,8 @@ dual_arm_control.launch.py
 dual_moveit.launch.py
 ```
 
-Copy the complete code from the corresponding sections below into those files.
-After sourcing the workspace, run them directly by filename from their
-directory:
+Copy the complete code from the corresponding sections below into those files,
+then run them directly by filename from their directory:
 
 ```{code-block} bash
 cd ~/dual_arm_launch
@@ -18,13 +17,8 @@ ros2 launch dual_arm_control.launch.py
 ros2 launch dual_moveit.launch.py
 ```
 
-The driver package provides the reusable single-arm entry point:
-
-```{code-block} text
-elite_robots_driver/launch/elite_control.launch.py
-```
-
-The dual-arm launch file includes it twice and assigns each arm its own
+The driver package provides the reusable single-arm entry point
+`elite_control.launch.py`. The dual-arm launch file includes it twice and assigns each arm its own
 namespace, TF/joint prefix, controller manager, communication ports, and
 controllers.
 
@@ -36,5 +30,4 @@ driver
 startup
 control
 moveit
-single_arm
 ```

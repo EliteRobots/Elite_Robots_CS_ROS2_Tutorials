@@ -1,8 +1,17 @@
 # 4. 检查和控制
 
+运行下面指令将输出arm1的控制器信息：
 ```{code-block} bash
 ros2 control list_controllers -c /arm1/controller_manager
+```
+
+运行下面指令将输出arm2的控制器信息：
+```{code-block} bash
 ros2 control list_controllers -c /arm2/controller_manager
+```
+
+运行下面指令将输出轨迹 action
+```{code-block} bash
 ros2 action list | grep follow_joint_trajectory
 ```
 

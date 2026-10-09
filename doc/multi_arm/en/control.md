@@ -1,8 +1,20 @@
 # 4. Check and control
 
+Run the following command to display the controllers for arm1:
+
 ```{code-block} bash
 ros2 control list_controllers -c /arm1/controller_manager
+```
+
+Run the following command to display the controllers for arm2:
+
+```{code-block} bash
 ros2 control list_controllers -c /arm2/controller_manager
+```
+
+Run the following command to display the trajectory actions:
+
+```{code-block} bash
 ros2 action list | grep follow_joint_trajectory
 ```
 

@@ -1,6 +1,6 @@
 # 2. 完整双臂驱动 launch
 
-将下面内容完整保存为任意目录下的 `dual_arm_control.launch.py`：
+将下面内容完整保存在 `dual_arm_control.launch.py`：
 
 {download}`dual_arm_control.launch.py <../examples/dual_arm_control.launch.py>`
 

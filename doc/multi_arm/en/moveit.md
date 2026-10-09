@@ -1,7 +1,6 @@
-# 5. Complete dual-arm MoveIt launch (optional)
+# 5. Complete dual-arm MoveIt launch
 
-If MoveIt is not needed, stop after Section 4. To use MoveIt, create the
-following file in any directory:
+To use MoveIt, create the following file in any directory:
 
 {download}`dual_moveit.launch.py <../examples/dual_moveit.launch.py>`
 
@@ -86,7 +85,7 @@ temporary configuration files for both arms:
 
 ````
 
-Fake dual-arm MoveIt startup:
+Using two virtual arms:
 
 ```{code-block} bash
 ros2 launch dual_moveit.launch.py \

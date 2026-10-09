@@ -168,6 +168,15 @@ HTML 改为本地 `elite` 主题，继承 Sphinx `basic`，通过模板、CSS �
 - 两种语言分别核对 9 个 HTML 页面、144 个本地链接/锚点、2 个下载文件及完整代码展示；下载字节与共用模板一致。已清理本次输出中被替换章节的旧 HTML 和旧模板下载副本，`git diff --check` 通过。
 - 成品仍位于 `build/docs/multi_arm/<语言>/html/index.html` 和 `build/docs/multi_arm/<语言>/pdf/multi_arm-<语言>.pdf`；未修改共用构建配置、相邻源码或其他手册。
 
+## 多机械臂手动修订同步（1.0.0，2026-10-09）
+
+- 当前正文基准改为用户手动修订后的 `doc/multi_arm/zh_CN/`，英文同步导言、示例文件存放说明、每个新终端加载工作空间的说明、逐臂控制器查询及轨迹 action 查询、虚拟/真机启动措辞和 MoveIt 标题。此后正文不再与上节记录的外部 Markdown 原文逐字一致。
+- 用户删除的单臂启动章节已从英文正文及两种语言的 toctree 同步移除。当前为首页加五节：`launch_files.md`、`driver.md`、`startup.md`、`control.md`、`moveit.md`；README 已更新。上节六节结构仅为迁入时的历史记录。
+- 共用 launch 模板未改动，其中 `single_arm_launch` 仍是双臂模板包含单臂入口所需的变量，与删除手册章节无关。
+- 项目和环境中的 `elite-ros2-docs` 技能已同步，补充手动修订后的译文基准、章节删除及生成文件残留检查规则；技能格式、相对引用、UI 元数据和两份目录一致性校验通过。
+- 中英文六个 Markdown 文件逐一核对，bash/text 代码块、literalinclude 及 toctree 一致。`--document multi_arm --format all` 构建成功，Sphinx 无警告，最终 LaTeX 日志无 Overfull 或 Missing character；未运行硬件、仿真或运动操作。
+- 清理两种语言构建输出中的旧单臂章节 HTML 和 doctree，确认当前 HTML、搜索索引及 PDF 源码均不再包含该章节。下载文件与共用模板字节一致，完整代码展示及本地链接/锚点检查通过。
+
 ## Tutorials 迁移（1.0.0，2026-10-08）
 
 ### 来源与组织

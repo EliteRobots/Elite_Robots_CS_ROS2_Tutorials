@@ -1,6 +1,6 @@
-# 5. 完整双臂 MoveIt launch（可选）
+# 5. 完整双臂 MoveIt launch
 
-不使用 MoveIt 时，到第 4 节就结束。使用 MoveIt 时，在任意目录创建：
+使用 MoveIt 时，在任意目录创建：
 
 {download}`dual_moveit.launch.py <../examples/dual_moveit.launch.py>`
 
@@ -84,7 +84,7 @@
 
 ````
 
-fake 双臂启动：
+使用虚拟的双臂：
 
 ```{code-block} bash
 ros2 launch dual_moveit.launch.py \

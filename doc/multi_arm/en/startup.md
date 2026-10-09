@@ -1,13 +1,16 @@
 # 3. Build and start
 
+If you installed the ROS 2 driver packages by building from source, source the
+workspace setup file in every new terminal. Here, the workspace is assumed to
+be at `~/elite_ros_ws`:
+
 ```{code-block} bash
 cd ~/elite_ros_ws
-source /opt/ros/humble/setup.bash
-colcon build --packages-up-to elite_robots_driver elite_robots_moveit_config
+
 source install/setup.bash
 ```
 
-Fake dual-arm startup:
+Using two virtual arms:
 
 ```{code-block} bash
 ros2 launch dual_arm_control.launch.py \
@@ -17,7 +20,7 @@ ros2 launch dual_arm_control.launch.py \
   arm2_cs_type:=cs63
 ```
 
-Real dual-arm startup:
+Using two real arms:
 
 ```{code-block} bash
 ros2 launch dual_arm_control.launch.py \

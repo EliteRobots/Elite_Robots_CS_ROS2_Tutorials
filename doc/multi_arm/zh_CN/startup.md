@@ -1,13 +1,13 @@
 # 3. 编译并启动
 
+如果你是通过编译安装的方式使用 ROS2 驱动包，请在每个新打开的终端中 source 配置，此处假定工作空间位于 `~/elite_ros_ws`：
 ```{code-block} bash
 cd ~/elite_ros_ws
-source /opt/ros/humble/setup.bash
-colcon build --packages-up-to elite_robots_driver elite_robots_moveit_config
+
 source install/setup.bash
 ```
 
-fake 双臂：
+使用虚拟的双臂：
 
 ```{code-block} bash
 ros2 launch dual_arm_control.launch.py \
@@ -17,7 +17,7 @@ ros2 launch dual_arm_control.launch.py \
   arm2_cs_type:=cs63
 ```
 
-真机双臂：
+使用真机双臂：
 
 ```{code-block} bash
 ros2 launch dual_arm_control.launch.py \

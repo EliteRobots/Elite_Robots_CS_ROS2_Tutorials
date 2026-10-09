@@ -1,7 +1,6 @@
 # 2. Complete dual-arm driver launch
 
-Save the following complete content as `dual_arm_control.launch.py` in any
-directory:
+Save the following complete content in `dual_arm_control.launch.py`:
 
 {download}`dual_arm_control.launch.py <../examples/dual_arm_control.launch.py>`
 

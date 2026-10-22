@@ -57,7 +57,11 @@ def main():
             parser.error(f"Missing doc/{key}/{code}/index.md")
     formats = ["html", "pdf"] if args.format == "all" else [args.format]
     if "pdf" in formats:
-        missing = [name for name in ("make", "latexmk", "xelatex") if not shutil.which(name)]
+        # Windows calls latexmk directly; Sphinx latexpdf needs make on POSIX.
+        required_tools = ("latexmk", "xelatex")
+        if sys.platform != "win32":
+            required_tools += ("make",)
+        missing = [name for name in required_tools if not shutil.which(name)]
         if missing:
             parser.error("Missing PDF tools: " + ", ".join(missing) + ". See README.md.")
     for key, code in builds:
@@ -70,12 +74,21 @@ def main():
         )
         for fmt in formats:
             builder = "latexpdf" if fmt == "pdf" else fmt
+            if fmt == "pdf" and sys.platform == "win32":
+                builder = "latex"
             subprocess.run([
                 sys.executable, "-m", "sphinx", "-M", builder,
                 str(root / "doc" / key / code), str(output),
                 "-c", str(root / "doc"), "-W", "--keep-going",
             ], env=env, check=True)
             if fmt == "pdf":
+                if sys.platform == "win32":
+                    # Generated make.bat can hide latexmk failures. Check it directly.
+                    subprocess.run([
+                        "latexmk", "-pdf", "-dvi-", "-ps-",
+                        "-interaction=nonstopmode", "-halt-on-error",
+                        f"{key}-{code}.tex",
+                    ], cwd=output / "latex", env=env, check=True)
                 pdf = output / "latex" / f"{key}-{code}.pdf"
                 if not pdf.is_file():
                     raise RuntimeError(f"PDF was not generated: {pdf}")

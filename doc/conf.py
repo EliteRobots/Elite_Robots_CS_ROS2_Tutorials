@@ -37,6 +37,9 @@ output_name = f"{document_id}-{language}"
 latex_documents = [("index", f"{output_name}.tex", project, author, "manual")]
 latex_show_urls = "footnote"
 latex_use_xindy = False
+# Avoid Sphinx 8 colorrows recursion with TeX Live 2026 array/colortbl.
+# https://github.com/sphinx-doc/sphinx/issues/14465
+latex_table_style = ["booktabs"]
 fonts = locale["fonts"]
 font_commands = [
     r"\usepackage{fontspec}",

@@ -63,7 +63,7 @@ PDF 当前使用 XeLaTeX。中文 PDF 依赖：
 
 ```bash
 sudo apt-get install -y \
-  latexmk texlive-xetex texlive-lang-chinese \
+  make latexmk texlive-xetex texlive-lang-chinese \
   texlive-latex-extra texlive-fonts-recommended \
   fonts-noto-cjk fonts-dejavu-core fonts-lmodern
 ```
@@ -71,6 +71,19 @@ sudo apt-get install -y \
 法文 PDF 另需 `texlive-lang-french`，用于 LaTeX 的法语排版与断词支持。其他新增语言也需安装相应的 LaTeX 语言支持包和字体。
 
 PDF 字体由 `languages.json` 配置：西文使用 Latin Modern 和 DejaVu，中文额外使用 Noto CJK；英语、法语配置不加载中文字体。依赖版本约束见 `requirements.txt`。
+
+### Windows 构建
+
+安装本机 Python 依赖（`python -m pip install -r requirements.txt`），并确保 TeX Live 的 `latexmk` 和 `xelatex` 在当前终端的 PATH 中。可在 PowerShell 中检查：
+
+```powershell
+where.exe python
+where.exe latexmk
+where.exe xelatex
+python scripts/build_docs.py --format all
+```
+
+Windows 下先由 Sphinx 生成 LaTeX，再直接调用 `latexmk` 并检查退出码，无需额外安装 GNU `make`；Linux/WSL 下仍需 `make`。Windows 与 WSL 使用各自的 Python、TeX 工具和字体，请在实际运行构建命令的环境中检查依赖。修改 PATH 后需重新打开终端。中文及西文字体要求与上文相同。PDF 表格使用 `booktabs` 样式，避免 Sphinx 8 与 TeX Live 2026 的 `colorrows` 兼容问题。
 
 ## 直接构建
 

@@ -13,7 +13,6 @@ doc/
 ├── documents.json            # 每份文档及译本的启用状态、标题和版本
 ├── languages.json            # 共用语言元数据与字体配置
 ├── conf.py                   # 共用 Sphinx 配置
-├── _static/                  # 共用 HTML 样式
 ├── tutorials/
 │   ├── examples/moveit/     # 共用的工作单元和 C++ 示例包
 │   ├── en/moveit/           # 英文 MoveIt 教程及配图
@@ -258,7 +257,7 @@ Gazebo 启动结果。
 
 ## HTML 主题
 
-HTML 使用 `sphinx-rtd-theme` 的 Read the Docs 基础主题，沿用主题默认布局与样式，不加载原 `elite` 主题、`manual.css` 或 `manual.js`。依赖在 `requirements.txt` 中声明；CMake 也会检查主题是否已安装。搜索使用 Sphinx 自带索引，各文档和语言继续独立构建。PDF 继续使用 XeLaTeX 排版。
+HTML 使用 `sphinx-rtd-theme` 的 Read the Docs 基础主题，沿用主题默认布局与样式，主题资源由依赖包提供。依赖在 `requirements.txt` 中声明；CMake 也会检查主题是否已安装。搜索使用 Sphinx 自带索引，各文档和语言继续独立构建。PDF 继续使用 XeLaTeX 排版。
 
 ## 英文快速手册
 

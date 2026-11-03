@@ -25,7 +25,7 @@ description: 维护 Elite_Robots_CS_ROS2_Tutorials 的多语言 MyST 手册、Tu
 - `doc/documents.json` 管理 `quickstart`、`usage`、`interfaces`、`multi_arm`、`tutorials` 等手册及各译本的启用状态和版本。读取实际配置，不因存在预留项而自动编写或启用正文。
 - `doc/languages.json` 管理语言元数据及 PDF 字体。新增语言时同时检查此文件和文档清单；配置了语言不等于已有译文。
 - 保持不同译本的章节文件名对应；章节链接使用相对路径。修改某个译本不等于其他译本已同步，不应自动提高未更新译本的版本号。
-- `doc/conf.py`、`doc/_static/` 和 `scripts/build_docs.py` 是共用构建配置。仅涉及正文时通常无需更改它们。
+- `doc/conf.py` 和 `scripts/build_docs.py` 是共用构建配置。仅涉及正文时通常无需更改它们。
 - `README.md`、`MAINTENANCE.md`、图片清单及 `skills/` 属于仓库维护资料，不加入正式手册的 `toctree`。
 
 新增手册/译本时先完成有效的 `index.md` 和所引用正文，再注册并启用对应组合。构建以清单为准，不为缺失译本生成空白成品或自动回退中文。新增文档类型时按需更新 README 和构建参数帮助文字，不把文档类型硬编码为固定枚举。

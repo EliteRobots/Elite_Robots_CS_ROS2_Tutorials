@@ -81,7 +81,7 @@ Tutorials 解释建模、配置关系和应用开发步骤；quickstart 保持�
 .venv/bin/python scripts/build_docs.py --format all
 ```
 
-输出为 `build/docs/<document>/<language>/html/index.html` 和 `pdf/<document>-<language>.pdf`。CMake/colcon 的 ROS 包名为 `elite_robots_cs_tutorials`，选项为 `BUILD_DOCS`、`BUILD_DOCS_PDF`、`DOCS_DOCUMENT`、`DOCS_LANGUAGE`；具体调用见 README。仅修改维护资料或技能说明时，无需重复构建未改变的正文。
+HTML 使用 `sphinx-rtd-theme` 基础主题，不加载自定义 Elite CSS/JS。输出为 `build/docs/<document>/<language>/html/index.html` 和 `pdf/<document>-<language>.pdf`。PDF 构建同时将正文实际引用的本地下载归集到 `pdf/downloads/`：ZIP 保留原名，单文件保留 examples 包目录，不使用哈希目录、不新增 PDF 链接，也不依赖先构建 HTML。交付 Baklib 时提供整个 `pdf/` 目录；该 downloads 目录由构建刷新，不放手工文件。CMake/colcon 的 ROS 包名为 `elite_robots_cs_tutorials`，选项为 `BUILD_DOCS`、`BUILD_DOCS_PDF`、`DOCS_DOCUMENT`、`DOCS_LANGUAGE`；具体调用见 README。仅修改维护资料或技能说明时，无需重复构建未改变的正文。
 
 构建脚本将 Sphinx 警告视为失败。按改动检查失效链接、缺图、重复标签、实际生成的图号，以及 LaTeX 日志中的缺字和溢出。长包名/控制器名的表格可使用 MyST `list-table` 的 `:widths:` 调整列宽。不要只凭存在旧成品就声称本次构建成功。
 

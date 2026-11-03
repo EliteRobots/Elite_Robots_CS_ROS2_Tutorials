@@ -66,12 +66,7 @@ def main():
             parser.error("Missing PDF tools: " + ", ".join(missing) + ". See README.md.")
     for key, code in builds:
         output = args.output.resolve() / key / code
-        env = dict(
-            os.environ, ELITE_DOCUMENT=key, ELITE_LANGUAGE=code,
-            ELITE_PDF_AVAILABLE="1" if (
-                "pdf" in formats or (output / "pdf" / f"{key}-{code}.pdf").is_file()
-            ) else "0",
-        )
+        env = dict(os.environ, ELITE_DOCUMENT=key, ELITE_LANGUAGE=code)
         for fmt in formats:
             builder = "latexpdf" if fmt == "pdf" else fmt
             if fmt == "pdf" and sys.platform == "win32":
@@ -94,6 +89,10 @@ def main():
                     raise RuntimeError(f"PDF was not generated: {pdf}")
                 (output / "pdf").mkdir(parents=True, exist_ok=True)
                 shutil.copy2(pdf, output / "pdf" / pdf.name)
+                downloads = output / "pdf" / "downloads"
+                if downloads.exists():
+                    shutil.rmtree(downloads)
+                shutil.copytree(output / "latex" / "downloads", downloads)
             print(f"Built {key}/{code}: {fmt} -> {output}", flush=True)
     return 0
 

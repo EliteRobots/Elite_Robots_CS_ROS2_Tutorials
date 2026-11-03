@@ -13,7 +13,7 @@ Gazebo 可以模拟机器人运动与物理行为，也可通过添加障碍物�
 
 ## 使用程序控制 Gazebo 机器人
 
-在已加载 ROS 2 与工作空间环境的终端中启动仿真：
+apt 安装只需加载 ROS 2 环境；源码安装还需加载对应工作空间。若已按安装章节将所需 `source` 命令加入 `~/.bashrc`，新开的 Bash 终端会自动加载，无需重复执行。未加载时，参见{ref}`终端环境加载说明 <terminal-environment>`。确认环境就绪后启动仿真：
 
 ```bash
 ros2 launch elite_robots_simulation_gz elite_sim_control.launch.py cs_type:=cs66
@@ -40,7 +40,7 @@ ros2 run elite_robots_simulation_gz gz_control.py --example
 
 ## 使用 MoveIt 2 控制 Gazebo 机器人
 
-以下介绍分别启动 Gazebo 和 MoveIt 2 的方式，每个终端都先加载 ROS 2 和工作空间环境；若前一节仿真仍在运行，先停止它再切换到本流程。
+以下介绍分别启动 Gazebo 和 MoveIt 2 的方式，每个终端都应按上述安装方式确认环境已加载，已通过 `.bashrc` 自动加载时无需重复执行 `source`；若前一节仿真仍在运行，先停止它再切换到本流程。
 
 **终端一：启动 Gazebo，关闭其附带的 RViz。**
 

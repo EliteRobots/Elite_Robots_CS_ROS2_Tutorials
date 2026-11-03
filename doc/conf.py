@@ -1,6 +1,7 @@
 """Shared Sphinx configuration for an independent document/language pair."""
 import json
 import os
+import shutil
 from pathlib import Path
 from io import BytesIO
 from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
@@ -22,11 +23,8 @@ extensions = ["myst_parser"]
 source_suffix = {".md": "markdown", ".rst": "restructuredtext"}
 myst_heading_anchors = 3
 exclude_patterns = ["_build", "images/README.md"]
-html_theme = "elite"
-html_theme_path = [str(DOC_DIR / "_themes")]
+html_theme = "sphinx_rtd_theme"
 html_title = project
-html_static_path = [str(DOC_DIR / "_static")]
-html_js_files = ["manual.js"]
 html_show_sourcelink = False
 html_copy_source = False
 numfig = True
@@ -67,83 +65,6 @@ latex_elements = {
 }
 
 
-# Shared navigation labels; unavailable translations are not shown as links.
-ELITE_UI = {'zh_CN': {'site_title': 'ROS 2 技术文档',
-           'links': '相关网站',
-           'website': '官网',
-           'portal': '技术文档',
-           'search': '搜索文档',
-           'menu': '展开或收起目录',
-           'chapters': '文档目录',
-           'home': '首页',
-           'breadcrumbs': '当前位置',
-           'download': '下载 PDF',
-           'version': '版本',
-           'on_page': '页内目录',
-           'pagination': '章节导航',
-           'previous': '上一章',
-           'next': '下一章',
-           'top': '返回顶部',
-           'skip': '跳到正文',
-           'copy': '复制',
-           'copied': '已复制',
-           'copy_failed': '请手动复制'},
- 'en': {'site_title': 'ROS 2 Documentation',
-        'links': 'Related websites',
-        'website': 'Website',
-        'portal': 'Documentation',
-        'search': 'Search documentation',
-        'menu': 'Toggle navigation',
-        'chapters': 'Chapters',
-        'home': 'Home',
-        'breadcrumbs': 'Breadcrumbs',
-        'download': 'Download PDF',
-        'version': 'Version',
-        'on_page': 'On this page',
-        'pagination': 'Page navigation',
-        'previous': 'Previous',
-        'next': 'Next',
-        'top': 'Back to top',
-        'skip': 'Skip to content',
-        'copy': 'Copy',
-        'copied': 'Copied',
-        'copy_failed': 'Copy manually'},
- 'fr': {'site_title': 'Documentation ROS 2',
-        'links': 'Sites associés',
-        'website': 'Site officiel',
-        'portal': 'Documentation',
-        'search': 'Rechercher',
-        'menu': 'Afficher le menu',
-        'chapters': 'Chapitres',
-        'home': 'Accueil',
-        'breadcrumbs': 'Fil d’Ariane',
-        'download': 'Télécharger le PDF',
-        'version': 'Version',
-        'on_page': 'Sur cette page',
-        'pagination': 'Navigation des pages',
-        'previous': 'Précédent',
-        'next': 'Suivant',
-        'top': 'Retour en haut',
-        'skip': 'Aller au contenu',
-        'copy': 'Copier',
-        'copied': 'Copié',
-        'copy_failed': 'Copier manuellement'}}
-ELITE_DOCUMENT_LABELS = {'zh_CN': {'quickstart': '快速使用手册', 'usage': '使用手册', 'interfaces': '接口手册'},
- 'en': {'quickstart': 'Quickstart guide',
-        'usage': 'User guide',
-        'interfaces': 'Interface reference'},
- 'fr': {'quickstart': 'Guide de démarrage',
-        'usage': 'Guide d’utilisation',
-        'interfaces': 'Référence des interfaces'}}
-html_context = {
-    "elite_ui": ELITE_UI.get(language, ELITE_UI["en"]),
-    "elite_document_label": ELITE_DOCUMENT_LABELS.get(language, ELITE_DOCUMENT_LABELS["en"]).get(document_id, project),
-    "elite_language_label": locale["label"],
-    "elite_output_name": output_name,
-    "elite_pdf_available": os.environ.get("ELITE_PDF_AVAILABLE") == "1",
-}
-
-
 def prepare_example_downloads(app):
     """Package the current example sources before Sphinx resolves downloads."""
     document_root = DOC_DIR / document_id
@@ -171,5 +92,27 @@ def prepare_example_downloads(app):
             target.write_bytes(content)
 
 
+def export_pdf_downloads(app, exception):
+    """Export resolved local downloads without HTML hashes or PDF links."""
+    if exception is not None or app.builder.name != "latex":
+        return
+    document_root = (DOC_DIR / document_id).resolve()
+    target_root = Path(app.outdir) / "downloads"
+    # This directory is generated exclusively by this callback.
+    if target_root.exists():
+        shutil.rmtree(target_root)
+    target_root.mkdir(parents=True)
+    for filename in sorted(app.env.dlfiles):
+        source = (Path(app.srcdir) / filename).resolve()
+        relative = source.relative_to(document_root)
+        # Put ZIP archives directly in downloads; retain example package paths.
+        if relative.parts[0] == "downloads":
+            relative = Path(*relative.parts[1:])
+        target = target_root / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, target)
+
+
 def setup(app):
     app.connect("builder-inited", prepare_example_downloads)
+    app.connect("build-finished", export_pdf_downloads)

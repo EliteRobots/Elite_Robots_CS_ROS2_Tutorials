@@ -128,6 +128,28 @@ Windows 下先由 Sphinx 生成 LaTeX，再直接调用 `latexmk` 并检查退�
 
 HTML 是独立多页面站点，PDF 是独立的一本手册。PDF 文件名带语言代码，复制到同一目录时也不会覆盖。构建将 Sphinx 警告视为失败。
 
+### PDF 与下载资源交付
+
+每次成功构建 PDF，都会将该手册中实际引用的本地下载文件整理到同级的 `pdf/downloads/`，无需先构建 HTML。ZIP 使用原文件名，单文件保留 `examples/` 下的包名及目录，避免同名文件覆盖；不使用 HTML `_downloads` 中的哈希目录，也不增加 PDF 内的下载链接。
+
+```text
+<输出根目录>/tutorials/zh_CN/pdf/
+├── tutorials-zh_CN.pdf
+└── downloads/
+    ├── hello_moveit.zip
+    ├── my_elite_robot_cell.zip
+    └── examples/moveit/…       # 按示例包和源目录组织的单文件
+<输出根目录>/multi_arm/zh_CN/pdf/
+├── multi_arm-zh_CN.pdf
+└── downloads/examples/
+    ├── dual_arm_control.launch.py
+    └── dual_moveit.launch.py
+```
+
+交接给 Baklib 上传人员时，直接提供各手册的 `pdf/` 目录即可；PDF 和下载资源都在其中。无下载引用的手册生成空的 `downloads/`。该目录由构建自动刷新，不要放入手工文件，已删除的引用不会留下旧资源。HTML 的下载链接继续使用原 `_downloads`。
+
+默认输出根目录为 `build/docs`，执行 `python scripts/build_docs.py --format all` 即可生成。`--format latex` 仅在 `latex/downloads/` 准备资源，不产生 PDF 交付目录。
+
 可以直接打开 HTML 入口，或启动本地服务器：
 
 ```bash
@@ -142,7 +164,7 @@ ROS 包名为 `elite_robots_cs_tutorials`。默认构建所有已启用译本的
 
 先按上面的“安装构建依赖”准备文档环境。CMake 默认优先使用本仓库的 `.venv/bin/python`，没有该环境时使用找到的 `Python3_EXECUTABLE`。文档解释器独立于 ament 使用的 Python，不需要激活 `.venv`，也不需要覆盖整个包的 `Python3_EXECUTABLE`。
 
-准备好依赖后，在工作空间直接执行 `colcon build` 即可构建 HTML。需要显式选择其他文档环境时，传入 `-DDOCS_PYTHON_EXECUTABLE=/path/to/python`；设为空字符串可恢复自动选择。若所选解释器缺少 Sphinx 或 MyST，会在 CMake 配置阶段报告该解释器路径及处理方法，不会自动安装依赖。
+准备好依赖后，在工作空间直接执行 `colcon build` 即可构建 HTML。需要显式选择其他文档环境时，传入 `-DDOCS_PYTHON_EXECUTABLE=/path/to/python`；设为空字符串可恢复自动选择。若所选解释器缺少 Sphinx、MyST 或 Read the Docs 主题，会在 CMake 配置阶段报告该解释器路径及处理方法，不会自动安装依赖。
 
 
 ```bash
@@ -230,20 +252,13 @@ Gazebo 启动结果。
 
 源码核对记录和待确认项见 `MAINTENANCE.md`。机器人操作命令仅作为文档整理，未执行硬件验证。
 
-当前提供 ament_cmake 包结构，未执行 bloom-release 或上传网站。包维护者暂沿用现有驱动中的 Yan / yanxiaojia@elibot.cn；包版本 `0.1.0` 与来源手册版本分开管理。原手册保留所有权利，`package.xml` 暂记为 `Proprietary`；正式发布前由项目方确认维护者、许可及目标平台依赖。
+当前提供 ament_cmake 包结构，未执行 bloom-release 或上传网站。包维护者暂沿用现有驱动中的 Yan / yanxiaojia@elibot.cn；包版本 `1.0.0` 与来源手册版本分开管理。原手册保留所有权利，`package.xml` 暂记为 `Proprietary`；正式发布前由项目方确认维护者、许可及目标平台依赖。
 
 接入 ROS 官方文档托管时仍需单独配置 rosdoc2 入口与 rosdistro 的 `doc` 条目，并验证构建。这里的独立语言站点暂未添加网页语言切换器，bloom 也不会自动发布这些 PDF。
 
 ## HTML 主题
 
-HTML 使用仓库内的 `elite` 主题，继承 Sphinx `basic`，无需安装第三方主题包或从外部 CDN 加载样式。布局参考 Elite 技术文档站点：白色顶栏、浅灰色章节目录及页内目录、蓝色选中项和主标题竖线。
-
-- `doc/_themes/elite/layout.html`：共用页面布局、搜索入口和前后章节导航。
-- `doc/_static/manual.css`：配色、排版及响应式布局；`manual.js`：移动导航、代码复制和页内目录高亮。
-- `doc/_static/elite-logo.png`：本地品牌 Logo；`doc/conf.py`：主题及中、英、法界面文字配置。
-- 搜索使用 Sphinx 自带索引。使用 `--format all`，或输出目录中已有对应 PDF 时，显示 PDF 下载入口；只构建 HTML 且无 PDF 时不显示。
-- 各语言仍独立构建，页头显示当前语言及文档版本。未启用的译本和其他手册不显示跳转入口。
-- PDF 继续使用现有 XeLaTeX 排版，不继承 HTML CSS。正式正文不显示资料来源说明；图片提取元数据作为维护记录保留。
+HTML 使用 `sphinx-rtd-theme` 的 Read the Docs 基础主题，沿用主题默认布局与样式，不加载原 `elite` 主题、`manual.css` 或 `manual.js`。依赖在 `requirements.txt` 中声明；CMake 也会检查主题是否已安装。搜索使用 Sphinx 自带索引，各文档和语言继续独立构建。PDF 继续使用 XeLaTeX 排版。
 
 ## 英文快速手册
 

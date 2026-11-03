@@ -8,7 +8,7 @@ Complete [Local environment setup](installation.md), connect a physical robot or
 
 ## Start the driver
 
-In a terminal with ROS 2 and the workspace environment sourced, run:
+An apt installation only requires the ROS 2 environment; a source installation also requires the corresponding workspace. If you added the required `source` commands to `~/.bashrc` as described in the installation chapter, new Bash terminals load them automatically, so you do not need to run them again. If it is not loaded, see {ref}`Terminal environment setup <terminal-environment>`. Once the environment is ready, run:
 
 ```bash
 ros2 launch elite_robots_driver elite_control.launch.py \
@@ -24,11 +24,9 @@ After starting the driver, follow [Getting started with the driver](driver.md) t
 
 ## Start MoveIt 2
 
-Open another terminal, source the environment, and run:
+Open another terminal and check that the environment for your installation method is loaded as described above. If `.bashrc` loaded it automatically, you do not need to run `source` again. Then run:
 
 ```bash
-source /opt/ros/humble/setup.bash
-source ~/elite_ros_ws/install/setup.bash
 ros2 launch elite_robots_moveit_config elite_moveit.launch.py cs_type:=cs66
 ```
 

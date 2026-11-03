@@ -13,7 +13,7 @@ The two workflows below provide script-based control and interactive MoveIt 2 co
 
 ## Control the Gazebo robot programmatically
 
-Start the simulation in a terminal with ROS 2 and the workspace environment sourced:
+An apt installation only requires the ROS 2 environment; a source installation also requires the corresponding workspace. If you added the required `source` commands to `~/.bashrc` as described in the installation chapter, new Bash terminals load them automatically, so you do not need to run them again. If it is not loaded, see {ref}`Terminal environment setup <terminal-environment>`. Once the environment is ready, start the simulation:
 
 ```bash
 ros2 launch elite_robots_simulation_gz elite_sim_control.launch.py cs_type:=cs66
@@ -30,7 +30,7 @@ Gazebo should load the robot model.
 Gazebo startup result
 ```
 
-Open another terminal, source the environment, and run the control example:
+Open another terminal with the environment loaded as described above, then run the control example:
 
 ```bash
 ros2 run elite_robots_simulation_gz gz_control.py --example
@@ -40,7 +40,7 @@ For other programmatic control options, see the [script source](https://github.c
 
 ## Control the Gazebo robot with MoveIt 2
 
-The following steps start Gazebo and MoveIt 2 separately. Source ROS 2 and the workspace environment in each terminal. If the simulation from the previous section is still running, stop it before switching to this workflow.
+The following steps start Gazebo and MoveIt 2 separately. Check that each terminal has the environment for your installation method as described above. If `.bashrc` loaded it automatically, you do not need to run `source` again. If the simulation from the previous section is still running, stop it before switching to this workflow.
 
 **Terminal 1: Start Gazebo without its bundled RViz instance.**
 

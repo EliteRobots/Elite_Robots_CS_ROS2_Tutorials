@@ -237,3 +237,15 @@ HTML 改为本地 `elite` 主题，继承 Sphinx `basic`，通过模板、CSS �
 - 核查 DAE 的纹理引用、Xacro/launch 的配置和模型引用、正文图片引用；保留运行和文档需要的资源。ZIP 属于用户需要的下载成品，保持自动生成和 Git 忽略，不纳入提交。
 - 清理后重新构建中英文 Tutorials HTML/PDF，两个下载包分别为 4 和 33 个文件，与当前源码逐文件一致；使用当前源目录加载 fake/实体两套 MoveIt 配置通过，不依赖被删除的 Pilz 文件。
 - 先更新项目 `skills/elite-ros2-docs/` 的 SKILL.md、源码核对入口及 UI 元数据，增加 Tutorials、整包下载、资源清理和项目优先的技能维护说明；技能验证通过后同步到环境 `/home/cc/.codex/skills/elite-ros2-docs/`，再次验证并核对三个文件一致。
+
+## Read the Docs 基础主题与 PDF 资源交付（2026-11-03）
+
+- HTML 改用 sphinx-rtd-theme 默认主题，停止加载原 Elite 布局、CSS、JS 和专用导航上下文；Python 依赖及 CMake 依赖检查同步更新。
+- LaTeX 构建从 Sphinx 实际解析的本地 download 引用归集资源，成功生成 PDF 后复制到 pdf/downloads/。ZIP 保留原文件名，单文件保留 examples 下的包目录，避免哈希目录和同名覆盖；无需先生成 HTML，也不增加 PDF 正文链接。该生成目录每次刷新以清除旧资源。
+- README 增加 Baklib 交接目录及默认 build/docs 输出路径说明；项目维护技能同步说明。所有启用译本原本已为 1.0.0，将 ROS 文档包版本由 0.1.0 统一为 1.0.0。
+- 验证：使用临时 Python 环境中的 Sphinx 8.1.3、sphinx-rtd-theme 3.1.0 和 Linux XeLaTeX 构建全部八组 HTML/PDF，成品存放于 `build/docs/`。无 Sphinx 警告、Overfull 或 Missing character；检查 2657 个本地链接/资源引用全部有效。各语言的多机械臂 2 个、Tutorials 12 个下载文件均与源码及 HTML 下载字节一致，ZIP 内的 4/33 个文件也逐项一致。单独 PDF 构建、增量刷新清理旧资源、同名文件隔离均通过。本次修改文件的空白检查通过（按仓库现有 CRLF 行尾处理）；未运行硬件或仿真。
+
+## Quickstart 终端环境说明同步（2026-11-03）
+
+- 以当前中文文档为准，同步中英文安装、驱动、MoveIt、Gazebo 和首页的环境前提：apt 安装只需 ROS 2 环境，源码安装还需工作空间；已配置 .bashrc 的新 Bash 终端无需重复 source，旧终端需重新打开或手动加载。安装章节集中提供条件明确的命令，其余章节引用该说明。
+- 中英文 quickstart HTML/PDF 已重新生成到 build/docs/quickstart/，Sphinx 无警告，新增章节跳转及 PDF 文本检查通过，无缺字。中文概述原有命令代码块出现一处 0.51276pt 的 Overfull vbox 提示；未修改该代码块或共用排版配置。本次未执行机器人操作命令。

@@ -2,7 +2,7 @@
 
 This chapter records changes to the published guide that affect its use. The document is versioned independently; see {ref}`Applicable versions <applicable-versions>` for matching package versions. Detailed source-code review records are kept in the repository's maintenance documentation.
 
-## 1.0.0 (2026-09-24)
+## 1.0.0 (2026-11-03)
 
 - Establish an independently versioned MyST quickstart guide with HTML and PDF output, organized by document type and language.
 - Update installation, driver startup, service calls, controllers, and Python/C++ motion examples against the current workspace source code; correct parameter syntax and the units of `max_vel`.

@@ -71,7 +71,7 @@ source /opt/ros/humble/setup.bash
 如果你使用的不是 bash，请将 .bash 替换为相应 shell 的后缀。可用文件包括 setup.bash、setup.sh 和 setup.zsh。
 ```
 
-为了日后方便，可以把配置脚本写入环境中，这样每次启动终端都会自动加载`/opt/ros/humble/setup.bash`脚本：
+为方便后续使用，可以将下面的命令加入 `~/.bashrc`，使新开的 Bash 终端自动加载 ROS 2 环境；若已有该行，无需重复添加：
 ```bash
 echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 ```
@@ -83,7 +83,7 @@ echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 ros2 run demo_nodes_cpp talker
 ```
 
-在另一个终端加载环境后运行 Python listener：
+在另一个终端运行 Python listener。若已配置 `.bashrc` 且新终端已自动加载环境，可跳过下面的 `source` 命令：
 ```bash
 source /opt/ros/humble/setup.bash
 ros2 run demo_nodes_py listener
@@ -93,9 +93,9 @@ ros2 run demo_nodes_py listener
 
 ## 安装 Elite Robots ROS 2 驱动
 
-### 在线安装
+### 在线安装（推荐）
 
-先加载所用 ROS 发行版的环境，确认 `ROS_DISTRO` 已设置。以下安装方式要求该发行版的软件源中已有对应二进制包；可先用 `apt-cache policy ros-${ROS_DISTRO}-elite-robots` 查看候选版本。若无候选版本，改用下方源码构建流程。二进制发布版与工作空间中的最新源码可能存在接口差异，本手册以当前源码为核对依据。
+先加载所用 ROS 发行版的环境，确认 `ROS_DISTRO` 已设置。以下安装方式要求该发行版的软件源中已有对应二进制包；可先用 `apt-cache policy ros-${ROS_DISTRO}-elite-robots` 查看候选版本。若无候选版本，改用下方源码构建流程。
 
 ```bash
 sudo apt install ros-${ROS_DISTRO}-elite-robots
@@ -103,6 +103,8 @@ sudo apt install ros-${ROS_DISTRO}-elite-robots
 # （可选）如果需要使用 Gazebo（仅humble可用）
 sudo apt install ros-humble-elite-robots-simulation-gz
 ```
+
+通过 apt 安装后，软件包随 `/opt/ros/humble/setup.bash` 一起加载，不需要创建或加载 `~/elite_ros_ws`。仅使用二进制包时，可跳过“编译安装”，直接进行下方验证。
 
 ### 编译安装
 
@@ -181,11 +183,34 @@ Summary: 10 packages finished [5min 3s]
 source ~/elite_ros_ws/install/setup.bash
 ```
 
-如需每次新开终端自动加载，可以运行：
+如需新开的 Bash 终端自动加载工作空间，可将以下命令加入 `~/.bashrc`，放在 ROS 2 环境加载命令之后；若已有该行，无需重复添加：
 
 ```bash
 echo 'source ~/elite_ros_ws/install/setup.bash' >> ~/.bashrc
 ```
+
+(terminal-environment)=
+## 终端环境加载说明
+
+后续章节中的“已加载环境”指终端已具备所用软件包的运行环境，不要求每次都手动执行 `source`。根据安装方式选择：
+
+- **apt 安装**：只需加载 ROS 2 环境，不需要 `~/elite_ros_ws/install/setup.bash`。
+- **源码安装**：加载 ROS 2 环境后，还需加载编译完成的工作空间；工作空间路径与示例不同时，请使用实际路径。
+- **已配置 `~/.bashrc`**：新开的 Bash 终端会自动执行其中的加载命令，无需重复执行。在修改 `.bashrc` 前已打开的终端不会自动更新，可重新打开终端，或按下方命令手动加载。
+
+仅在当前终端尚未加载时执行（本手册以 Humble 为例）：
+
+```bash
+source /opt/ros/humble/setup.bash
+```
+
+仅使用源码安装的工作空间时，再执行：
+
+```bash
+source ~/elite_ros_ws/install/setup.bash
+```
+
+驱动、服务调用、MoveIt 2 和 Gazebo 所用的每个终端都应满足以上条件。
 
 ## 验证
 

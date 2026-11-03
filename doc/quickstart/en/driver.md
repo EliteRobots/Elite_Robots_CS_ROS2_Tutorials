@@ -2,12 +2,9 @@
 
 ## Startup and connection
 
-First complete [network setup or ELIBOTSim startup](robot_setup.md), then source the environment in every terminal you use:
+First complete [network setup or ELIBOTSim startup](robot_setup.md), then make sure each terminal has the environment required by your installation method.
 
-```bash
-source /opt/ros/humble/setup.bash
-source ~/elite_ros_ws/install/setup.bash
-```
+An apt installation only requires the ROS 2 environment; a source installation also requires the corresponding workspace. If you added the required `source` commands to `~/.bashrc` as described in the installation chapter, new Bash terminals load them automatically, so you do not need to run them again. If the environment was not loaded automatically, or the terminal was already open before you configured `.bashrc`, follow {ref}`Terminal environment setup <terminal-environment>` to load it manually.
 
 ### Start the driver
 

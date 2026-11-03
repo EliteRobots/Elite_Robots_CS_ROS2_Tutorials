@@ -23,14 +23,14 @@ if(BUILD_DOCS)
     set(_docs_python "${Python3_EXECUTABLE}")
   endif()
   execute_process(
-    COMMAND "${_docs_python}" -c "import sphinx, myst_parser"
+    COMMAND "${_docs_python}" -c "import sphinx, myst_parser, sphinx_rtd_theme"
     RESULT_VARIABLE _docs_import_result
     ERROR_VARIABLE _docs_import_error
     OUTPUT_QUIET)
   if(NOT "${_docs_import_result}" STREQUAL "0")
     message(FATAL_ERROR
       "Documentation Python: ${_docs_python}\n"
-      "Cannot import Sphinx and MyST: ${_docs_import_error}\n"
+      "Cannot import Sphinx, MyST and Read the Docs theme: ${_docs_import_error}\n"
       "Create .venv and install requirements.txt as described in README.md, "
       "or set -DDOCS_PYTHON_EXECUTABLE=/path/to/python with those dependencies. "
       "Use -DBUILD_DOCS=OFF to skip documentation.")

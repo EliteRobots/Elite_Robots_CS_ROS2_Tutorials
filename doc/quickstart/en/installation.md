@@ -73,7 +73,7 @@ source /opt/ros/humble/setup.bash
 If you use a shell other than Bash, replace `.bash` with the appropriate suffix. Available files include `setup.bash`, `setup.sh`, and `setup.zsh`.
 ```
 
-For convenience, add the setup command to your shell configuration so that `/opt/ros/humble/setup.bash` is loaded in each new Bash terminal:
+For convenience, add the following command to `~/.bashrc` so that new Bash terminals load the ROS 2 environment automatically. Do not add it again if it is already present:
 
 ```bash
 echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
@@ -87,7 +87,7 @@ Run the C++ talker in one terminal:
 ros2 run demo_nodes_cpp talker
 ```
 
-In another terminal, source the environment and run the Python listener:
+Run the Python listener in another terminal. If you configured `.bashrc` and the new terminal has loaded the environment automatically, skip the `source` command below:
 
 ```bash
 source /opt/ros/humble/setup.bash
@@ -98,9 +98,9 @@ The talker should display messages starting with `Publishing`, and the listener 
 
 ## Install the Elite Robots ROS 2 driver
 
-### Install binary packages
+### Install binary packages (recommended)
 
-First source the environment for your ROS distribution and confirm that `ROS_DISTRO` is set. This method requires the corresponding binary packages to be available in that distribution's repository. Check for a candidate version with `apt-cache policy ros-${ROS_DISTRO}-elite-robots`. If none is available, use the source build procedure below. Released binary packages may have different interfaces from the latest workspace source code; this guide was checked against the current source code.
+First source the environment for your ROS distribution and confirm that `ROS_DISTRO` is set. This method requires the corresponding binary packages to be available in that distribution's repository. Check for a candidate version with `apt-cache policy ros-${ROS_DISTRO}-elite-robots`. If none is available, use the source build procedure below.
 
 ```bash
 sudo apt install ros-${ROS_DISTRO}-elite-robots
@@ -108,6 +108,8 @@ sudo apt install ros-${ROS_DISTRO}-elite-robots
 # Optional: Gazebo support (Humble only)
 sudo apt install ros-humble-elite-robots-simulation-gz
 ```
+
+Packages installed with apt are loaded by `/opt/ros/humble/setup.bash`; you do not need to create or source `~/elite_ros_ws`. If you only use binary packages, skip “Build from source” and proceed to verification below.
 
 ### Build from source
 
@@ -190,11 +192,34 @@ Source the workspace:
 source ~/elite_ros_ws/install/setup.bash
 ```
 
-To load it automatically in new Bash terminals, run:
+To load the workspace automatically in new Bash terminals, add the following command to `~/.bashrc`, after the ROS 2 setup command. Do not add it again if it is already present:
 
 ```bash
 echo 'source ~/elite_ros_ws/install/setup.bash' >> ~/.bashrc
 ```
+
+(terminal-environment)=
+## Terminal environment setup
+
+In later chapters, “environment loaded” means that the terminal has the environment required to run the installed packages. It does not mean you must run `source` manually every time. Choose according to your installation method:
+
+- **apt installation**: Load only the ROS 2 environment. You do not need `~/elite_ros_ws/install/setup.bash`.
+- **Source installation**: After loading ROS 2, also load the built workspace. Use its actual path if it differs from the example.
+- **`~/.bashrc` already configured**: New Bash terminals run the setup commands automatically; you do not need to repeat them. Terminals opened before you edited `.bashrc` do not update automatically. Open a new terminal or load the environment manually as shown below.
+
+Run this only if the current terminal has not loaded the environment (this guide uses Humble):
+
+```bash
+source /opt/ros/humble/setup.bash
+```
+
+Only when using a workspace built from source, also run:
+
+```bash
+source ~/elite_ros_ws/install/setup.bash
+```
+
+Every terminal used for the driver, service calls, MoveIt 2, or Gazebo must meet these conditions.
 
 ## Verify the installation
 

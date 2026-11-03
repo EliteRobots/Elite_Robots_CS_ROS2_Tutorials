@@ -2,12 +2,9 @@
 
 ## 启动与连接
 
-先完成[网络配置或 ELIBOTSim 启动](robot_setup.md)，并在每个操作终端加载环境：
+先完成[网络配置或 ELIBOTSim 启动](robot_setup.md)，并确认每个操作终端已加载与安装方式对应的环境。
 
-```bash
-source /opt/ros/humble/setup.bash
-source ~/elite_ros_ws/install/setup.bash
-```
+apt 安装只需加载 ROS 2 环境；源码安装还需加载对应工作空间。若已按安装章节将所需 `source` 命令加入 `~/.bashrc`，新开的 Bash 终端会自动加载，无需重复执行。未自动加载或在配置 `.bashrc` 前已经打开的终端，请按{ref}`终端环境加载说明 <terminal-environment>`手动加载。
 
 ### 启动驱动
 

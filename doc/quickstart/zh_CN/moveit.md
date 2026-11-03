@@ -8,7 +8,7 @@
 
 ## 启动驱动
 
-在已加载 ROS 2 和工作空间环境的终端中执行：
+apt 安装只需加载 ROS 2 环境；源码安装还需加载对应工作空间。若已按安装章节将所需 `source` 命令加入 `~/.bashrc`，新开的 Bash 终端会自动加载，无需重复执行。未加载时，参见{ref}`终端环境加载说明 <terminal-environment>`。确认环境就绪后执行：
 
 ```bash
 ros2 launch elite_robots_driver elite_control.launch.py \
@@ -24,11 +24,9 @@ ros2 launch elite_robots_driver elite_control.launch.py \
 
 ## 启动 MoveIt 2
 
-另开终端并加载环境，然后执行：
+另开终端，并按上述安装方式确认环境已加载；已通过 `.bashrc` 自动加载时无需再次执行 `source`。然后执行：
 
 ```bash
-source /opt/ros/humble/setup.bash
-source ~/elite_ros_ws/install/setup.bash
 ros2 launch elite_robots_moveit_config elite_moveit.launch.py cs_type:=cs66
 ```
 

@@ -2,7 +2,7 @@
 
 **ELITE ROBOTS**
 
-Document version: **1.0.0** · Revision date: **2026-09-24**
+Document version: **1.0.0** · Revision date: **2026-11-03**
 
 This guide covers the installation and basic use of the ELITE ROS 2 packages. It walks you through robot network configuration, development environment setup, driver startup, motion planning with MoveIt 2, and physics simulation with Gazebo.
 
@@ -54,11 +54,11 @@ Follow these steps:
 
 1. Read the [Overview](overview.md) to check supported platforms and package contents.
 2. In [Robot setup](robot_setup.md), choose either a physical robot or the ELIBOTSim virtual teach pendant and test the connection.
-3. Follow [Local environment setup](installation.md) to prepare the development environment and build the driver.
+3. Follow [Local environment setup](installation.md) to prepare the development environment and install the driver with apt or build it from source.
 4. Follow [Getting started with the driver](driver.md) to start the robot and try basic services and trajectory control.
 5. Try [MoveIt 2](moveit.md) or [Gazebo](gazebo.md) as needed. Gazebo physics simulation does not require a physical robot or ELIBOTSim.
 
-Values such as `<robot_ip>`, `<local_ip>`, and `<cs_type>` are placeholders. Replace them with actual values and remove the angle brackets before running a command. When using multiple terminals, source the ROS 2 and workspace setup files in each terminal.
+Values such as `<robot_ip>`, `<local_ip>`, and `<cs_type>` are placeholders. Replace them with actual values and remove the angle brackets before running a command. When using multiple terminals, each must have the appropriate environment: ROS 2 for an apt installation, plus the workspace for a source installation. New Bash terminals load it automatically if `.bashrc` is configured, so you do not need to repeat `source`; see {ref}`Terminal environment setup <terminal-environment>`.
 
 Screenshots retain the existing interface language. Captions and instructions are provided in English; menu labels may differ with the selected interface language or software version.
 

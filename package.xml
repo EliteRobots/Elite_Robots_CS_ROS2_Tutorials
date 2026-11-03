@@ -10,6 +10,7 @@
   <build_depend>python3-sphinx</build_depend>
   <build_depend>python3-myst-parser</build_depend>
   <build_depend>python3-sphinx-rtd-theme</build_depend>
+  <build_depend>python3-myst-parser-pip</build_depend>
   <export>
     <build_type>ament_cmake</build_type>
   </export>

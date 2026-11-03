@@ -56,6 +56,6 @@ endif()
 
 install(DIRECTORY doc scripts DESTINATION "share/${PROJECT_NAME}"
   PATTERN __pycache__ EXCLUDE)
-install(FILES README.md requirements.txt MAINTENANCE.md
+install(FILES README.md requirements.txt MAINTENANCE.md CHANGELOG.rst
   DESTINATION "share/${PROJECT_NAME}")
 ament_package()

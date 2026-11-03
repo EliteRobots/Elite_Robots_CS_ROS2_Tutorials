@@ -194,6 +194,24 @@ install/elite_robots_cs_tutorials/share/elite_robots_cs_tutorials/manuals/quicks
 
 `--merge-install` 模式下位于 `install/share/elite_robots_cs_tutorials/manuals/`。
 
+## 包版本与手册版本
+
+本仓库采用两层版本管理，不要求所有手册与 ROS 包同步升版：
+
+| 记录位置 | 含义 | 更新时机 |
+| --- | --- | --- |
+| `package.xml` + 根目录 `CHANGELOG.rst` | 整个 `elite_robots_cs_tutorials` 包的发布版本 | 发布新的文档包时更新，包括正文、示例、构建或依赖的变化 |
+| `doc/documents.json` + 各译本首页及修订记录 | 某份手册/译本的内容版本 | 该手册内容发生需要记录的修订时更新；未修改的手册不跟随升版 |
+| `MAINTENANCE.md` | 来源、核对范围和构建验证记录 | 维护工作发生时补充，不替代发布说明 |
+
+例如下一次只修订 quickstart，可将包版本与 quickstart 升至 `1.0.1`，其余手册仍为 `1.0.0`；如果只修复 PDF 构建脚本，则只增加包版本，各手册内容版本保持不变。这些数字仅为示例，不代表当前版本已变更。
+
+同一手册的中英文在内容同步时使用相同版本；译文尚未同步时保留其实际内容版本。ROS 包版本、手册版本和手册中列出的驱动/SDK 适配版本是不同概念，不应互相替代。
+
+根目录 `CHANGELOG.rst` 按 [ROS REP-132](https://github.com/ros-infrastructure/rep/blob/master/rep-0132.rst) 组织，版本标题对应 `package.xml`，概述本次包发布包含的手册、示例及构建变化；正文细节仍放在各手册的修订记录中。当前补录 `1.0.0` 基线，不据此宣称已完成 bloom 发布。后续未发布改动先记录在 `Forthcoming` 节，发布时整理为与包版本一致的 `版本号 (YYYY-MM-DD)` 节，并记录发生变化的手册版本。不要覆盖已发布版本的历史记录。
+
+`CHANGELOG.rst` 随包安装到 `share/elite_robots_cs_tutorials/`，不加入各手册正文。
+
 ## 新增语言版本
 
 英文版已启用。新增其他语言时，以法文快速手册为例：

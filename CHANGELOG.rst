@@ -4,6 +4,7 @@ Changelog for package elite_robots_cs_tutorials
 
 1.0.0 (2026-11-03)
 ------------------
+* Add version declarations and revision histories to both multi-arm guide editions.
 * Provide independent Chinese and English quickstart, interface, multi-arm,
   and Tutorials manuals, with separate HTML sites and PDF output.
 * Use the stock Read the Docs HTML theme and remove the unused custom theme.

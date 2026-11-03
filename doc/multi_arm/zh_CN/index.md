@@ -1,5 +1,9 @@
 # 在本项目中组装多台 Elite 机械臂
 
+文档版本：**1.0.0** · 修订日期：**2026-11-03** · 中文
+
+文档版本独立于 ROS 包版本，变更内容见[修订记录](changelog.md)。
+
 这份文档可以单独使用。下面两个 launch 文件可以在任意目录创建：
 
 ```{code-block} text
@@ -27,4 +31,5 @@ driver
 startup
 control
 moveit
+changelog
 ```

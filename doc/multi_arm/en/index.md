@@ -1,5 +1,9 @@
 # Composing Multiple Elite Arms in This Project
 
+Document version: **1.0.0** · Revision date: **2026-11-03** · English
+
+The document version is independent of the ROS package version. See the [revision history](changelog.md) for changes.
+
 This document is self-contained. The two launch files can be created in any
 directory; they do not need to be installed into a ROS package:
 
@@ -30,4 +34,5 @@ driver
 startup
 control
 moveit
+changelog
 ```
